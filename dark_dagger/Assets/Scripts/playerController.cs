@@ -1,3 +1,6 @@
+using Mono.Cecil;
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +12,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject model;
     [SerializeField] Animator anim;
     [SerializeField] int animTranSpeed;
+    [SerializeField] LineRenderer shootLine;
 
     public Vector3 playerVel;
 
@@ -42,7 +46,7 @@ public class playerController : MonoBehaviour
 
         SetAnimLoco();
 
-        Shoot();
+       
     }
     void SetAnimLoco()
     {
@@ -59,10 +63,11 @@ public class playerController : MonoBehaviour
         RaycastHit hit;
          Vector3 mouseDirection = MousePos() - transform.position;
 
-        Debug.DrawRay(transform.position, mouseDirection);
+        Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);
+        
         if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit))
         {
-
+          StartCoroutine(ShootFeedBack(hit));
         }
        
     }
@@ -75,5 +80,32 @@ public class playerController : MonoBehaviour
        Physics.Raycast(ray, out hit);       
 
         return hit.point;
+    }
+
+    private void OnEnable()
+    {
+       shoot.action.started += OnShoot;
+    }
+   private void OnDisable()
+    {
+       shoot.action.started -= OnShoot;
+    }
+
+    private void OnShoot(InputAction.CallbackContext context)
+    {
+        Shoot();
+        Debug.Log("Fired");
+    }
+
+
+    IEnumerator ShootFeedBack(RaycastHit hit)
+    {
+        shootLine.enabled = true;
+        shootLine.SetPosition(0, transform.position);
+        shootLine.SetPosition(1, hit.point);
+
+        yield return new WaitForSeconds(0.1f);
+
+        shootLine.enabled = false;
     }
 }
