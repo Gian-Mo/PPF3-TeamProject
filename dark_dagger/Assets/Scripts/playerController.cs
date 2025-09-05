@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour
 
         SetAnimLoco();
 
-
+        Shoot();
     }
     void SetAnimLoco()
     {
@@ -56,7 +56,24 @@ public class playerController : MonoBehaviour
     {
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
 
+        RaycastHit hit;
+         Vector3 mouseDirection = MousePos() - transform.position;
 
+        Debug.DrawRay(transform.position, mouseDirection);
+        if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit))
+        {
 
+        }
+       
+    }
+    Vector3 MousePos()
+    {
+        Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mouseScreenPos);
+        RaycastHit hit;
+
+       Physics.Raycast(ray, out hit);       
+
+        return hit.point;
     }
 }
