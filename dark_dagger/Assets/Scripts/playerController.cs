@@ -50,10 +50,10 @@ public class playerController : MonoBehaviour
     }
     void SetAnimLoco()
     {
-        float agentSpeedCur = playerVel.normalized.magnitude;
+        float playerSpeedCur = playerVel.normalized.magnitude;
         float animSpeedCur = anim.GetFloat("Speed");
 
-        anim.SetFloat("Speed", agentSpeedCur);
+        anim.SetFloat("Speed",Mathf.Lerp( animSpeedCur, playerSpeedCur, Time.deltaTime * animTranSpeed));
 
     }
     void Shoot()
