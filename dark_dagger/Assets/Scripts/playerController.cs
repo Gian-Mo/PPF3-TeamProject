@@ -13,6 +13,7 @@ public class playerController : MonoBehaviour
     [SerializeField] Animator anim;
     [SerializeField] int animTranSpeed;
     [SerializeField] LineRenderer shootLine;
+    [SerializeField] int shootDist;
 
     public Vector3 playerVel;
 
@@ -65,7 +66,7 @@ public class playerController : MonoBehaviour
 
         Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);
         
-        if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit))
+        if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
         {
           StartCoroutine(ShootFeedBack(hit));
         }
