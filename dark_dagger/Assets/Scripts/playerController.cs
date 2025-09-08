@@ -2,6 +2,7 @@ using Mono.Cecil;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
@@ -14,11 +15,16 @@ public class playerController : MonoBehaviour
     [SerializeField] int animTranSpeed;
     [SerializeField] LineRenderer shootLine;
     [SerializeField] int shootDist;
+    [SerializeField] GameObject projectile;
+    [SerializeField] Transform shootPos;
 
     public Vector3 playerVel;
 
     public InputActionReference move;
     public InputActionReference shoot;
+    Vector3 mouseDirection;
+
+    bool shootRot;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -42,8 +48,12 @@ public class playerController : MonoBehaviour
         {
             model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),10 * Time.deltaTime); 
         }
+        controller.Move(playerVel);
 
-       controller.Move(playerVel);
+        if (shootRot)
+        {
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), 100 * Time.deltaTime); 
+        }
 
         SetAnimLoco();
 
@@ -62,13 +72,19 @@ public class playerController : MonoBehaviour
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
 
         RaycastHit hit;
-         Vector3 mouseDirection = MousePos() - transform.position;
+         mouseDirection = MousePos() - transform.position;
 
-        Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);
-        
+        Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);       
+      
+
         if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
         {
-          StartCoroutine(ShootFeedBack(hit));
+            // StartCoroutine(ShootFeedBack(hit));
+            if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
+            {
+                StartCoroutine(TurnPlayerWhenShoot()); 
+            }
+            Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
         }
        
     }
@@ -108,5 +124,11 @@ public class playerController : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         shootLine.enabled = false;
+    }
+    IEnumerator TurnPlayerWhenShoot()
+    {
+        shootRot = true;
+        yield return new WaitForSeconds(0.5f);
+        shootRot = false;
     }
 }

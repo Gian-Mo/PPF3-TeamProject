@@ -50,6 +50,10 @@ public class Damge : MonoBehaviour
             dmg.takeDamage(damageAmount);
 
         }
+        if (type == damageType.moving || type == damageType.homing)
+        {
+            Destroy(gameObject);
+        }
     }
   
     
