@@ -2324,8 +2324,8 @@ MonoBehaviour:
   anim: {fileID: 6804385082360028551}
   animTranSpeed: 10
   shootLine: {fileID: 6716605203420034694}
-  shootDist: 0
-  projectile: {fileID: 0}
+  shootDist: 10
+  projectile: {fileID: 8398195534700516955, guid: e3cd25f6d97edf44a88c6e7a67a66316, type: 3}
   shootPos: {fileID: 2113738200331797350}
   playerVel: {x: 0, y: 0, z: 0}
   move: {fileID: 7986204955325603242, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
