@@ -1,4 +1,4 @@
-using Mono.Cecil;
+
 using System;
 using System.Collections;
 using UnityEngine;
@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
         playerVel = playerVel.normalized * speed * Time.deltaTime;
         if (move.action.IsPressed())
         {
-            model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),10 * Time.deltaTime); 
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),8 * Time.deltaTime); 
         }
         controller.Move(playerVel);
 
@@ -110,8 +110,11 @@ public class playerController : MonoBehaviour
 
     private void OnShoot(InputAction.CallbackContext context)
     {
-        Shoot();
-        Debug.Log("Fired");
+        if (!GameManager.instance.isPaused) 
+        {
+            Shoot();
+            Debug.Log("Fired"); 
+        }
     }
 
 

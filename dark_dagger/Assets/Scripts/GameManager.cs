@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+
 
 
 public class GameManager : MonoBehaviour
@@ -21,7 +23,8 @@ public class GameManager : MonoBehaviour
 
     public Image playerHP;
     public GameObject playerGetsDamaged;
-  
+
+    public InputActionReference menu;
 
     public bool isPaused = false;
     float timesScaleOrig;
@@ -40,23 +43,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
-        {
-
-            if (menuActive == null) {
-
-                statePause();
-                menuActive = menuPause;
-                menuActive.SetActive(true);
-            }
-            else if (menuActive == menuPause)
-            {
-                stateUnpause();
-            }
-
-              
-
-        }
+       
     }
 
     public void statePause()
@@ -73,10 +60,8 @@ public class GameManager : MonoBehaviour
     {
         isPaused = !isPaused;
 
-        Time.timeScale = timesScaleOrig;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
+        Time.timeScale = timesScaleOrig;       
+       
         menuActive.SetActive(false);
         menuActive = null;
     }
@@ -88,4 +73,30 @@ public class GameManager : MonoBehaviour
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
+    void Pause (InputAction.CallbackContext context)
+    {
+        if (menuActive == null)
+        {
+
+            statePause();
+            menuActive = menuPause;
+            menuActive.SetActive(true);
+        }
+        else if (menuActive == menuPause)
+        {
+            stateUnpause();
+        }
+
+    }
+
+
+    private void OnEnable()
+    {
+        menu.action.started += Pause; 
+    }
+    private void OnDisable()
+    {
+        menu.action.started -= Pause;
+    }
+
 }
