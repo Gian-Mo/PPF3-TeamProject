@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootPos;
 
+
     int HPOrig;
     public Vector3 playerVel;
 
@@ -26,6 +27,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     Vector3 mouseDirection;
 
     bool shootRot;
+    int ammoCur;
+    int ammoMagMax;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -141,5 +144,23 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     public void takeDamage(int ammount)
     {
        HP -= ammount;
+    }
+
+    public void pickUp(int amount, int type)
+    {
+        if (type == 0) {
+
+            if (HP + amount <= HPOrig) {
+
+                HP += amount;
+            }
+            else
+            {
+                HP = HPOrig;
+            }
+        }
+        if (type == 1) { 
+        
+        }
     }
 }
