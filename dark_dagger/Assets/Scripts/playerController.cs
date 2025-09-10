@@ -17,6 +17,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] int shootDist;
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootPos;
+    [SerializeField] int meeleDamage;
 
 
     int HPOrig;
@@ -24,6 +25,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     public InputActionReference move;
     public InputActionReference shoot;
+    public InputActionReference meele;
+   // public InputActionReference crouch;
     Vector3 mouseDirection;
 
     bool shootRot;
@@ -95,6 +98,17 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
        
     }
+
+    void MeeleAttack()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(model.transform.position,model.transform.forward,out hit,1.5f))
+        {
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            dmg.takeDamage(meeleDamage);
+        }
+    }
     Vector3 MousePos()
     {
         Vector2 mouseScreenPos = Mouse.current.position.ReadValue();
@@ -109,10 +123,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     private void OnEnable()
     {
        shoot.action.started += OnShoot;
+        meele.action.started += OnMeele;
     }
-   private void OnDisable()
+
+
+    private void OnDisable()
     {
        shoot.action.started -= OnShoot;
+        meele.action.started -= OnMeele;
     }
 
     private void OnShoot(InputAction.CallbackContext context)
@@ -122,6 +140,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             Shoot();
             Debug.Log("Fired"); 
         }
+    }
+    private void OnMeele(InputAction.CallbackContext context) {
+
+
+        Debug.Log("Meele");
     }
 
 
