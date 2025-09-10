@@ -181,6 +181,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18646d56db81aa549bb566945d188d38, type: 3}
+--- !u!1 &197576195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 197576196}
+  m_Layer: 0
+  m_Name: shootPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &197576196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197576195}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: -0.5}
+  m_LocalPosition: {x: -0, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5798828895583076978}
+  m_LocalEulerAnglesHint: {x: 270, y: 0, z: 90}
 --- !u!4 &260238136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5489021261921241953, guid: 18646d56db81aa549bb566945d188d38, type: 3}
@@ -2417,7 +2448,7 @@ GameObject:
   - component: {fileID: 5640338103317469778}
   - component: {fileID: 5640338103317469782}
   m_Layer: 6
-  m_Name: Ch35
+  m_Name: enemy_basic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2653,7 +2684,7 @@ Animator:
   m_GameObject: {fileID: 4975722445482148075}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 245875e6da31d2c42998695d55cca664, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2689,7 +2720,7 @@ MonoBehaviour:
   animTransSpeed: 8
   bullet: {fileID: 8398195534700516955, guid: 09dedc8f4b453a041b743139de6bfe67, type: 3}
   shootRate: 2.5
-  shootPos: {fileID: 1741225543704217810}
+  shootPos: {fileID: 197576196}
 --- !u!136 &5640338103317469782
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2762,6 +2793,7 @@ Transform:
   - {fileID: 6435142469442172370}
   - {fileID: 3981268242178300598}
   - {fileID: 4392744486778038596}
+  - {fileID: 197576196}
   m_Father: {fileID: 7664957288419657746}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5909302952881179808
