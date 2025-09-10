@@ -701,7 +701,7 @@ GameObject:
   - component: {fileID: 689432033818385565}
   - component: {fileID: 1410811570768484284}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -866,7 +866,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3083591441951500834}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2908464253244225038}
+        m_TargetAssemblyTypeName: buttonFunctionality, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7235739032958369411
 GameObject:
   m_ObjectHideFlags: 0
