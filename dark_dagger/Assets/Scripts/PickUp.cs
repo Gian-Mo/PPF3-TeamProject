@@ -10,13 +10,13 @@ public class PickUp : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnTriggerEnter(Collider other)
     {
+        if (other.isTrigger) return;
+
         IPickUp pickUp = other.GetComponent<IPickUp>();
         if (pickUp != null)
-        {
-            if (type == typeOfPickUp.health) { 
-            
-                pickUp.pickUp(amount, (int)type);
-            }
+        {             
+          pickUp.pickUp(amount, (int)type);     
+            Destroy(gameObject);
           
         }
     }

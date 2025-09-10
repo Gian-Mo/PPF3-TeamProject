@@ -2,8 +2,7 @@ using UnityEngine;
 
 public interface IPickUp
 {
-    void pickUp(int amount, int type);
-   
+    void pickUp(int amount, int type); 
 
 
 }

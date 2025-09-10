@@ -29,6 +29,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool shootRot;
     int ammoCur;
     int ammoMagMax;
+    int totalAmmo;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -159,8 +160,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 HP = HPOrig;
             }
         }
-        if (type == 1) { 
-        
+        if (type == 1) {
+
+            totalAmmo += amount;
         }
     }
 }
