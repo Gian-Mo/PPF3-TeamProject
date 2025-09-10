@@ -2298,7 +2298,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 2932250865894360746, guid: 1cfc618bac08f0f459793d9f0021c55f, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 7d2ab957e6fb51d4580c519b22756a18, type: 2}
   m_Bones:
   - {fileID: 150539994196933317}
   - {fileID: 467858160520169814}
@@ -2416,7 +2416,7 @@ GameObject:
   - component: {fileID: 5640338103317469779}
   - component: {fileID: 5640338103317469778}
   - component: {fileID: 5640338103317469782}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Ch35
   m_TagString: Untagged
   m_Icon: {fileID: 0}
