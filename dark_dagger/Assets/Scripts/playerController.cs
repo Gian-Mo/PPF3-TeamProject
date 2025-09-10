@@ -90,7 +90,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             {
                 StartCoroutine(TurnPlayerWhenShoot()); 
             }
-            mouseDirection -= new Vector3(0, 0.7f, 0);
+            mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
             Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
         }
        
