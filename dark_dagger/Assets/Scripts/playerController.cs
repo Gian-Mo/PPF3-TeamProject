@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage, IPickUp
 {
     [SerializeField] CharacterController controller;
     [SerializeField] int HP;
@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootPos;
 
+    int HPOrig;
     public Vector3 playerVel;
 
     public InputActionReference move;
@@ -29,7 +30,7 @@ public class playerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        HPOrig = HP;
     }
 
     // Update is called once per frame
@@ -72,7 +73,8 @@ public class playerController : MonoBehaviour
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
 
         RaycastHit hit;
-         mouseDirection = MousePos() - transform.position;
+        mouseDirection = MousePos() - transform.position;
+       
 
         Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);       
       
@@ -84,6 +86,7 @@ public class playerController : MonoBehaviour
             {
                 StartCoroutine(TurnPlayerWhenShoot()); 
             }
+            mouseDirection -= new Vector3(0, 0.7f, 0);
             Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
         }
        
@@ -133,5 +136,10 @@ public class playerController : MonoBehaviour
         shootRot = true;
         yield return new WaitForSeconds(0.5f);
         shootRot = false;
+    }
+
+    public void takeDamage(int ammount)
+    {
+       HP -= ammount;
     }
 }
