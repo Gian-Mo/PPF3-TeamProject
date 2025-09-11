@@ -17011,7 +17011,7 @@ MonoBehaviour:
   - {fileID: 6483574858957289881, guid: 94ae7cf56b5311c47ad761951f77f656, type: 3}
   winPieces:
   - {fileID: 1125753827682347519, guid: 2ffb21cbbc099b048b51e990aabd5de7, type: 3}
-  startSize: 3
+  startSize: 5
   blockSize: 20
 --- !u!4 &1362079089
 Transform:
