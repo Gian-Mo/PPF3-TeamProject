@@ -126,33 +126,48 @@ private position move(position p, direction d)
         }
     }
 
-    private Quaternion GetRotation(tile t)
+    private List<bool> rotateTile(List<bool> opens, int amt)
     {
-        int firstOpen = -1;
-        for (int i = 0; i < t.open.Count; i++)
+        List<bool> end = new List<bool>(opens);
+        for (int i = 0; i < amt; i++)
         {
-            if (t.open[i])
-            {
-                firstOpen = i;
-                break;
-            }
+            end = new List<bool> { end[3], end[0], end[1], end[2] };
         }
-        if(firstOpen == -1)
-            return Quaternion.identity;
-        float rot = 0f;
-        switch (firstOpen)
+        return end;
+    }
+
+    private bool equalTile(List<bool> a, List<bool> b)
+    {
+        if (a.Count != b.Count)
+            return false;
+        for (int i = 0; i < a.Count; i++) {
+            if (a[i] != b[i])
+                return false;
+        }
+        return true;
+    }
+
+    private int getRotAmt(tile t)
+    {
+        List<bool> opens = new List<bool>();
+        switch (t.type)
         {
-            case 0: rot = 0f; break;
-            case 1: rot = 90f; break;
-            case 2: rot = 180f; break;
-            case 3: rot = 270f; break;
+            case "I": opens = new List<bool> {true, false, true, false}; break;
+            case "L": opens = new List<bool> { true, false, false, true }; break;
+            case "T": opens = new List<bool> { true, true, false, true }; break;
+            case "+": opens = new List<bool> { true, true, true, true }; break;
+            case "C": opens = new List<bool> { false, false, true, false }; break;
+            case "O": opens = new List<bool> { false, false, true, false }; break;
+            case "X": opens = new List<bool> { false, false, true, false }; break;
+            default: return 0;
         }
-        float pain = 0f;
-        if (t.type == "L")
-            pain = 90f;
-        if (t.type == "O" || t.type == "C" || t.type == "X")
-            pain += 180f;
-        return Quaternion.Euler(0f, rot + pain, 0f);
+        for(int i = 0; i < 4; i++)
+        {
+            List<bool> rotated = rotateTile(opens, i);
+            if(equalTile(rotated, t.open))
+                return i;
+        }
+        return 0;
     }
 
     public void GenerateMap(int gridSize)
@@ -243,8 +258,8 @@ private position move(position p, direction d)
                 {
                     if (prefab.CompareTag("Problem"))
                         pos += new Vector3(0, 2.5f, 0);
-
-                    Quaternion rot = GetRotation(map[r][c]);
+                    int turn = getRotAmt(map[r][c]);
+                    Quaternion rot = Quaternion.Euler(0f, 90f*turn, 0f);
                     Instantiate(prefab, pos, rot, transform);
                 }
                 }
