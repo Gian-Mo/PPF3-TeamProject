@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class mapManager : MonoBehaviour
 {
@@ -15,10 +13,18 @@ public class mapManager : MonoBehaviour
     [SerializeField] private GameObject[] linePieces;
     [Header("End Pieces")]
     [SerializeField] private GameObject[] endPieces;
+    [Header("Start Pieces")]
+    [SerializeField] private GameObject[] startPieces;
+    [Header("Win Pieces")]
+    [SerializeField] private GameObject[] winPieces;
 
+    [SerializeField] private int startSize = 3;
+    [SerializeField] private int blockSize = 20;
+
+    private List<List<tile>> currMap;
     private enum direction { UP = 0, RIGHT, DOWN, LEFT };
 
-    private struct tile
+    private class tile
     {
         public string type;
         public List<bool> open; //Up, right, down, left
@@ -47,12 +53,12 @@ public class mapManager : MonoBehaviour
     List<direction> shuffleDirections()
     {
         List<direction> dirs = new List<direction> { direction.UP, direction.RIGHT, direction.DOWN, direction.LEFT };
-        System.Random rng = new System.Random();
+        System.Random rand = new System.Random();
         int n = dirs.Count;
         while (n > 1)
         {
             n--;
-            int k = rng.Next(n+1);
+            int k = rand.Next(n+1);
             direction val = dirs[k];
             dirs[k] = dirs[n];
             dirs[n] = val;  
@@ -101,10 +107,10 @@ private position move(position p, direction d)
                 return new position(p.row, p.col + 1);
         }
         return p;
-}
+    }
 
-private void carve(List<List<tile>> map, position cur, int rows, int cols, List<List<bool>> visited)
-{
+    private void carve(List<List<tile>> map, position cur, int rows, int cols, List<List<bool>> visited)
+    {
         visited[cur.row][cur.col] = true;
         foreach (direction d in shuffleDirections())
         {
@@ -118,14 +124,135 @@ private void carve(List<List<tile>> map, position cur, int rows, int cols, List<
                 carve(map, next, rows, cols, visited);
             }
         }
-}
+    }
 
-
-
-
-void Start()
+    private Quaternion GetRotation(tile t)
     {
+        int firstOpen = -1;
+        for (int i = 0; i < t.open.Count; i++)
+        {
+            if (t.open[i])
+            {
+                firstOpen = i;
+                break;
+            }
+        }
+        if(firstOpen == -1)
+            return Quaternion.identity;
+        float rot = 0f;
+        switch (firstOpen)
+        {
+            case 0: rot = 0f; break;
+            case 1: rot = 90f; break;
+            case 2: rot = 180f; break;
+            case 3: rot = 270f; break;
+        }
+        float pain = 0f;
+        if (t.type == "L")
+            pain = 90f;
+        if (t.type == "O" || t.type == "C" || t.type == "X")
+            pain += 180f;
+        return Quaternion.Euler(0f, rot + pain, 0f);
+    }
 
+    public void GenerateMap(int gridSize)
+    {
+        System.Random rand = new System.Random();
+        List<List<tile>> map = new List<List<tile>>();
+        List<List<bool>> visited = new List<List<bool>>();
+
+        for (int r = 0; r < gridSize; r++)
+        {
+            map.Add(new List<tile>());
+            visited.Add(new List<bool>());
+            for (int c = 0; c < gridSize + 1; c++)
+            {
+                map[r].Add(new tile("", new List<bool> { false, false, false, false }));
+                visited[r].Add(false);
+            }
+        }
+        carve(map, new position(0, 1), gridSize, gridSize + 1, visited);
+
+        int startRow = rand.Next(gridSize);
+        map[startRow][0].type = "O";
+        map[startRow][0].open = new List<bool> { false, true, false, false };
+        map[startRow][1].open[(int)direction.LEFT] = true;
+
+        int endRow;
+        int endCol;
+
+        while (true)
+        {
+            endRow = rand.Next(gridSize);
+            endCol = 1 + rand.Next(gridSize - 1);
+            if (!(endCol == 1 && endRow == startRow))
+            {
+                int openings = 0;
+                foreach (bool o in map[endRow][endCol].open) if (o) openings++;
+                if (openings == 1)
+                {
+                    map[endRow][endCol].type = "X";
+                    break;
+                }
+            }
+        }
+        for (int r = 0; r < gridSize; r++)
+        {
+            for (int c = 0; c < gridSize + 1; c++)
+            {
+                if (map[r][c].type == "O" || map[r][c].type == "X")
+                    continue;
+                map[r][c] = getTile(map[r][c].open);
+            }
+        }
+
+        currMap = map;
+
+        for (int r = 0; r < gridSize; r++)
+        {
+            for (int c = 0; c < gridSize + 1; c++)
+            {
+                Vector3 pos = new Vector3(c * blockSize, 0, -r * blockSize);
+                GameObject prefab = null;
+
+                switch (map[r][c].type)
+                {
+                    case "+":
+                        if (crossPieces.Length > 0)
+                            prefab = crossPieces[rand.Next(crossPieces.Length)]; break;
+                    case "T":
+                        if (tPieces.Length > 0)
+                            prefab = tPieces[rand.Next(tPieces.Length)]; break;
+                    case "I":
+                        if (linePieces.Length > 0)
+                            prefab = linePieces[rand.Next(linePieces.Length)]; break;
+                    case "L":
+                        if (lPieces.Length > 0)
+                            prefab = lPieces[rand.Next(lPieces.Length)]; break;
+                    case "C":
+                        if (endPieces.Length > 0)
+                            prefab = endPieces[rand.Next(endPieces.Length)]; break;
+                    case "O":
+                        if (crossPieces.Length > 0)
+                            prefab = startPieces[rand.Next(startPieces.Length)]; break;
+                    case "X":
+                        if (winPieces.Length > 0)
+                            prefab = winPieces[rand.Next(winPieces.Length)]; break;
+                }
+                if (prefab != null)
+                {
+                    if (prefab.CompareTag("Problem"))
+                        pos += new Vector3(0, 2.5f, 0);
+
+                    Quaternion rot = GetRotation(map[r][c]);
+                    Instantiate(prefab, pos, rot, transform);
+                }
+                }
+            }
+    }
+    void Start()
+    {
+        GenerateMap(startSize);
     }
 
     void Update()
