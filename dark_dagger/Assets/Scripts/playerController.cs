@@ -158,6 +158,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     private void EnableShoot()
     {
+        shoot.action.started += (InputAction.CallbackContext context) =>
+        {
+            ableToShoot = true;
+        };
         shoot.action.performed += (InputAction.CallbackContext context) =>
         {
             ableToShoot = true;
