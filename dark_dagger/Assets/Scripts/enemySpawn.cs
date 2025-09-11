@@ -3,24 +3,40 @@ using UnityEngine;
 public class enemySpawn : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyPrefabs;
-    [SerializeField] private Transform spawnPoint;
+    private Transform[] spawnPoints;
 
-    void Start()
+    public void findSpawns()
     {
-        SpawnRandomEnemy();
-    }
+        GameObject[] spawnPointsObj = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
-    void SpawnRandomEnemy()
+        if (spawnPointsObj.Length == 0)
+        {
+            Debug.LogWarning("No spawn points found");
+            spawnPoints = new Transform[0];
+            return;
+        }
+        spawnPoints = new Transform[spawnPointsObj.Length];
+        for (int i = 0; i < spawnPointsObj.Length; i++)
+            spawnPoints[i] = spawnPointsObj[i].transform;
+    }
+    public void SpawnRandomEnemy()
     {
         if (enemyPrefabs.Length == 0)
         {
             Debug.LogWarning("No enemies assigned.");
             return;
         }
-        int randInd = Random.Range(0, enemyPrefabs.Length);
-        GameObject enemy = enemyPrefabs[randInd];
+        if (spawnPoints == null || spawnPoints.Length == 0)
+        {
+            Debug.LogWarning("No spawn points found");
+            return;
+        }
 
-        Instantiate(enemy, spawnPoint.position, spawnPoint.rotation);
+        int enemyIndex = Random.Range(0, enemyPrefabs.Length);
+        int spawnIndex = Random.Range(0, spawnPoints.Length);
+        GameObject enemy = enemyPrefabs[enemyIndex];
+        Transform spawn = spawnPoints[spawnIndex];
+
+        Instantiate(enemy, spawn.position, spawn.rotation);
     }
-
 }
