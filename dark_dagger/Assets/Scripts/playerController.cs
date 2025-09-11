@@ -114,7 +114,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
-            dmg.takeDamage(meeleDamage);
+            if (dmg != null)
+            {
+                dmg.takeDamage(meeleDamage);
+
+            }
         }
     }
     Vector3 MousePos()
