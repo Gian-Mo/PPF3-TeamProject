@@ -48,6 +48,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     {
         HPOrig = HP;
         heighOrig = controller.height;
+        anim.SetBool("Pistol", true);
     }
 
     // Update is called once per frame
