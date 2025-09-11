@@ -91,8 +91,16 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         anim.SetBool("Crouch",ableToCrouch);
         if (ableToCrouch)
         {
-            controller.height = 1.2f;
-           controller.center = new Vector3(0, -0.3f, 0);
+            controller.height = Mathf.Lerp(controller.height,1.2f,8 * Time.deltaTime);
+           controller.center = Vector3.Lerp(controller.center, new Vector3(0, -0.3f, 0), 8 * Time.deltaTime);
+        }
+        else
+        {
+            if (controller.height != heighOrig && controller.center != new Vector3(0, 0, 0))
+            {
+                controller.height = Mathf.Lerp(controller.height, heighOrig, 8 * Time.deltaTime);
+                controller.center = Vector3.Lerp(controller.center, new Vector3(0, 0, 0), 8 * Time.deltaTime); 
+            }
         }
     }
     void SetAnimLoco()
@@ -199,9 +207,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         };
         crouch.action.canceled += (InputAction.CallbackContext context) =>
         {
-            ableToCrouch = false;
-            controller.height = 1.6f;
-            controller.center = new Vector3(0, 0, 0);
+            ableToCrouch = false;            
         };
     }
 
