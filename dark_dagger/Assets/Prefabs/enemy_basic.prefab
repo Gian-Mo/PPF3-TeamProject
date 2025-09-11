@@ -436,8 +436,8 @@ MonoBehaviour:
   agent: {fileID: 1812728954064385278}
   headPos: {fileID: 728531914317588942}
   anim: {fileID: 7273536071543175808}
-  HP: 1
-  faceTargetSpeed: 5
+  HP: 5
+  faceTargetSpeed: 10
   FOV: 75
   roamDist: 3
   roamPauseTime: 10
@@ -1639,7 +1639,7 @@ GameObject:
   - component: {fileID: 3838173045618657606}
   - component: {fileID: 8088986526839190413}
   - component: {fileID: 2860383529133718627}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

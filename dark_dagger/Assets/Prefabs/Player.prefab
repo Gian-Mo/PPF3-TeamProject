@@ -2327,9 +2327,13 @@ MonoBehaviour:
   shootDist: 10
   projectile: {fileID: 8398195534700516955, guid: e3cd25f6d97edf44a88c6e7a67a66316, type: 3}
   shootPos: {fileID: 2113738200331797350}
+  meeleDamage: 10
+  shootCoolDown: 0.75
+  meeleCoolDown: 3
   playerVel: {x: 0, y: 0, z: 0}
   move: {fileID: 7986204955325603242, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   shoot: {fileID: -4997133940913989919, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
+  meele: {fileID: 7339354455106527120, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
 --- !u!143 &2729351328922524811
 CharacterController:
   m_ObjectHideFlags: 0

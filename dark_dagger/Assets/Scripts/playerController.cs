@@ -18,6 +18,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootPos;
     [SerializeField] int meeleDamage;
+    [SerializeField] float shootCoolDown;
+    [SerializeField] float meeleCoolDown;
 
 
     int HPOrig;
@@ -33,6 +35,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     int ammoCur;
     int ammoMagMax;
     int totalAmmo;
+    float meeleTimer;
+    float shootTimer;
+
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,6 +55,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     void Move()
     {
+        meeleTimer += Time.deltaTime;
+        shootTimer += Time.deltaTime;
 
         playerVel = move.action.ReadValue<Vector3>();
         playerVel = playerVel.normalized * speed * Time.deltaTime;
@@ -75,7 +83,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         anim.SetFloat("Speed",Mathf.Lerp( animSpeedCur, playerSpeedCur, Time.deltaTime * animTranSpeed));
 
     }
-    void Shoot()
+    void ShootBullet()
     {
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
 
@@ -102,7 +110,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void MeeleAttack()
     {
         RaycastHit hit;
-        if (Physics.Raycast(model.transform.position,model.transform.forward,out hit,1.5f))
+        if (Physics.Raycast(shootPos.position,model.transform.forward,out hit,3))
         {
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
@@ -122,29 +130,40 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     private void OnEnable()
     {
-       shoot.action.started += OnShoot;
-        meele.action.started += OnMeele;
+       shoot.action.started += Shoot;
+        meele.action.started += Meele;
     }
 
 
     private void OnDisable()
     {
-       shoot.action.started -= OnShoot;
-        meele.action.started -= OnMeele;
+       shoot.action.started -= Shoot;
+        meele.action.started -= Meele;
     }
 
-    private void OnShoot(InputAction.CallbackContext context)
+    private void Shoot(InputAction.CallbackContext context)
     {
         if (!GameManager.instance.isPaused) 
         {
-            Shoot();
-            Debug.Log("Fired"); 
+            if (shootTimer >= shootCoolDown)
+            {
+                ShootBullet(); 
+                shootTimer = 0;
+            }
+
+          
         }
     }
-    private void OnMeele(InputAction.CallbackContext context) {
+    private void Meele(InputAction.CallbackContext context) {
 
-
-        Debug.Log("Meele");
+        if (!GameManager.instance.isPaused)
+        {
+            if (meeleTimer >= meeleCoolDown)
+            {
+                MeeleAttack(); 
+                meeleTimer = 0;
+            }
+        }
     }
 
 

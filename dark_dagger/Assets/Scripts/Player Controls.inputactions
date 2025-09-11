@@ -134,22 +134,11 @@
                 },
                 {
                     "name": "",
-                    "id": "8c9e3d34-1404-4e60-959a-a01a9fcf493c",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Meele",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f29bc2cc-b413-4e44-ba2d-c5274139fa6e",
+                    "id": "51e17f5d-561a-4b9a-8d97-276bcca3d10a",
                     "path": "<Keyboard>/v",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Keyboard",
+                    "groups": "",
                     "action": "Meele",
                     "isComposite": false,
                     "isPartOfComposite": false
