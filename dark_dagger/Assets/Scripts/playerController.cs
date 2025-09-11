@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
 
     int HPOrig;
+    float heighOrig;
     public Vector3 playerVel;
 
     public InputActionReference move;
@@ -33,6 +34,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     bool shootRot;
     bool ableToShoot;
+    bool ableToCrouch;
     int ammoCur;
     int ammoMagMax;
     int totalAmmo;
@@ -45,6 +47,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void Start()
     {
         HPOrig = HP;
+        heighOrig = controller.height;
     }
 
     // Update is called once per frame
@@ -78,6 +81,18 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             
             ShootBullet();
         
+        }
+
+        Crouch();
+    }
+
+    void Crouch()
+    {
+        anim.SetBool("Crouch",ableToCrouch);
+        if (ableToCrouch)
+        {
+            controller.height = 1.2f;
+           controller.center = new Vector3(0, -0.3f, 0);
         }
     }
     void SetAnimLoco()
@@ -147,6 +162,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     private void OnEnable()
     {
         EnableShoot();
+        EnableCrouch();
         meele.action.started += Meele;
     }
 
@@ -171,7 +187,24 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             ableToShoot = false;
         };
     }
-   
+    private void EnableCrouch()
+    {
+        crouch.action.started += (InputAction.CallbackContext context) =>
+        {   
+                ableToCrouch = true;
+        };
+        crouch.action.performed += (InputAction.CallbackContext context) =>
+        {
+            ableToCrouch = true;
+        };
+        crouch.action.canceled += (InputAction.CallbackContext context) =>
+        {
+            ableToCrouch = false;
+            controller.height = 1.6f;
+            controller.center = new Vector3(0, 0, 0);
+        };
+    }
+
     private void Meele(InputAction.CallbackContext context) {
 
         if (!GameManager.instance.isPaused)
