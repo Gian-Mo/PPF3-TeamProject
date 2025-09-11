@@ -28,10 +28,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     public InputActionReference move;
     public InputActionReference shoot;
     public InputActionReference meele;
-   // public InputActionReference crouch;
+   public InputActionReference crouch;
     Vector3 mouseDirection;
 
     bool shootRot;
+    bool ableToShoot;
     int ammoCur;
     int ammoMagMax;
     int totalAmmo;
@@ -73,7 +74,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         SetAnimLoco();
 
-       
+        if (ableToShoot) { 
+            
+            ShootBullet();
+        
+        }
     }
     void SetAnimLoco()
     {
@@ -87,26 +92,33 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     {
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
 
-        RaycastHit hit;
-        mouseDirection = MousePos() - transform.position;
-       
+        if (!GameManager.instance.isPaused)
+        {
+            if (shootTimer >= shootCoolDown)
+            {   
+                RaycastHit hit;
+                mouseDirection = MousePos() - transform.position;
+            
 
-        Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);       
+                Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);       
       
 
-        if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
-        {
-            // StartCoroutine(ShootFeedBack(hit));
-            if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
-            {
-                StartCoroutine(TurnPlayerWhenShoot()); 
-            }
-            mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
-            Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
-        }
+                if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
+                {
+                    // StartCoroutine(ShootFeedBack(hit));
+                    if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
+                    {
+                        StartCoroutine(TurnPlayerWhenShoot()); 
+                    }
+                    mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
+                    Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                }
        
-    }
+                shootTimer = 0;
+            }
 
+        }
+    }
     void MeeleAttack()
     {
         RaycastHit hit;
@@ -134,30 +146,28 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     private void OnEnable()
     {
-       shoot.action.started += Shoot;
+        EnableShoot();
         meele.action.started += Meele;
     }
 
-
     private void OnDisable()
     {
-       shoot.action.started -= Shoot;
+       
         meele.action.started -= Meele;
     }
 
-    private void Shoot(InputAction.CallbackContext context)
+    private void EnableShoot()
     {
-        if (!GameManager.instance.isPaused) 
+        shoot.action.performed += (InputAction.CallbackContext context) =>
         {
-            if (shootTimer >= shootCoolDown)
-            {
-                ShootBullet(); 
-                shootTimer = 0;
-            }
-
-          
-        }
+            ableToShoot = true;
+        };
+        shoot.action.canceled += (InputAction.CallbackContext context) =>
+        {
+            ableToShoot = false;
+        };
     }
+   
     private void Meele(InputAction.CallbackContext context) {
 
         if (!GameManager.instance.isPaused)
