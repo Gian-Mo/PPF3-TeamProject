@@ -696,7 +696,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5614108213232790016, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: noiseLevel
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7611941764604202675, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: m_LocalPosition.x

@@ -41,6 +41,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     float meeleTimer;
     float shootTimer;
 
+    float gunNoiseLevel;
     SphereCollider objectCollider;
     public float noiseLevel = 0;
 
@@ -58,8 +59,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     // Update is called once per frame
     void Update()
     {
-        Move();
         objectCollider.radius = noiseLevel;
+        Move();
     }
 
 
@@ -144,6 +145,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                     Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    noiseLevel += gunNoiseLevel;
                 }
        
                 shootTimer = 0;
