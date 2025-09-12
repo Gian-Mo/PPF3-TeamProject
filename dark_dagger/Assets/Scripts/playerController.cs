@@ -17,6 +17,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] int shootDist;
     [SerializeField] GameObject projectile;
     [SerializeField] Transform shootPos;
+    
 
 
     int HPOrig;
@@ -31,10 +32,17 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     int ammoMagMax;
     int totalAmmo;
 
+    SphereCollider objectCollider;
+    float noiseRadiusOrig;
+    public float noiseLevel = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
+        objectCollider = GetComponent<SphereCollider>();
+        noiseRadiusOrig = noiseLevel;
+        objectCollider.radius = noiseRadiusOrig;
     }
 
     // Update is called once per frame
