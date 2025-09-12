@@ -2,6 +2,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.Collections;
+using Unity.VisualScripting;
 
 
 
@@ -14,9 +16,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuPause;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuLoading;
 
     [SerializeField] TMP_Text AmmoCurWeapon;
-    [SerializeField] TMP_Text AmmoCurInventory;   
+    [SerializeField] TMP_Text AmmoCurInventory;
 
     public GameObject player;
     public playerController playerScript;
@@ -28,7 +31,9 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
     float timesScaleOrig;
-     int gameGoalCount;
+    int gameGoalCount;
+
+    public mapManager mapManagerScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -37,9 +42,10 @@ public class GameManager : MonoBehaviour
         timesScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
-       
-    }    
- 
+        mapManagerScript = GetComponent<mapManager>();
+        StartCoroutine(genMap());
+    }
+
 
     public void statePause()
     {
@@ -55,8 +61,8 @@ public class GameManager : MonoBehaviour
     {
         isPaused = !isPaused;
 
-        Time.timeScale = timesScaleOrig;       
-       
+        Time.timeScale = timesScaleOrig;
+
         menuActive.SetActive(false);
         menuActive = null;
     }
@@ -68,7 +74,7 @@ public class GameManager : MonoBehaviour
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
-    void Pause (InputAction.CallbackContext context)
+    void Pause(InputAction.CallbackContext context)
     {
         if (menuActive == null)
         {
@@ -87,11 +93,42 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        menu.action.started += Pause; 
+        menu.action.started += Pause;
     }
     private void OnDisable()
     {
         menu.action.started -= Pause;
+    }
+
+    private IEnumerator loadGenMap()
+    {
+        menuLoading.SetActive(true);
+
+        float waitTime = 3f;
+        float timeDone = 0f;
+
+        while (timeDone < waitTime)
+        {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                break;
+            }
+            timeDone += Time.deltaTime;
+            yield return null;
+        }
+        mapManagerScript.incrementMapSize();
+        mapManagerScript.generateMap();
+        menuLoading.SetActive(false);
+    }
+
+    private IEnumerator genMap()
+    {
+        yield return StartCoroutine(loadGenMap());
+    }
+
+    public void levelGen()
+    {
+        StartCoroutine(loadGenMap());
     }
 
 }

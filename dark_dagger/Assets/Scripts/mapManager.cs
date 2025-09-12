@@ -18,10 +18,11 @@ public class mapManager : MonoBehaviour
     [Header("Win Pieces")]
     [SerializeField] private GameObject[] winPieces;
 
-    [SerializeField] private int startSize = 3;
+    [SerializeField] private int gridSize = 3;
     [SerializeField] private int blockSize = 20;
 
     private List<List<tile>> currMap;
+    private List<GameObject> mapObj = new List<GameObject>();
     private enum direction { UP = 0, RIGHT, DOWN, LEFT };
 
     private class tile
@@ -44,6 +45,11 @@ public class mapManager : MonoBehaviour
             col = c;
         }
     };
+
+    public void incrementMapSize()
+    {
+        gridSize++;
+    }
 
     private direction opposite(direction d)
     {
@@ -170,8 +176,10 @@ private position move(position p, direction d)
         return 0;
     }
 
-    public void GenerateMap(int gridSize)
+    public void generateMap()
     {
+        deleteMap();
+
         System.Random rand = new System.Random();
         List<List<tile>> map = new List<List<tile>>();
         List<List<bool>> visited = new List<List<bool>>();
@@ -259,15 +267,27 @@ private position move(position p, direction d)
                     if (prefab.CompareTag("Problem"))
                         pos += new Vector3(0, 2.5f, 0);
                     int turn = getRotAmt(map[r][c]);
-                    Quaternion rot = Quaternion.Euler(0f, 90f*turn, 0f);
-                    Instantiate(prefab, pos, rot, transform);
-                }
+                    Quaternion rot = Quaternion.Euler(0f, 90f * turn, 0f);
+                    GameObject piece = Instantiate(prefab, pos, rot, transform);
+                    mapObj.Add(piece);
                 }
             }
+        }
+    }
+
+
+    public void deleteMap()
+    {
+        foreach(GameObject obj in mapObj)
+        {
+            if (obj != null)
+                Destroy(obj);
+        }
+        mapObj.Clear();
     }
     void Start()
     {
-        GenerateMap(startSize);
+        gridSize--;
     }
 
     void Update()
