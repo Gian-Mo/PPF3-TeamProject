@@ -1249,7 +1249,7 @@ PrefabInstance:
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: mapManagerScript
       value: 
-      objectReference: {fileID: 1946411697}
+      objectReference: {fileID: 0}
     - target: {fileID: 7235739032958369411, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: m_Name
       value: UI

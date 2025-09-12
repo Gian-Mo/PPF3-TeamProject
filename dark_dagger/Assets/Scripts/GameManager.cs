@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     float timesScaleOrig;
     int gameGoalCount;
 
-    public mapManager mapManagerScript;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
@@ -42,8 +41,6 @@ public class GameManager : MonoBehaviour
         timesScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
-        mapManagerScript = GetComponent<mapManager>();
-        StartCoroutine(genMap());
     }
 
 
@@ -98,37 +95,6 @@ public class GameManager : MonoBehaviour
     private void OnDisable()
     {
         menu.action.started -= Pause;
-    }
-
-    private IEnumerator loadGenMap()
-    {
-        menuLoading.SetActive(true);
-
-        float waitTime = 3f;
-        float timeDone = 0f;
-
-        while (timeDone < waitTime)
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                break;
-            }
-            timeDone += Time.deltaTime;
-            yield return null;
-        }
-        mapManagerScript.incrementMapSize();
-        mapManagerScript.generateMap();
-        menuLoading.SetActive(false);
-    }
-
-    private IEnumerator genMap()
-    {
-        yield return StartCoroutine(loadGenMap());
-    }
-
-    public void levelGen()
-    {
-        StartCoroutine(loadGenMap());
     }
 
 }
