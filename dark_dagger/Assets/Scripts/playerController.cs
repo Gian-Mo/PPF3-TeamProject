@@ -285,10 +285,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (health)
         {
             GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
-            if (GameManager.instance.playerHP.fillAmount == (float)HP / HPOrig)
-            {
-                health = false;
-            }
+            
         }
     }
     public void takeDamage(int ammount)
@@ -311,7 +308,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 HP = HPOrig;
             }
 
-            health = true;
+           
         }
         if (type == 1) {
 
