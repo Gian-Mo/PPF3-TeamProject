@@ -35,6 +35,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool shootRot;
     bool ableToShoot;
     bool ableToCrouch;
+    bool health;
     int ammoCur;
     int ammoMagMax;
     int totalAmmo;
@@ -93,6 +94,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
 
         Crouch();
+
+       UpdatePalyerUI();
     }
 
     void Crouch()
@@ -252,9 +255,22 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootRot = false;
     }
 
+    public void UpdatePalyerUI()
+    {
+        if (health)
+        {
+            GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
+            if (GameManager.instance.playerHP.fillAmount == (float)HP / HPOrig)
+            {
+                health = false;
+            }
+        }
+    }
     public void takeDamage(int ammount)
     {
        HP -= ammount;
+
+        health = true; 
     }
 
     public void pickUp(int amount, int type)
@@ -269,6 +285,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             {
                 HP = HPOrig;
             }
+
+            health = true;
         }
         if (type == 1) {
 
