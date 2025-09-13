@@ -21,6 +21,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] float shootCoolDown;
     [SerializeField] float meeleCoolDown;
 
+   
+
     public gunStats currGun;
     [SerializeField] GameObject gunModel;
 
@@ -188,48 +190,49 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     private void OnEnable()
     {
-        EnableShoot();
-        EnableCrouch();
+        EnableShoot(true);
+        EnableCrouch(true);
         meele.action.started += Meele;
     }
 
     private void OnDisable()
     {
-       
+        EnableShoot(false);
+        EnableCrouch(false);
         meele.action.started -= Meele;
     }
 
-    private void EnableShoot()
+    private void EnableShoot(bool enable)
     {
-        shoot.action.started += (InputAction.CallbackContext context) =>
+        if (enable)
         {
-            ableToShoot = true;
-        };
-        shoot.action.performed += (InputAction.CallbackContext context) =>
+            shoot.action.started += ShootTrue;
+            shoot.action.performed += ShootTrue;
+            shoot.action.canceled += ShootFalse; 
+        }
+        else
         {
-            ableToShoot = true;
-        };
-        shoot.action.canceled += (InputAction.CallbackContext context) =>
-        {
-            ableToShoot = false;
-        };
+            shoot.action.started -= ShootTrue;
+            shoot.action.performed -= ShootTrue;
+            shoot.action.canceled -= ShootFalse;
+        }
     }
-    private void EnableCrouch()
+    private void EnableCrouch(bool enable)
     {
-        crouch.action.started += (InputAction.CallbackContext context) =>
-        {   
-                ableToCrouch = true;
-        };
-        crouch.action.performed += (InputAction.CallbackContext context) =>
+        if (enable)
         {
-            ableToCrouch = true;
-        };
-        crouch.action.canceled += (InputAction.CallbackContext context) =>
+            crouch.action.started += CrouchTrue;
+            crouch.action.performed += CrouchTrue;
+            crouch.action.canceled += CrouchFalse;
+        }
+        else
         {
-            ableToCrouch = false;            
-        };
+            crouch.action.started -= CrouchTrue;
+            crouch.action.performed -= CrouchTrue;
+            crouch.action.canceled -= CrouchFalse;
+        }
     }
-
+   
     private void Meele(InputAction.CallbackContext context) {
 
         if (!GameManager.instance.isPaused)
@@ -240,6 +243,22 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 meeleTimer = 0;
             }
         }
+    }
+    void CrouchTrue(InputAction.CallbackContext context)
+    {
+        ableToCrouch = true;
+    }
+    void ShootTrue(InputAction.CallbackContext context)
+    {
+        ableToShoot = true;
+    }
+    void CrouchFalse(InputAction.CallbackContext context)
+    {
+        ableToCrouch = false;
+    }
+    void ShootFalse(InputAction.CallbackContext context)
+    {
+        ableToShoot = false;
     }
 
 

@@ -27,24 +27,47 @@ public class ButtonController : MonoBehaviour
 
     private void OnEnable()
     {
-        EnableInput();
+        EnableInput(true);
     }
-    void EnableInput()
+    private void OnDisable()
     {
-        up.action.started += (InputAction.CallbackContext context) =>
-        {
-            currentSelected--;
-            wasPressed = true;
-        };
-        down.action.started += (InputAction.CallbackContext context) =>
-        {
-            currentSelected++;
-            wasPressed = true;
-        };
-        enter.action.started += (InputAction.CallbackContext context) =>
-        {
-           buttons[currentSelected].GetComponent<Button>().onClick.Invoke();
-            wasPressed = true;
-        };
+        EnableInput(false);
     }
+    void EnableInput(bool enable)
+    {
+        if (enable)
+        {
+            up.action.started += Up;
+            down.action.started += Down;
+            enter.action.started += Enter;
+
+        }
+        else
+        {
+            up.action.started -= Up;
+            down.action.started -= Down;
+            enter.action.started -= Enter;
+        }
+    }
+   void Up(InputAction.CallbackContext context)
+   {
+       if (currentSelected > 0)
+       {
+           currentSelected--;
+       }
+       wasPressed = true;
+   }
+   void Down(InputAction.CallbackContext context)
+   {
+       if (currentSelected < buttons.Length - 1)
+       {
+           currentSelected++;
+       }
+       wasPressed = true;
+   }
+   void Enter(InputAction.CallbackContext context)
+   {
+       buttons[currentSelected].GetComponent<Button>().onClick.Invoke();
+        wasPressed = true;
+   }
 }
