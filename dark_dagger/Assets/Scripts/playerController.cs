@@ -153,7 +153,6 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if(gunDmg != null && currGun != null)
                         gunDmg.setDamage(currGun.shootDamage);
-                    Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
                     noiseLevel += gunNoiseLevel;
                 }
 
@@ -305,6 +304,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         currGun = gun;
         shootDist = gun.shootDistance;
         shootCoolDown = gun.shootRate;
+        gunNoiseLevel = gun.shootVol * 10;
         gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
