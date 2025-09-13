@@ -20,7 +20,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
 
-    Color colorOrig;
+    Color[] colorOrig;
 
     float shootTimer;
     float roamTimer;
@@ -35,7 +35,10 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        colorOrig = model.material.color;
+        colorOrig = new Color[3];
+        colorOrig[0] = model.materials[0].color;
+        colorOrig[1] = model.materials[1].color;
+        colorOrig[2] = model.materials[2].color;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
     }
@@ -164,9 +167,13 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
 
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOrig;
+        model.materials[0].color = Color.red;
+       model.materials[1].color = Color.red; 
+       model.materials[2].color = Color.red; 
+        yield return new WaitForSeconds(0.2f);
+        model.materials[0].color = colorOrig[0];
+        model.materials[1].color = colorOrig[1];
+        model.materials[2].color = colorOrig[2];  
     }
 
     public void hearNoise()

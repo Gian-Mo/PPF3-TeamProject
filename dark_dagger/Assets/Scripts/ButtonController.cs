@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ using UnityEngine.UI;
 public class ButtonController : MonoBehaviour
 {
     public GameObject[] buttons;
+    public AudioResource[] sounds;
+    public AudioSource source;
     [SerializeField] InputActionReference up;
     [SerializeField] InputActionReference down;
     [SerializeField] InputActionReference enter;
@@ -54,7 +57,10 @@ public class ButtonController : MonoBehaviour
        if (currentSelected > 0)
        {
            currentSelected--;
+
        }
+        source.resource = sounds[0];
+        source.Play();
        wasPressed = true;
    }
    void Down(InputAction.CallbackContext context)
@@ -62,12 +68,18 @@ public class ButtonController : MonoBehaviour
        if (currentSelected < buttons.Length - 1)
        {
            currentSelected++;
+
        }
-       wasPressed = true;
+        source.resource = sounds[0];
+        source.Play();
+        wasPressed = true;
    }
    void Enter(InputAction.CallbackContext context)
    {
-       buttons[currentSelected].GetComponent<Button>().onClick.Invoke();
+        source.resource = sounds[1];
+        source.Play();
+        buttons[currentSelected].GetComponent<Button>().onClick.Invoke();
+
         wasPressed = true;
    }
 }

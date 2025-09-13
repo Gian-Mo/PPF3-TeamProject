@@ -17,7 +17,7 @@ MonoBehaviour:
   shootDistance: 20
   shootRate: 1
   ammoCur: 0
-  ammoMax: 5
+  ammoMax: 20
   type: 
   shootSound: []
   shootVol: 0
