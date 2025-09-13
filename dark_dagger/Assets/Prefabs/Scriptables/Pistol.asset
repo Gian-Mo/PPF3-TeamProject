@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 8825085113668702994, guid: dd882ff3e1cd2404bb1994b073268b45, type: 3}
   shootDamage: 1
-  shootDistance: 20
+  shootDistance: 24
   shootRate: 1
   ammoCur: 0
   ammoMax: 20
   type: 
   shootSound: []
-  shootVol: 0
+  shootVol: 1
