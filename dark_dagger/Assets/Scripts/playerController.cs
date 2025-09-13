@@ -41,7 +41,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     float meeleTimer;
     float shootTimer;
 
-
+    float gunNoiseLevel;
+    SphereCollider objectCollider;
+    public float noiseLevel = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -49,11 +51,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         HPOrig = HP;
         heighOrig = controller.height;
         anim.SetBool("Pistol", true);
+
+        objectCollider = GetComponent<SphereCollider>();
+        objectCollider.radius = noiseLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
+        objectCollider.radius = noiseLevel;
         Move();
     }
 
@@ -65,11 +71,13 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         playerVel = move.action.ReadValue<Vector3>();
         playerVel = playerVel.normalized * speed * Time.deltaTime;
+        noiseLevel = 0;
         if (move.action.IsPressed())
         {
-            model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),8 * Time.deltaTime); 
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),8 * Time.deltaTime);
+            noiseLevel = 2;
         }
-        controller.Move(playerVel);
+            controller.Move(playerVel);
 
         if (shootRot)
         {
@@ -93,14 +101,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (ableToCrouch)
         {
             controller.height = Mathf.Lerp(controller.height,1.2f,8 * Time.deltaTime);
-           controller.center = Vector3.Lerp(controller.center, new Vector3(0, -0.3f, 0), 8 * Time.deltaTime);
+            controller.center = Vector3.Lerp(controller.center, new Vector3(0, -0.3f, 0), 8 * Time.deltaTime);
+            noiseLevel = 1;
         }
         else
         {
             if (controller.height != heighOrig && controller.center != new Vector3(0, 0, 0))
             {
                 controller.height = Mathf.Lerp(controller.height, heighOrig, 8 * Time.deltaTime);
-                controller.center = Vector3.Lerp(controller.center, new Vector3(0, 0, 0), 8 * Time.deltaTime); 
+                controller.center = Vector3.Lerp(controller.center, new Vector3(0, 0, 0), 8 * Time.deltaTime);
             }
         }
     }
@@ -136,6 +145,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                     Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    noiseLevel += gunNoiseLevel;
                 }
        
                 shootTimer = 0;
