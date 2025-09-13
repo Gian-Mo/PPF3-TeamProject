@@ -2281,6 +2281,7 @@ GameObject:
   - component: {fileID: 2729351328922524811}
   - component: {fileID: 3191253761178039296}
   - component: {fileID: 6716605203420034694}
+  - component: {fileID: 9101926676742167726}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2335,6 +2336,7 @@ MonoBehaviour:
   shoot: {fileID: -4997133940913989919, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   meele: {fileID: 7339354455106527120, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   crouch: {fileID: -7903316612819512164, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
+  noiseLevel: 1
 --- !u!143 &2729351328922524811
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2497,6 +2499,27 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!135 &9101926676742167726
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8437300393814238484}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!1 &8464076397017157199
 GameObject:
   m_ObjectHideFlags: 0

@@ -37,13 +37,16 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool shootRot;
     bool ableToShoot;
     bool ableToCrouch;
+    bool health;
     int ammoCur;
     int ammoMagMax;
     int totalAmmo;
     float meeleTimer;
     float shootTimer;
 
-
+    float gunNoiseLevel;
+    SphereCollider objectCollider;
+    public float noiseLevel = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -51,11 +54,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         HPOrig = HP;
         heighOrig = controller.height;
         anim.SetBool("Pistol", true);
+
+        objectCollider = GetComponent<SphereCollider>();
+        objectCollider.radius = noiseLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
+        objectCollider.radius = noiseLevel;
         Move();
     }
 
@@ -67,11 +74,13 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         playerVel = move.action.ReadValue<Vector3>();
         playerVel = playerVel.normalized * speed * Time.deltaTime;
+        noiseLevel = 0;
         if (move.action.IsPressed())
         {
-            model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),8 * Time.deltaTime); 
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),8 * Time.deltaTime);
+            noiseLevel = 2;
         }
-        controller.Move(playerVel);
+            controller.Move(playerVel);
 
         if (shootRot)
         {
@@ -87,6 +96,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
 
         Crouch();
+
+       UpdatePalyerUI();
     }
 
     void Crouch()
@@ -95,14 +106,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (ableToCrouch)
         {
             controller.height = Mathf.Lerp(controller.height,1.2f,8 * Time.deltaTime);
-           controller.center = Vector3.Lerp(controller.center, new Vector3(0, -0.3f, 0), 8 * Time.deltaTime);
+            controller.center = Vector3.Lerp(controller.center, new Vector3(0, -0.3f, 0), 8 * Time.deltaTime);
+            noiseLevel = 1;
         }
         else
         {
             if (controller.height != heighOrig && controller.center != new Vector3(0, 0, 0))
             {
                 controller.height = Mathf.Lerp(controller.height, heighOrig, 8 * Time.deltaTime);
-                controller.center = Vector3.Lerp(controller.center, new Vector3(0, 0, 0), 8 * Time.deltaTime); 
+                controller.center = Vector3.Lerp(controller.center, new Vector3(0, 0, 0), 8 * Time.deltaTime);
             }
         }
     }
@@ -141,6 +153,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if(gunDmg != null && currGun != null)
                         gunDmg.setDamage(currGun.shootDamage);
+                    Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    noiseLevel += gunNoiseLevel;
                 }
 
                 shootTimer = 0;
@@ -247,9 +261,22 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootRot = false;
     }
 
+    public void UpdatePalyerUI()
+    {
+        if (health)
+        {
+            GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
+            if (GameManager.instance.playerHP.fillAmount == (float)HP / HPOrig)
+            {
+                health = false;
+            }
+        }
+    }
     public void takeDamage(int ammount)
     {
        HP -= ammount;
+
+        health = true; 
     }
 
     public void pickUp(int amount, int type)
@@ -264,6 +291,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             {
                 HP = HPOrig;
             }
+
+            health = true;
         }
         if (type == 1) {
 
