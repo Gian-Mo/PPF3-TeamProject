@@ -21,6 +21,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] float shootCoolDown;
     [SerializeField] float meeleCoolDown;
 
+    [SerializeField] gunStats currGun;
+    [SerializeField] GameObject gunModel;
 
     int HPOrig;
     float heighOrig;
@@ -135,9 +137,12 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                         StartCoroutine(TurnPlayerWhenShoot()); 
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
-                    Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    Damage gunDmg = bullet.GetComponent<Damage>();
+                    if(gunDmg != null && currGun != null)
+                        gunDmg.setDamage(currGun.shootDamage);
                 }
-       
+
                 shootTimer = 0;
             }
 
@@ -264,5 +269,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
             totalAmmo += amount;
         }
+    }
+
+    public void equipGun(gunStats gun)
+    {
+        currGun = gun;
+        shootDist = gun.shootDistance;
+        shootCoolDown = gun.shootRate;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
 }

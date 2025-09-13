@@ -3,9 +3,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class Damge : MonoBehaviour
+public class Damage : MonoBehaviour
 {
-    enum damageType {moving,stationary,homing };
+    enum damageType { moving, stationary, homing };
     [SerializeField] damageType type;
     [SerializeField] Rigidbody rb;
 
@@ -13,18 +13,18 @@ public class Damge : MonoBehaviour
     [SerializeField] float damageRate;
     [SerializeField] int destroyTime;
     [SerializeField] int speed;
-  
 
-    bool isDamaging;   
+
+    bool isDamaging;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(type == damageType.moving || type == damageType.homing)
+        if (type == damageType.moving || type == damageType.homing)
         {
-            Destroy(gameObject,destroyTime);
-            if(type == damageType.moving)
+            Destroy(gameObject, destroyTime);
+            if (type == damageType.moving)
             {
                 rb.linearVelocity = transform.forward * speed;
             }
@@ -34,8 +34,8 @@ public class Damge : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(type == damageType.homing)
+
+        if (type == damageType.homing)
         {
             rb.linearVelocity = (GameManager.instance.player.transform.position - transform.position).normalized * speed * Time.deltaTime;
         }
@@ -56,8 +56,13 @@ public class Damge : MonoBehaviour
             Destroy(gameObject);
         }
     }
-  
-    
 
-   
+    public void setDamage(int dmg)
+    {
+        damageAmount = dmg;
+    }
+
+
+
+
 }
