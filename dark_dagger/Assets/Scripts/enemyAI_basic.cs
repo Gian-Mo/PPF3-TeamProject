@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
 
-public class enemyAI_basic : MonoBehaviour, IDamage
+public class enemyAI_basic : MonoBehaviour, IDamage, INoise
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
@@ -167,5 +167,10 @@ public class enemyAI_basic : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
+    }
+
+    public void hearNoise()
+    {
+        agent.SetDestination(GameManager.instance.player.transform.position);
     }
 }

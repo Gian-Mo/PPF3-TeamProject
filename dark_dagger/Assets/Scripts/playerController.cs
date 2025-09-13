@@ -145,7 +145,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                     Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
-                    noiseLevel += gunNoiseLevel;
+                    noiseLevel = gunNoiseLevel;
                 }
        
                 shootTimer = 0;
@@ -273,6 +273,17 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (type == 1) {
 
             totalAmmo += amount;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.isTrigger) return;
+
+        INoise detector = other.GetComponent<INoise>();
+        if (detector != null)
+        {
+            detector.hearNoise();
         }
     }
 }
