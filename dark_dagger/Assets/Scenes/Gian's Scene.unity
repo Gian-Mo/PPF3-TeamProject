@@ -732,6 +732,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2750570564767740663, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
+      propertyPath: HP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2750570564767740663, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: faceTargetSpeed
       value: 0
       objectReference: {fileID: 0}
