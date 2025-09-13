@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.VisualScripting;
+using System;
+using UnityEditor;
 
 
 
@@ -21,6 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text AmmoCurWeapon;
     [SerializeField] TMP_Text AmmoCurInventory;
 
+    [SerializeField] PlayerInput PlayerInput;
+
     public GameObject player;
     public playerController playerScript;
 
@@ -28,6 +32,7 @@ public class GameManager : MonoBehaviour
     public GameObject playerGetsDamaged;
 
     public InputActionReference menu;
+    public InputActionReference menu2;
 
     public bool isPaused = false;
     float timesScaleOrig;
@@ -46,22 +51,27 @@ public class GameManager : MonoBehaviour
 
     public void statePause()
     {
+     
         isPaused = !isPaused;
 
 
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        PlayerInput.SwitchCurrentActionMap("Menus");
     }
 
     public void stateUnpause()
     {
+      
         isPaused = !isPaused;
 
         Time.timeScale = timesScaleOrig;
 
         menuActive.SetActive(false);
         menuActive = null;
+        PlayerInput.SwitchCurrentActionMap("Gameplay");
     }
 
 
@@ -79,10 +89,15 @@ public class GameManager : MonoBehaviour
             statePause();
             menuActive = menuPause;
             menuActive.SetActive(true);
+
+
+           
         }
         else if (menuActive == menuPause)
         {
-            stateUnpause();
+            stateUnpause();        
+
+
         }
 
     }
@@ -90,11 +105,15 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        menu.action.started += Pause;
+        menu.action.started += Pause; 
+       menu2.action.started += Pause;
+       
     }
     private void OnDisable()
     {
-        menu.action.started -= Pause;
+        menu.action.started -= Pause;  
+      menu2.action.started -= Pause;
+       
     }
 
 }

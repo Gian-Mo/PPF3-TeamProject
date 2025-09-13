@@ -5,13 +5,13 @@ using UnityEngine;
 public class gunStats : ScriptableObject
 {
     public GameObject model;
-    [Range(1, 10)] public int shootDamage;
-    [Range(5, 1000)] public int shootDistance;
+    [Range(1, 15)] public int shootDamage;
+    [Range(1, 1000)] public int shootDistance;
     [Range(0.1f, 3)] public float shootRate;
     public int ammoCur;
     [Range(5, 50)] public int ammoMax;
+    public string type;
 
-    public ParticleSystem hitEffect;
     public AudioClip[] shootSound;
     [Range(0, 1)] public float shootVol;
 }

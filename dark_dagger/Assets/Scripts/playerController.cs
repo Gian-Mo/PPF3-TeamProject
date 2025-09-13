@@ -21,6 +21,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] float shootCoolDown;
     [SerializeField] float meeleCoolDown;
 
+   
+
+    public gunStats currGun;
+    [SerializeField] GameObject gunModel;
 
     int HPOrig;
     float heighOrig;
@@ -35,6 +39,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool shootRot;
     bool ableToShoot;
     bool ableToCrouch;
+    bool health;
     int ammoCur;
     int ammoMagMax;
     int totalAmmo;
@@ -93,6 +98,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
 
         Crouch();
+
+       UpdatePalyerUI();
     }
 
     void Crouch()
@@ -144,6 +151,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                         StartCoroutine(TurnPlayerWhenShoot()); 
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
+                    GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    Damage gunDmg = bullet.GetComponent<Damage>();
+                    if(gunDmg != null && currGun != null)
+                        gunDmg.setDamage(currGun.shootDamage);
+                    noiseLevel += gunNoiseLevel;
                     Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
                     noiseLevel = gunNoiseLevel;
                 }
@@ -180,48 +192,49 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     private void OnEnable()
     {
-        EnableShoot();
-        EnableCrouch();
+        EnableShoot(true);
+        EnableCrouch(true);
         meele.action.started += Meele;
     }
 
     private void OnDisable()
     {
-       
+        EnableShoot(false);
+        EnableCrouch(false);
         meele.action.started -= Meele;
     }
 
-    private void EnableShoot()
+    private void EnableShoot(bool enable)
     {
-        shoot.action.started += (InputAction.CallbackContext context) =>
+        if (enable)
         {
-            ableToShoot = true;
-        };
-        shoot.action.performed += (InputAction.CallbackContext context) =>
+            shoot.action.started += ShootTrue;
+            shoot.action.performed += ShootTrue;
+            shoot.action.canceled += ShootFalse; 
+        }
+        else
         {
-            ableToShoot = true;
-        };
-        shoot.action.canceled += (InputAction.CallbackContext context) =>
-        {
-            ableToShoot = false;
-        };
+            shoot.action.started -= ShootTrue;
+            shoot.action.performed -= ShootTrue;
+            shoot.action.canceled -= ShootFalse;
+        }
     }
-    private void EnableCrouch()
+    private void EnableCrouch(bool enable)
     {
-        crouch.action.started += (InputAction.CallbackContext context) =>
-        {   
-                ableToCrouch = true;
-        };
-        crouch.action.performed += (InputAction.CallbackContext context) =>
+        if (enable)
         {
-            ableToCrouch = true;
-        };
-        crouch.action.canceled += (InputAction.CallbackContext context) =>
+            crouch.action.started += CrouchTrue;
+            crouch.action.performed += CrouchTrue;
+            crouch.action.canceled += CrouchFalse;
+        }
+        else
         {
-            ableToCrouch = false;            
-        };
+            crouch.action.started -= CrouchTrue;
+            crouch.action.performed -= CrouchTrue;
+            crouch.action.canceled -= CrouchFalse;
+        }
     }
-
+   
     private void Meele(InputAction.CallbackContext context) {
 
         if (!GameManager.instance.isPaused)
@@ -232,6 +245,22 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 meeleTimer = 0;
             }
         }
+    }
+    void CrouchTrue(InputAction.CallbackContext context)
+    {
+        ableToCrouch = true;
+    }
+    void ShootTrue(InputAction.CallbackContext context)
+    {
+        ableToShoot = true;
+    }
+    void CrouchFalse(InputAction.CallbackContext context)
+    {
+        ableToCrouch = false;
+    }
+    void ShootFalse(InputAction.CallbackContext context)
+    {
+        ableToShoot = false;
     }
 
 
@@ -252,9 +281,22 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootRot = false;
     }
 
+    public void UpdatePalyerUI()
+    {
+        if (health)
+        {
+            GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
+            if (GameManager.instance.playerHP.fillAmount == (float)HP / HPOrig)
+            {
+                health = false;
+            }
+        }
+    }
     public void takeDamage(int ammount)
     {
        HP -= ammount;
+
+        health = true; 
     }
 
     public void pickUp(int amount, int type)
@@ -269,11 +311,23 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             {
                 HP = HPOrig;
             }
+
+            health = true;
         }
         if (type == 1) {
 
             totalAmmo += amount;
         }
+    }
+
+    public void equipGun(gunStats gun)
+    {
+        currGun = gun;
+        shootDist = gun.shootDistance;
+        shootCoolDown = gun.shootRate;
+        gunNoiseLevel = gun.shootVol * 10;
+        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
     private void OnTriggerEnter(Collider other)

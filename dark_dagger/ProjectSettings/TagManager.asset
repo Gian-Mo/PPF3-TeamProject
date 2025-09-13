@@ -8,6 +8,7 @@ TagManager:
   - Start
   - End
   - SpawnPoint
+  - Button
   layers:
   - Default
   - TransparentFX

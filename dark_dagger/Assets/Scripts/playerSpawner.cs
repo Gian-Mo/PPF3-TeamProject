@@ -7,7 +7,14 @@ public class playerSpawner : MonoBehaviour
 
     private void Start()
     {
-
+        if (player == null)
+            player = GameObject.FindWithTag("Player");
+        if (player != null)
+        {
+            Vector3 spawnPos = transform.position;
+            player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 1.0f, spawnPos.z);
+           
+        }
     }
     private void Update()
     {
