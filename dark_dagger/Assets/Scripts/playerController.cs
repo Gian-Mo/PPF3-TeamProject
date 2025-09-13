@@ -59,6 +59,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
+        equipGun(currGun);
     }
 
     // Update is called once per frame
@@ -151,7 +152,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                         StartCoroutine(TurnPlayerWhenShoot()); 
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
-                    GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                    GameObject bullet = Instantiate(projectile,gunModel.transform.position,Quaternion.LookRotation(mouseDirection));
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if(gunDmg != null && currGun != null)
                         gunDmg.setDamage(currGun.shootDamage);
@@ -324,7 +325,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootDist = gun.shootDistance;
         shootCoolDown = gun.shootRate;
         gunNoiseLevel = gun.shootVol * 10;
-        gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
-        gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+       Instantiate(gun.model, gunModel.transform);
+     
+        //gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
+        //gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
     }
 }
