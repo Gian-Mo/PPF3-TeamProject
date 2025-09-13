@@ -21,7 +21,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] float shootCoolDown;
     [SerializeField] float meeleCoolDown;
 
-    [SerializeField] gunStats currGun;
+    public gunStats currGun;
     [SerializeField] GameObject gunModel;
 
     int HPOrig;
