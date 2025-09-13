@@ -16,6 +16,7 @@ public class buttonFunctionality : MonoBehaviour
 
     public void MainMenu()
     {
+        GameManager.instance.stateUnpause();
         SceneManager.LoadScene("MainMenu");
     }
   
