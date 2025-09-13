@@ -155,9 +155,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     GameObject bullet = Instantiate(projectile,gunModel.transform.position,Quaternion.LookRotation(mouseDirection));
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if(gunDmg != null && currGun != null)
-                        gunDmg.setDamage(currGun.shootDamage);
-                    noiseLevel += gunNoiseLevel;
-                    Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
+                        gunDmg.setDamage(currGun.shootDamage);                    
+                    
                     noiseLevel = gunNoiseLevel;
                 }
        
