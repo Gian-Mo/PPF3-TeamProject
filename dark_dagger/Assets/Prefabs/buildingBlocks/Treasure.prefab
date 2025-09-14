@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 544236712396016455}
   - component: {fileID: 5607795593953998040}
   - component: {fileID: 8495351993712164136}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 3125503545334382104}
   - component: {fileID: 2389665885702608272}
   - component: {fileID: 3200432589944663750}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Treasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -219,6 +219,10 @@ PrefabInstance:
       propertyPath: navMesh
       value: 
       objectReference: {fileID: 1240122740}
+    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: startSize
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7235739032958369411, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: m_Name
       value: UI
@@ -454,7 +458,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1023
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -504,7 +508,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3032613353962036612, guid: 39b647def5c1c0d429dcee1f9f4af3ce, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6.125
       objectReference: {fileID: 0}
     - target: {fileID: 3032613353962036612, guid: 39b647def5c1c0d429dcee1f9f4af3ce, type: 3}
       propertyPath: m_LocalPosition.z
