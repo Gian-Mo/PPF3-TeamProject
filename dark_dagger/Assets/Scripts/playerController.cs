@@ -41,6 +41,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool ableToShoot;
     bool ableToCrouch;
     bool healthUpdate;
+    bool healing;
     bool ammoUpdate;  
    public int totalAmmo;
     float meeleTimer;
@@ -314,12 +315,40 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     public void UpdatePalyerUI()
     {
-       //HP
-        GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
-       
+        //HP
+        if (healthUpdate)
+        {
+            GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount, (float)HP / HPOrig, 2 * Time.deltaTime);
+
+            if (!healing)
+            {
+                if (GameManager.instance.playerHP.fillAmount - ((float)HP / HPOrig) < 0.01)
+                {
+                    healthUpdate = false;
+
+                } 
+            }
+            else
+            {
+
+                if ( ((float)HP / HPOrig) - GameManager.instance.playerHP.fillAmount < 0.001)
+                {
+                    healthUpdate = false;
+                    healing = false;
+
+                }
+            }
+        }
+
+
         //Ammo
-        GameManager.instance.playerAmmo.fillAmount = Mathf.Lerp(GameManager.instance.playerAmmo.fillAmount, (float)currGun.ammoCur / currGun.ammoMax, 2 * Time.deltaTime);
-        
+        if (ammoUpdate)
+        {
+
+            GameManager.instance.playerAmmo.fillAmount = Mathf.Lerp(GameManager.instance.playerAmmo.fillAmount, (float)currGun.ammoCur / currGun.ammoMax, 2 * Time.deltaTime);
+
+           
+        }
 
     }
     void UpdateAmmo()
@@ -352,7 +381,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 HP = HPOrig;
             }
 
-           
+            healthUpdate = true;
+            healing = true;
         }
         if (type == 1) {
 
