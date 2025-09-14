@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public Image playerHP;
     public GameObject playerGetsDamaged;
+   
 
     public InputActionReference menu;
     public InputActionReference menu2;
