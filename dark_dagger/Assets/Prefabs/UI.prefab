@@ -3540,7 +3540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuActive: {fileID: 0}
   menuPause: {fileID: 2012767613659602799}
-  menuWin: {fileID: 0}
+  menuWin: {fileID: 5507799236706402330}
   menuLose: {fileID: 7223538243292379982}
   menuLoading: {fileID: 3666605621826744608}
   AmmoCurWeapon: {fileID: 614408524317634872}

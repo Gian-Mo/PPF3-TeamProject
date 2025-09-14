@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     int HPOrig;
     float heighOrig;
+    int speedOrig; 
     public Vector3 playerVel;
 
     public InputActionReference move;
@@ -50,6 +51,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     float gunNoiseLevel;
     SphereCollider objectCollider;
     public float noiseLevel = 0;
+    GameObject actualGun;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -57,6 +59,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         
         HPOrig = HP;
         heighOrig = controller.height;
+        speedOrig = speed;
         anim.SetBool("Pistol", true);
 
         objectCollider = GetComponent<SphereCollider>();
@@ -133,6 +136,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         anim.SetFloat("Speed",Mathf.Lerp( animSpeedCur, playerSpeedCur, Time.deltaTime * animTranSpeed));
 
     }
+    void SetShootAnim()
+    {
+        actualGun.GetComponent<Animator>().SetTrigger("Shoot");        
+
+    }
    void ReloadWeapon() { 
 
         if(currGun.ammoMax - currGun.ammoCur >= totalAmmo )
@@ -165,6 +173,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
                 if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
                 {
+                    SetShootAnim();
                    
                     if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
                     {
@@ -280,6 +289,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void CrouchTrue(InputAction.CallbackContext context)
     {
         ableToCrouch = true;
+        speed = 3;
     }
     void ShootTrue(InputAction.CallbackContext context)
     {
@@ -288,6 +298,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void CrouchFalse(InputAction.CallbackContext context)
     {
         ableToCrouch = false;
+        speed = speedOrig;
     }
     void ShootFalse(InputAction.CallbackContext context)
     {
@@ -360,14 +371,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     public void takeDamage(int ammount)
     {
        HP -= ammount;
+       GameManager.instance.FlashScreen(Color.softRed);
+       healthUpdate = true;
 
         if (HP <= 0) { 
         
             GameManager.instance.YouLose();
         }     
 
-        healthUpdate = true;
-        GameManager.instance.FlashScreen(Color.softRed);
     }
 
     public void pickUp(int amount, int type)
@@ -400,7 +411,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootDist = gun.shootDistance;
         shootCoolDown = gun.shootRate;
         gunNoiseLevel = gun.shootVol * 10;
-       Instantiate(gun.model, gunModel.transform);
+       actualGun = Instantiate(gun.model, gunModel.transform);
         currGun.ammoCur = currGun.ammoMax;
      
         //gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;

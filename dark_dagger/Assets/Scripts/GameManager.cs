@@ -102,8 +102,17 @@ public class GameManager : MonoBehaviour
 
     public void YouLose()
     {
+       playerGetsDamaged.SetActive(false);
         statePause();
         menuActive = menuLose;
+        menuActive.SetActive(true);
+        StartCoroutine(FadeMenus(1f, 0.5f, menuActive));
+    }
+    public void YouWin()
+    {
+        playerGetsDamaged.SetActive(false);
+        statePause();
+        menuActive = menuWin;
         menuActive.SetActive(true);
         StartCoroutine(FadeMenus(1f, 0.5f, menuActive));
     }
