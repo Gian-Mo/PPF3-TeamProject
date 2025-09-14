@@ -1,5 +1,7 @@
 
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,7 +9,7 @@ using UnityEngine.UI;
 
 public class ButtonController : MonoBehaviour
 {
-    public GameObject[] buttons;
+    public List<GameObject> buttons;
     public AudioResource[] sounds;
     public AudioSource source;
     [SerializeField] InputActionReference up;
@@ -19,13 +21,13 @@ public class ButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (buttons.Length == 0)
+        if (buttons.Count == 0)
         {
             wasPressed = false;
-            buttons = GameObject.FindGameObjectsWithTag("Button");
+            buttons = new List<GameObject>(GameObject.FindGameObjectsWithTag("Button"));
         }
        
-       if(wasPressed && buttons.Length > 0) buttons[currentSelected].GetComponent<Button>().Select();
+       if(wasPressed && buttons.Count > 0) buttons[currentSelected].GetComponent<Button>().Select();
     }
 
     private void OnEnable()
@@ -65,7 +67,7 @@ public class ButtonController : MonoBehaviour
    }
    void Down(InputAction.CallbackContext context)
    {
-       if (currentSelected < buttons.Length - 1)
+       if (currentSelected < buttons.Count - 1)
        {
            currentSelected++;
 

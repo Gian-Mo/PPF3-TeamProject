@@ -293,6 +293,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     {
        HP -= ammount;
 
+        if (HP <= 0) { 
+        
+            GameManager.instance.YouLose();
+        }     
+
         health = true; 
     }
 

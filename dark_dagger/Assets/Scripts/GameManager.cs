@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text AmmoCurInventory;
 
     [SerializeField] PlayerInput PlayerInput;
+    [SerializeField] ButtonController buttonController;
 
     public GameObject player;
     public playerController playerScript;
@@ -100,6 +101,7 @@ public class GameManager : MonoBehaviour
         statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
+        StartCoroutine(FadeMenus(1f, 0.5f, menuActive));
     }
     void Pause(InputAction.CallbackContext context)
     {
@@ -116,13 +118,25 @@ public class GameManager : MonoBehaviour
         else if (menuActive == menuPause)
         {
             stateUnpause();
-
-
+          
+           buttonController.buttons.Clear();
         }
 
     }
 
+    IEnumerator FadeMenus(float to, float duration, GameObject objectToFade)
+    {
+        CanvasGroup canvasGroup = objectToFade.GetComponent<CanvasGroup>();
+        if (canvasGroup == null) yield break;
+        float timer = 0f;
 
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(canvasGroup.alpha, to, timer / duration);
+            yield return null;
+        }
+    }
     private void OnEnable()
     {
         menu.action.started += Pause;

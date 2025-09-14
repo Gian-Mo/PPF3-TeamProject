@@ -2341,6 +2341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefabs:
   - {fileID: 8416915961655418077, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
+  livingEnemies: []
 --- !u!114 &8038950709946415164
 MonoBehaviour:
   m_ObjectHideFlags: 0
