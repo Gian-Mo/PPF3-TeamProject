@@ -33,7 +33,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     public InputActionReference move;
     public InputActionReference shoot;
     public InputActionReference meele;
-   public InputActionReference crouch;
+   public InputActionReference crouch; 
+    public InputActionReference reload;
     Vector3 mouseDirection;
 
     bool shootRot;
@@ -42,7 +43,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool health;
     int ammoCur;
     int ammoMagMax;
-    int totalAmmo;
+   public int totalAmmo;
     float meeleTimer;
     float shootTimer;
 
@@ -121,6 +122,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             }
         }
     }
+
     void SetAnimLoco()
     {
         float playerSpeedCur = playerVel.normalized.magnitude;
@@ -129,13 +131,27 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         anim.SetFloat("Speed",Mathf.Lerp( animSpeedCur, playerSpeedCur, Time.deltaTime * animTranSpeed));
 
     }
+   void ReloadWeapon() { 
+
+        if(currGun.ammoMax - currGun.ammoCur >= totalAmmo )
+        {
+            ammoCur += totalAmmo;
+            totalAmmo = 0;
+        }
+        else
+        {
+            totalAmmo -= currGun.ammoMax - currGun.ammoCur;
+            currGun.ammoCur = currGun.ammoMax;
+        }
+
+   }
     void ShootBullet()
     {
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
 
         if (!GameManager.instance.isPaused)
         {
-            if (shootTimer >= shootCoolDown)
+            if (shootTimer >= shootCoolDown && currGun.ammoCur > 0)
             {   
                 RaycastHit hit;
                 mouseDirection = MousePos() - transform.position;
@@ -158,6 +174,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                         gunDmg.setDamage(currGun.shootDamage);                    
                     
                     noiseLevel = gunNoiseLevel;
+
+                    currGun.ammoCur--;
                 }
        
                 shootTimer = 0;
@@ -195,6 +213,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         EnableShoot(true);
         EnableCrouch(true);
         meele.action.started += Meele;
+        reload.action.started += Reload;
     }
 
     private void OnDisable()
@@ -202,6 +221,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         EnableShoot(false);
         EnableCrouch(false);
         meele.action.started -= Meele;
+        reload.action.started -= Reload;
     }
 
     private void EnableShoot(bool enable)
@@ -245,6 +265,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 meeleTimer = 0;
             }
         }
+    }
+    private void Reload(InputAction.CallbackContext context) { 
+    
+        ReloadWeapon();
     }
     void CrouchTrue(InputAction.CallbackContext context)
     {
@@ -329,6 +353,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootCoolDown = gun.shootRate;
         gunNoiseLevel = gun.shootVol * 10;
        Instantiate(gun.model, gunModel.transform);
+        currGun.ammoCur = currGun.ammoMax;
      
         //gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         //gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;

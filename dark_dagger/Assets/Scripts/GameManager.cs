@@ -19,8 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuLoading;
 
-    [SerializeField] TMP_Text AmmoCurWeapon;
-    [SerializeField] TMP_Text AmmoCurInventory;
+    public TMP_Text AmmoCurWeapon;
+    public TMP_Text AmmoCurInventory;
 
     [SerializeField] PlayerInput PlayerInput;
     [SerializeField] ButtonController buttonController;

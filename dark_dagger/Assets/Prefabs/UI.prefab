@@ -3468,8 +3468,8 @@ MonoBehaviour:
   menuWin: {fileID: 0}
   menuLose: {fileID: 7223538243292379982}
   menuLoading: {fileID: 3666605621826744608}
-  AmmoCurWeapon: {fileID: 0}
-  AmmoCurInventory: {fileID: 0}
+  AmmoCurWeapon: {fileID: 614408524317634872}
+  AmmoCurInventory: {fileID: 8913400206527723857}
   PlayerInput: {fileID: 8038950709946415164}
   buttonController: {fileID: 8273775990107721245}
   player: {fileID: 0}
