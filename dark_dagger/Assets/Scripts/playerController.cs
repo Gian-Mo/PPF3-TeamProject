@@ -40,9 +40,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool shootRot;
     bool ableToShoot;
     bool ableToCrouch;
-    bool health;
-    int ammoCur;
-    int ammoMagMax;
+    bool healthUpdate;
+    bool ammoUpdate;  
    public int totalAmmo;
     float meeleTimer;
     float shootTimer;
@@ -61,6 +60,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
         equipGun(currGun);
+        UpdateAmmo();
     }
 
     // Update is called once per frame
@@ -135,7 +135,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         if(currGun.ammoMax - currGun.ammoCur >= totalAmmo )
         {
-            ammoCur += totalAmmo;
+            currGun.ammoCur += totalAmmo;
             totalAmmo = 0;
         }
         else
@@ -143,8 +143,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             totalAmmo -= currGun.ammoMax - currGun.ammoCur;
             currGun.ammoCur = currGun.ammoMax;
         }
-
-   }
+        ammoUpdate = true;
+        UpdateAmmo();
+    }
     void ShootBullet()
     {
         //Ray cast from the player head (change to hand later) towards the mouse position, distance is set by the weapon scriptable object(later)
@@ -162,7 +163,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
                 if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
                 {
-                    // StartCoroutine(ShootFeedBack(hit));
+                   
                     if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
                     {
                         StartCoroutine(TurnPlayerWhenShoot()); 
@@ -176,6 +177,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     noiseLevel = gunNoiseLevel;
 
                     currGun.ammoCur--;
+                    ammoUpdate = true;
+
+                    UpdateAmmo();
                 }
        
                 shootTimer = 0;
@@ -188,6 +192,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         RaycastHit hit;
         if (Physics.Raycast(shootPos.position,model.transform.forward,out hit,3))
         {
+             StartCoroutine(MeeleFeedBack(hit));
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
@@ -288,7 +293,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     }
 
 
-    IEnumerator ShootFeedBack(RaycastHit hit)
+    IEnumerator MeeleFeedBack(RaycastHit hit)
     {
         shootLine.enabled = true;
         shootLine.SetPosition(0, transform.position);
@@ -307,11 +312,18 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     public void UpdatePalyerUI()
     {
-        if (health)
-        {
-            GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
-            
-        }
+       //HP
+        GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
+       
+        //Ammo
+        GameManager.instance.playerAmmo.fillAmount = Mathf.Lerp(GameManager.instance.playerAmmo.fillAmount, (float)currGun.ammoCur / currGun.ammoMax, 2 * Time.deltaTime);
+        
+
+    }
+    void UpdateAmmo()
+    {
+        GameManager.instance.AmmoCurWeapon.SetText(currGun.ammoCur.ToString());
+        GameManager.instance.AmmoCurInventory.SetText(totalAmmo.ToString());
     }
     public void takeDamage(int ammount)
     {
@@ -322,7 +334,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             GameManager.instance.YouLose();
         }     
 
-        health = true; 
+        healthUpdate = true; 
     }
 
     public void pickUp(int amount, int type)
@@ -343,6 +355,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (type == 1) {
 
             totalAmmo += amount;
+            UpdateAmmo();
         }
     }
 
