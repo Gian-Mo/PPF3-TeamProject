@@ -238,6 +238,16 @@ public class GameManager : MonoBehaviour
                 currEnemy++;
             }
         }
+
+        if (bossCurr)
+        {
+            GameObject[] bosses = GameObject.FindGameObjectsWithTag("Boss");
+            if(bosses.Length == 0)
+            {
+                bossCurr = false;
+                YouWin();
+            }
+        }
     }
 
     public void FlashScreen(Color color)

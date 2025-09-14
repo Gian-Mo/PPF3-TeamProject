@@ -10,6 +10,7 @@ TagManager:
   - SpawnPoint
   - Button
   - FloorReference
+  - Boss
   layers:
   - Default
   - TransparentFX
