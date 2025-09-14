@@ -208,9 +208,29 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: bossAt
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: navMesh
       value: 
       objectReference: {fileID: 1240122740}
+    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: creation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: startSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: bossPieces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: 'bossPieces.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5251630235378299775, guid: 8aa4c4051b6eec34e80cb72614a8d534, type: 3}
     - target: {fileID: 7235739032958369411, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: m_Name
       value: UI
@@ -238,11 +258,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7611941764604202675, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.000061035156
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7611941764604202675, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 797.18933
+      value: 761.58997
       objectReference: {fileID: 0}
     - target: {fileID: 7611941764604202675, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -275,6 +295,14 @@ PrefabInstance:
     - target: {fileID: 8437300393814238484, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101454250449589056, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101454250449589056, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -17.189331
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class mapManager : MonoBehaviour
 {
+
+    System.Random rand = new System.Random();
     [Header("+ Pieces")]
     [SerializeField] private GameObject[] crossPieces;
     [Header("L Pieces")]
@@ -17,6 +19,8 @@ public class mapManager : MonoBehaviour
     [SerializeField] private GameObject[] startPieces;
     [Header("Win Pieces")]
     [SerializeField] private GameObject[] winPieces;
+    [Header("Boss Levels")]
+    [SerializeField] private GameObject[] bossPieces;
 
     public int gridSize = 3;
     [SerializeField] private int blockSize = 20;
@@ -47,11 +51,6 @@ public class mapManager : MonoBehaviour
             col = c;
         }
     };
-
-    public void incrementMapSize()
-    {
-        gridSize++;
-    }
 
     private direction opposite(direction d)
     {
@@ -195,7 +194,6 @@ private position move(position p, direction d)
             build = new Vector3(floorPos.x - width/2f, -2 + floorPos.y, floorPos.z + depth/2f);
         }
 
-        System.Random rand = new System.Random();
         List<List<tile>> map = new List<List<tile>>();
         List<List<bool>> visited = new List<List<bool>>();
 
@@ -293,6 +291,32 @@ private position move(position p, direction d)
         }
     }
 
+    public void bossGen()
+    {
+        deleteMap();
+        enemySpawns.Clear();
+
+
+        GameObject floorRef = GameObject.FindGameObjectWithTag("FloorReference");
+        Vector3 build = Vector3.zero;
+        if (floorRef != null)
+        {
+            Vector3 floorPos = floorRef.transform.position;
+            Vector3 floorScale = floorRef.transform.localScale;
+            float width = floorScale.x * 10f;
+            float depth = floorScale.y * 10f;
+            build = new Vector3(floorPos.x - width / 2f + 15, -2 + floorPos.y, floorPos.z + depth / 2f);
+        }
+
+        GameObject startPrefab = startPieces[rand.Next(startPieces.Length)];
+        GameObject startRoom = Instantiate(startPrefab, build, Quaternion.identity, transform);
+        mapObj.Add(startRoom);
+
+        build = build + new Vector3(blockSize - 12, 0, -13);
+        GameObject bossPrefab = bossPieces[rand.Next(bossPieces.Length)];
+        GameObject bossRoom = Instantiate(bossPrefab, build, Quaternion.identity, transform);
+        mapObj.Add(bossRoom);
+    }
 
     public void deleteMap()
     {
@@ -305,7 +329,7 @@ private position move(position p, direction d)
     }
     void Start()
     {
-        gridSize--;
+
     }
 
     void Update()

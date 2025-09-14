@@ -51,6 +51,8 @@ public class GameManager : MonoBehaviour
     public enemySpawn enemySpawner;
     public int currEnemy = 0;
     public bool exists = false;
+    [SerializeField] private int bossAt = 3;
+    public bool bossCurr = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -169,13 +171,23 @@ public class GameManager : MonoBehaviour
             timeDone += Time.deltaTime;
             yield return null;
         }
-        mapManagerScript.incrementMapSize();
-        mapManagerScript.generateMap();
+
+
+        if(level == bossAt)
+        {
+            bossCurr = true;
+            mapManagerScript.bossGen();
+        }
+        else
+        {
+            bossCurr = false;
+            mapManagerScript.generateMap();
+        }
 
         if (navMesh != null)
             navMesh.BuildNavMesh();
 
-        if (enemySpawner != null)
+        if (!bossCurr && enemySpawner != null)
         {
             List<Vector3> spawns = new List<Vector3>(mapManagerScript.enemySpawns);
             if (spawns.Count > 0)
@@ -208,7 +220,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (enemySpawner != null)
+        if (!bossCurr && enemySpawner != null)
         {
             currEnemy = enemySpawner.livingEnemies.Count;
             if (currEnemy < ((level + 1) * 3) && exists)
