@@ -1,4 +1,7 @@
 using System.Collections;
+using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -18,18 +21,18 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
+    [SerializeField] Quaternion angleDeviation;
 
     Color[] colorOrig;
+    LineRenderer lineRenderer;
 
     float shootTimer;
-    float roamTimer;
     float angletoPlayer;
 
     bool PlayerinTrigger;
 
     Vector3 playerDir;
     Quaternion startingDir;
-    Quaternion angleDeviation;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,37 +41,26 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
         colorOrig[0] = model.materials[0].color;
         colorOrig[1] = model.materials[1].color;
         colorOrig[2] = model.materials[2].color;
-
-        startingDir = transform.rotation;
-        angleDeviation = Quaternion.Euler(0f, roamAngle, 0f);
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerinTrigger && !canSeePlayer())
+        RaycastHit hit;
+        Physics.Raycast(headPos.position, playerDir, out hit);
+        if (PlayerinTrigger && canSeePlayer())
         {
-            roamTimer += Time.deltaTime;
-            checkRoam();
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, shootPos.transform.position);
+            lineRenderer.SetPosition(1, hit.point);
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
         }
-        else if (!PlayerinTrigger)
+        else
         {
-            checkRoam();
+            lineRenderer.enabled = false;
         }
-    }
-
-
-    void checkRoam()
-    {
-        if (roamTimer >= roamPauseTime)
-        {
-            roam();
-        }
-    }
-
-    void roam()
-    {
-        StartCoroutine(lookAround());
     }
 
     bool canSeePlayer()
@@ -83,9 +75,9 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
             //if I can see you
             if (hit.collider.CompareTag("Player") && angletoPlayer <= FOV)
             {
-                roamTimer = 0;
+                shootTimer += Time.deltaTime;
                 shoot();
-
+                faceTarget();
                 return true;
             }
         }
@@ -94,7 +86,7 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
 
     void faceTarget()
     {
-        Quaternion rot = Quaternion.LookRotation(playerDir);
+        Quaternion rot = Quaternion.LookRotation(new Vector3(playerDir.x - 0.3f, 0, playerDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * faceTargetSpeed);
     }
 
@@ -108,12 +100,11 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
 
     void shoot()
     {
-        shootTimer = 0;
-        shootTimer += Time.deltaTime;
 
         if (shootTimer >= shootRate)
         {
             Instantiate(bullet, shootPos.position, transform.rotation);
+            shootTimer = 0;
         }   
     }
 
@@ -147,12 +138,5 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
     {
         faceTarget();
     }
-
-    IEnumerator lookAround()
-    {
-        Quaternion lookDir = startingDir * angleDeviation;
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookDir, Time.deltaTime * faceTargetSpeed);
-        yield return new WaitForSeconds(faceTargetSpeed);
-        lookDir = lookDir * Quaternion.Euler(0f, -roamAngle, 0f);
-    }
+    
 }
