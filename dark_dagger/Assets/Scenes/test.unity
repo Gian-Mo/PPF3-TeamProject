@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &71479620 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7686008627166132478, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-  m_PrefabInstance: {fileID: 89364038}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed92c5432c1cd343be3054cd9174fff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &89364038
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -222,18 +211,6 @@ PrefabInstance:
       propertyPath: navMesh
       value: 
       objectReference: {fileID: 1240122740}
-    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: creation
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: enemySpawner
-      value: 
-      objectReference: {fileID: 71479620}
-    - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: blockSize
-      value: 12
-      objectReference: {fileID: 0}
     - target: {fileID: 7235739032958369411, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: m_Name
       value: UI
