@@ -285,7 +285,7 @@ private position move(position p, direction d)
                     mapObj.Add(piece);
                 }
 
-                if (map[r][c].type != "O")
+                if (map[r][c].type != "O" && c > 0)
                     enemySpawns.Add(pos);
             }
         }
