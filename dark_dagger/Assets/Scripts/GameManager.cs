@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     public bool exists = false;
     [SerializeField] private int bossAt = 3;
     public bool bossCurr = false;
+    private Coroutine mapGenCoroutine;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -224,7 +225,11 @@ public class GameManager : MonoBehaviour
     public void levelGen()
     {
         mapManagerScript.gridSize = startSize + level;
-        StartCoroutine(loadGenMap());
+
+        if(mapGenCoroutine != null)
+            StopCoroutine(mapGenCoroutine);
+
+        mapGenCoroutine = StartCoroutine(loadGenMap());
     }
 
     void Update()
