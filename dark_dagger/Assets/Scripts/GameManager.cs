@@ -230,4 +230,20 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    public void FlashScreen(Color color)
+    {
+        color.a = 0.15f;
+        playerGetsDamaged.GetComponent<Image>().color = color;
+
+
+        StartCoroutine(flashDamageScreen());
+    }
+
+    IEnumerator flashDamageScreen()
+    {
+        playerGetsDamaged.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        playerGetsDamaged.SetActive(false);
+    }
 }
