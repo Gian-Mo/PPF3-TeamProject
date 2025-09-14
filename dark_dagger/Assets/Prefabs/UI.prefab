@@ -3603,7 +3603,7 @@ MonoBehaviour:
   bossPieces:
   - {fileID: 5251630235378299775, guid: 8aa4c4051b6eec34e80cb72614a8d534, type: 3}
   gridSize: 5
-  blockSize: 20
+  blockSize: 12
   enemySpawns: []
 --- !u!114 &7686008627166132478
 MonoBehaviour:
