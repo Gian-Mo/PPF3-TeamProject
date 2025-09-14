@@ -192,7 +192,7 @@ private position move(position p, direction d)
             Vector3 floorScale = floorRef.transform.localScale;
             float width = floorScale.x * 10f;
             float depth = floorScale.y * 10f;
-            build = new Vector3(floorPos.x - width/2f, -2 + floorPos.y, floorPos.z + depth/2f);
+            build = new Vector3(floorPos.x - width/2f, -3 + floorPos.y, floorPos.z + depth/2f);
         }
 
         System.Random rand = new System.Random();

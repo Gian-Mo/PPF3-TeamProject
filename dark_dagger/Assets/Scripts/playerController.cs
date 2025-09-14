@@ -54,6 +54,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         HPOrig = HP;
         heighOrig = controller.height;
         anim.SetBool("Pistol", true);
@@ -89,7 +90,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         if (shootRot)
         {
-            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), 100 * Time.deltaTime); 
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), 20 * Time.deltaTime); 
         }
 
         SetAnimLoco();
@@ -170,7 +171,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                         StartCoroutine(TurnPlayerWhenShoot()); 
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
-                    GameObject bullet = Instantiate(projectile,gunModel.transform.position,Quaternion.LookRotation(mouseDirection));
+                    GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if(gunDmg != null && currGun != null)
                         gunDmg.setDamage(currGun.shootDamage);                    
@@ -365,7 +366,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             GameManager.instance.YouLose();
         }     
 
-        healthUpdate = true; 
+        healthUpdate = true;
+        GameManager.instance.FlashScreen(Color.softRed);
     }
 
     public void pickUp(int amount, int type)
@@ -383,6 +385,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
             healthUpdate = true;
             healing = true;
+            GameManager.instance.FlashScreen(Color.lightGreen);
         }
         if (type == 1) {
 
