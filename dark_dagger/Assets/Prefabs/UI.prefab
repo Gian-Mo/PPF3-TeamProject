@@ -3480,12 +3480,12 @@ MonoBehaviour:
   menu: {fileID: 8140549699904887516, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   menu2: {fileID: -3565235732013026194, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   isPaused: 0
-  creation: 0
+  creation: 1
   mapManagerScript: {fileID: 3752158309372370318}
   navMesh: {fileID: 0}
   level: 0
   startSize: 3
-  enemySpawner: {fileID: 0}
+  enemySpawner: {fileID: 7686008627166132478}
   currEnemy: 0
   exists: 0
 --- !u!114 &3752158309372370318
@@ -3524,7 +3524,7 @@ MonoBehaviour:
   winPieces:
   - {fileID: 1125753827682347519, guid: 2ffb21cbbc099b048b51e990aabd5de7, type: 3}
   gridSize: 5
-  blockSize: 10
+  blockSize: 12
   enemySpawns: []
 --- !u!114 &7686008627166132478
 MonoBehaviour:
