@@ -2560,7 +2560,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 2729351328922524811}
-  HP: 5
+  HP: 3
   speed: 3
   model: {fileID: 4428720909343990518}
   anim: {fileID: 6804385082360028551}
@@ -2579,8 +2579,8 @@ MonoBehaviour:
   shoot: {fileID: -4997133940913989919, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   meele: {fileID: 7339354455106527120, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   crouch: {fileID: -7903316612819512164, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
-  reload: {fileID: 0}
-  totalAmmo: 0
+  reload: {fileID: 3976654253434946608, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
+  totalAmmo: 100
   noiseLevel: 1
 --- !u!143 &2729351328922524811
 CharacterController:
