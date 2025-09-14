@@ -3475,6 +3475,7 @@ MonoBehaviour:
   player: {fileID: 0}
   playerScript: {fileID: 0}
   playerHP: {fileID: 5788167654972697379}
+  playerAmmo: {fileID: 8217338484228512150}
   playerGetsDamaged: {fileID: 0}
   menu: {fileID: 8140549699904887516, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   menu2: {fileID: -3565235732013026194, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
@@ -3902,7 +3903,7 @@ GameObject:
   - component: {fileID: 4353301354411279856}
   - component: {fileID: 8217338484228512150}
   m_Layer: 5
-  m_Name: Heath (1)
+  m_Name: ReloadFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

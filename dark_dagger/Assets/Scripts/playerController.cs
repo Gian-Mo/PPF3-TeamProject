@@ -298,6 +298,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootLine.enabled = true;
         shootLine.SetPosition(0, transform.position);
         shootLine.SetPosition(1, hit.point);
+        shootLine.startColor = Color.red;
+        shootLine.endColor = Color.yellow;
 
         yield return new WaitForSeconds(0.1f);
 
