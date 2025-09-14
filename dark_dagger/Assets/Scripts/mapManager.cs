@@ -18,11 +18,13 @@ public class mapManager : MonoBehaviour
     [Header("Win Pieces")]
     [SerializeField] private GameObject[] winPieces;
 
-    [SerializeField] private int gridSize = 3;
+    public int gridSize = 3;
     [SerializeField] private int blockSize = 20;
 
     private List<List<tile>> currMap;
     private List<GameObject> mapObj = new List<GameObject>();
+
+    public List<Vector3> enemySpawns = new List<Vector3>();
     private enum direction { UP = 0, RIGHT, DOWN, LEFT };
 
     private class tile
@@ -180,6 +182,19 @@ private position move(position p, direction d)
     {
         deleteMap();
 
+        enemySpawns.Clear();
+
+        GameObject floorRef = GameObject.FindGameObjectWithTag("FloorReference");
+        Vector3 build = Vector3.zero;
+        if (floorRef != null)
+        {
+            Vector3 floorPos = floorRef.transform.position;
+            Vector3 floorScale = floorRef.transform.localScale;
+            float width = floorScale.x * 10f;
+            float depth = floorScale.y * 10f;
+            build = new Vector3(floorPos.x - width/2f, -2 + floorPos.y, floorPos.z + depth/2f);
+        }
+
         System.Random rand = new System.Random();
         List<List<tile>> map = new List<List<tile>>();
         List<List<bool>> visited = new List<List<bool>>();
@@ -235,7 +250,7 @@ private position move(position p, direction d)
         {
             for (int c = 0; c < gridSize + 1; c++)
             {
-                Vector3 pos = new Vector3(c * blockSize, 0, -r * blockSize);
+                Vector3 pos = build + new Vector3(c * blockSize, 0, -r * blockSize);
                 GameObject prefab = null;
 
                 switch (map[r][c].type)
@@ -265,12 +280,15 @@ private position move(position p, direction d)
                 if (prefab != null)
                 {
                     if (prefab.CompareTag("Problem"))
-                        pos += new Vector3(0, 2.5f, 0);
+                        pos += new Vector3(0, 1.75f, 0);
                     int turn = getRotAmt(map[r][c]);
                     Quaternion rot = Quaternion.Euler(0f, 90f * turn, 0f);
                     GameObject piece = Instantiate(prefab, pos, rot, transform);
                     mapObj.Add(piece);
                 }
+
+                if (map[r][c].type != "O")
+                    enemySpawns.Add(pos);
             }
         }
     }

@@ -1,9 +1,12 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class enemySpawn : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyPrefabs;
     private Transform[] spawnPoints;
+    private List<GameObject> livingEnemies = new List<GameObject>();
 
     public void findSpawns()
     {
@@ -19,7 +22,7 @@ public class enemySpawn : MonoBehaviour
         for (int i = 0; i < spawnPointsObj.Length; i++)
             spawnPoints[i] = spawnPointsObj[i].transform;
     }
-    public void SpawnRandomEnemy()
+    public void spawnRandomEnemy()
     {
         if (enemyPrefabs.Length == 0)
         {
@@ -37,6 +40,31 @@ public class enemySpawn : MonoBehaviour
         GameObject enemy = enemyPrefabs[enemyIndex];
         Transform spawn = spawnPoints[spawnIndex];
 
-        Instantiate(enemy, spawn.position, spawn.rotation);
+        GameObject summoned = Instantiate(enemy, spawn.position, spawn.rotation);
+        livingEnemies.Add(summoned);
+    }
+
+    public void spawnWithoutDoor(Vector3 pos)
+    {
+        if (enemyPrefabs.Length == 0)
+        {
+            Debug.LogWarning("No enemies assigned.");
+            return;
+        }
+        int enemyInd = Random.Range(0, enemyPrefabs.Length);
+        GameObject enemy = enemyPrefabs[enemyInd];
+        Vector3 spawnPos = pos + new Vector3(0, 0.5f, 0);
+        GameObject summoned = Instantiate(enemy, spawnPos, Quaternion.identity);
+        livingEnemies.Add(summoned);
+    }
+
+    public void resetEnemies()
+    {
+        foreach (GameObject alive in livingEnemies)
+        {
+            if (alive != null)
+                Destroy(alive);
+        }
+        livingEnemies.Clear();
     }
 }

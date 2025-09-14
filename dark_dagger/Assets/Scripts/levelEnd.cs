@@ -17,7 +17,9 @@ public class levelEnd : MonoBehaviour
         {
             if(manager != null)
             {
-                //manager.levelGen();
+                manager.level++;
+                manager.exists = false;
+                manager.levelGen();
             }
         }
     }

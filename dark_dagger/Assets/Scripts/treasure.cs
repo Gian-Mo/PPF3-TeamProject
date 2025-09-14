@@ -38,20 +38,19 @@ public class treasure : MonoBehaviour
 
     private gunStats generateGun()
     {
-        gunStats loot = new gunStats();
+        gunStats loot = ScriptableObject.CreateInstance<gunStats>();
         System.Random rand = new System.Random();
 
         int gamble = rand.Next(1, 4);
         if (gamble == 1)
         {
             loot.type = "Pistol";
-            Destroy(rifleModel);
-            Destroy(sniperModel);
+            //Destroy(rifleModel);
+            //Destroy(sniperModel);
             rifleSound = null;
             sniperSound = null;
 
-            loot.model.GetComponent<MeshFilter>().sharedMesh = pistolModel.GetComponent<MeshFilter>().sharedMesh;
-            loot.model.GetComponent<MeshRenderer>().sharedMaterial = pistolModel.GetComponent<MeshRenderer>().sharedMaterial;
+            loot.model = pistolModel;
             loot.shootSound = pistolSound;
             loot.shootVol = (float)(rand.NextDouble() * (0.3 - 0.1) + 0.1);
             loot.shootDamage = rand.Next(1, 4);
@@ -63,12 +62,11 @@ public class treasure : MonoBehaviour
         if (gamble == 2)
         {
             loot.type = "Rifle";
-            Destroy(pistolModel);
-            Destroy(sniperModel);
+            //Destroy(pistolModel);
+            //Destroy(sniperModel);
             pistolSound = null;
             sniperSound = null;
-            loot.model.GetComponent<MeshFilter>().sharedMesh = rifleModel.GetComponent<MeshFilter>().sharedMesh;
-            loot.model.GetComponent<MeshRenderer>().sharedMaterial = rifleModel.GetComponent<MeshRenderer>().sharedMaterial;
+            loot.model = rifleModel;
             loot.shootSound = rifleSound;
             loot.shootVol = (float)(rand.NextDouble() * (0.6 - 0.3) + 0.3);
             loot.shootDamage = rand.Next(1, 3);
@@ -80,12 +78,11 @@ public class treasure : MonoBehaviour
         if (gamble == 3)
         {
             loot.type = "Sniper";
-            Destroy(rifleModel);
-            Destroy(pistolModel);
+            //Destroy(rifleModel);
+            //Destroy(pistolModel);
             rifleSound = null;
             pistolSound = null;
-            loot.model.GetComponent<MeshFilter>().sharedMesh = sniperModel.GetComponent<MeshFilter>().sharedMesh;
-            loot.model.GetComponent<MeshRenderer>().sharedMaterial = sniperModel.GetComponent<MeshRenderer>().sharedMaterial;
+            loot.model = sniperModel;
             loot.shootSound = sniperSound;
             loot.shootVol = (float)(rand.NextDouble() * (1.0 - 0.6) + 0.6);
             loot.shootDamage = rand.Next(5, 11);

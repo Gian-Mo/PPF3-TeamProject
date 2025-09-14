@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 662209759018564191}
   - component: {fileID: 1816871079590640870}
   - component: {fileID: 7579758918786593320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyDoor
   m_TagString: SpawnPoint
   m_Icon: {fileID: 0}

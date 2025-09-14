@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
-using Unity.VisualScripting;
-using System;
-using UnityEditor;
+using Unity.AI.Navigation;
+using System.Collections.Generic;
 
 
 
@@ -38,24 +37,41 @@ public class GameManager : MonoBehaviour
     float timesScaleOrig;
     int gameGoalCount;
 
+    [SerializeField] bool creation;
+    public mapManager mapManagerScript;
+
+    [SerializeField] private NavMeshSurface navMesh;
+
+    public int level = 0;
+    [SerializeField] int startSize = 3;
+
+    public enemySpawn enemySpawner;
+    public int currEnemy = 0;
+    public bool exists = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
         if (instance == null)
         {
-            instance = this; 
+            instance = this;
         }
         timesScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
-       
+        if (creation)
+        {
+            mapManagerScript = GetComponent<mapManager>();
+            mapManagerScript.gridSize = startSize;
+            StartCoroutine(genMap());
+        }
     }
 
 
     public void statePause()
     {
-     
+
         isPaused = !isPaused;
 
 
@@ -68,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void stateUnpause()
     {
-      
+
         isPaused = !isPaused;
 
         Time.timeScale = timesScaleOrig;
@@ -95,11 +111,11 @@ public class GameManager : MonoBehaviour
             menuActive.SetActive(true);
 
 
-           
+
         }
         else if (menuActive == menuPause)
         {
-            stateUnpause();        
+            stateUnpause();
 
 
         }
@@ -109,15 +125,78 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
-        menu.action.started += Pause; 
-       menu2.action.started += Pause;
-       
+        menu.action.started += Pause;
+        menu2.action.started += Pause;
+
     }
     private void OnDisable()
     {
-        menu.action.started -= Pause;  
-      menu2.action.started -= Pause;
-       
+        menu.action.started -= Pause;
+        menu2.action.started -= Pause;
+
     }
 
+    private IEnumerator loadGenMap()
+    {
+        menuLoading.SetActive(true);
+        enemySpawner.resetEnemies();
+
+        float waitTime = 3f;
+        float timeDone = 0f;
+
+        while (timeDone < waitTime)
+        {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                break;
+            }
+            timeDone += Time.deltaTime;
+            yield return null;
+        }
+        mapManagerScript.incrementMapSize();
+        mapManagerScript.generateMap();
+
+        if (navMesh != null)
+            navMesh.BuildNavMesh();
+
+        if(enemySpawner != null)
+        {
+            List<Vector3> spawns = new List<Vector3>(mapManagerScript.enemySpawns);
+            if (spawns.Count > 0)
+            {
+                for (int i = 0; i < 5 * (level + 1); i++)
+                {
+                    int ind = Random.Range(0, spawns.Count);
+                    Vector3 pos = spawns[ind];
+                    enemySpawner.spawnWithoutDoor(pos);
+                    currEnemy++;
+                }
+            }
+
+            enemySpawner.findSpawns();
+        }
+        exists = true;
+        menuLoading.SetActive(false);
+    }
+
+    private IEnumerator genMap()
+    {
+        yield return StartCoroutine(loadGenMap());
+    }
+
+    public void levelGen()
+    {
+        mapManagerScript.gridSize = startSize + level;
+        StartCoroutine(loadGenMap());
+    }
+
+    void Update()
+    {
+
+        if(currEnemy < ((level + 1) * 3) && exists && enemySpawner != null)
+        {
+            enemySpawner.spawnRandomEnemy();
+            currEnemy++; 
+        }
+    }
 }

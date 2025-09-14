@@ -2230,6 +2230,7 @@ GameObject:
   - component: {fileID: 689432033818385565}
   - component: {fileID: 1410811570768484284}
   - component: {fileID: 3752158309372370318}
+  - component: {fileID: 7686008627166132478}
   - component: {fileID: 8038950709946415164}
   m_Layer: 0
   m_Name: GameManager
@@ -2280,6 +2281,14 @@ MonoBehaviour:
   menu: {fileID: 8140549699904887516, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   menu2: {fileID: -3565235732013026194, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   isPaused: 0
+  creation: 1
+  mapManagerScript: {fileID: 3752158309372370318}
+  navMesh: {fileID: 0}
+  level: 0
+  startSize: 3
+  enemySpawner: {fileID: 0}
+  currEnemy: 0
+  exists: 0
 --- !u!114 &3752158309372370318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2315,8 +2324,23 @@ MonoBehaviour:
   - {fileID: 6483574858957289881, guid: 94ae7cf56b5311c47ad761951f77f656, type: 3}
   winPieces:
   - {fileID: 1125753827682347519, guid: 2ffb21cbbc099b048b51e990aabd5de7, type: 3}
-  gridSize: 3
-  blockSize: 20
+  gridSize: 5
+  blockSize: 10
+  enemySpawns: []
+--- !u!114 &7686008627166132478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6548002644955131245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed92c5432c1cd343be3054cd9174fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 8416915961655418077, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
 --- !u!114 &8038950709946415164
 MonoBehaviour:
   m_ObjectHideFlags: 0
