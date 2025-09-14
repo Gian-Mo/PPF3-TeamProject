@@ -312,7 +312,7 @@ private position move(position p, direction d)
         GameObject startRoom = Instantiate(startPrefab, build, Quaternion.identity, transform);
         mapObj.Add(startRoom);
 
-        build = build + new Vector3(blockSize - 12, 0, -13);
+        build = build + new Vector3(blockSize - 12, 0, -12);
         GameObject bossPrefab = bossPieces[rand.Next(bossPieces.Length)];
         GameObject bossRoom = Instantiate(bossPrefab, build, Quaternion.identity, transform);
         mapObj.Add(bossRoom);

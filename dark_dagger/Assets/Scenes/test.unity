@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: bossAt
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: navMesh
@@ -221,7 +221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: startSize
-      value: 4
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
+      propertyPath: blockSize
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: bossPieces.Array.size
