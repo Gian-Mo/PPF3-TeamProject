@@ -3555,7 +3555,7 @@ MonoBehaviour:
   menu: {fileID: 8140549699904887516, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   menu2: {fileID: -3565235732013026194, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   isPaused: 0
-  creation: 0
+  creation: 1
   mapManagerScript: {fileID: 3752158309372370318}
   navMesh: {fileID: 0}
   level: 0
@@ -3603,7 +3603,7 @@ MonoBehaviour:
   bossPieces:
   - {fileID: 5251630235378299775, guid: 8aa4c4051b6eec34e80cb72614a8d534, type: 3}
   gridSize: 5
-  blockSize: 12
+  blockSize: 15
   enemySpawns: []
 --- !u!114 &7686008627166132478
 MonoBehaviour:
