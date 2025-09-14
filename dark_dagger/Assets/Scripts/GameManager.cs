@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
         if (navMesh != null)
             navMesh.BuildNavMesh();
 
-        if(enemySpawner != null)
+        if (enemySpawner != null)
         {
             List<Vector3> spawns = new List<Vector3>(mapManagerScript.enemySpawns);
             if (spawns.Count > 0)
@@ -192,11 +192,14 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-        if(currEnemy < ((level + 1) * 3) && exists && enemySpawner != null)
+        if (enemySpawner != null)
         {
-            enemySpawner.spawnRandomEnemy();
-            currEnemy++; 
+            currEnemy = enemySpawner.livingEnemies.Count;
+            if (currEnemy < ((level + 1) * 3) && exists)
+            {
+                enemySpawner.spawnRandomEnemy();
+                currEnemy++;
+            }
         }
     }
 }

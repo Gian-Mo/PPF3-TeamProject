@@ -6,7 +6,7 @@ public class enemySpawn : MonoBehaviour
 {
     [SerializeField] private GameObject[] enemyPrefabs;
     private Transform[] spawnPoints;
-    private List<GameObject> livingEnemies = new List<GameObject>();
+    public List<GameObject> livingEnemies = new List<GameObject>();
 
     public void findSpawns()
     {
