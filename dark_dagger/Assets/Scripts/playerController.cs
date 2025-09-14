@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     int HPOrig;
     float heighOrig;
+    int speedOrig; 
     public Vector3 playerVel;
 
     public InputActionReference move;
@@ -41,6 +42,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool ableToShoot;
     bool ableToCrouch;
     bool healthUpdate;
+    bool healing;
     bool ammoUpdate;  
     public int totalAmmo;
     float meeleTimer;
@@ -49,12 +51,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     float gunNoiseLevel;
     SphereCollider objectCollider;
     public float noiseLevel = 0;
+    GameObject actualGun;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         HPOrig = HP;
         heighOrig = controller.height;
+        speedOrig = speed;
         anim.SetBool("Pistol", true);
 
         objectCollider = GetComponent<SphereCollider>();
@@ -88,7 +93,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         if (shootRot)
         {
-            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), 100 * Time.deltaTime); 
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), 20 * Time.deltaTime); 
         }
 
         SetAnimLoco();
@@ -131,6 +136,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         anim.SetFloat("Speed",Mathf.Lerp( animSpeedCur, playerSpeedCur, Time.deltaTime * animTranSpeed));
 
     }
+    void SetShootAnim()
+    {
+        actualGun.GetComponent<Animator>().SetTrigger("Shoot");        
+
+    }
    void ReloadWeapon() { 
 
         if(currGun.ammoMax - currGun.ammoCur >= totalAmmo )
@@ -163,13 +173,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
                 if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
                 {
+                    SetShootAnim();
                    
                     if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
                     {
                         StartCoroutine(TurnPlayerWhenShoot()); 
                     }
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
-                    GameObject bullet = Instantiate(projectile,gunModel.transform.position,Quaternion.LookRotation(mouseDirection));
+                    GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if(gunDmg != null && currGun != null)
                         gunDmg.setDamage(currGun.shootDamage);                    
@@ -278,6 +289,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void CrouchTrue(InputAction.CallbackContext context)
     {
         ableToCrouch = true;
+        speed = 3;
     }
     void ShootTrue(InputAction.CallbackContext context)
     {
@@ -286,6 +298,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void CrouchFalse(InputAction.CallbackContext context)
     {
         ableToCrouch = false;
+        speed = speedOrig;
     }
     void ShootFalse(InputAction.CallbackContext context)
     {
@@ -314,12 +327,40 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     public void UpdatePalyerUI()
     {
-       //HP
-        GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount,(float)HP / HPOrig, 2 * Time.deltaTime); 
-       
+        //HP
+        if (healthUpdate)
+        {
+            GameManager.instance.playerHP.fillAmount = Mathf.Lerp(GameManager.instance.playerHP.fillAmount, (float)HP / HPOrig, 2 * Time.deltaTime);
+
+            if (!healing)
+            {
+                if (GameManager.instance.playerHP.fillAmount - ((float)HP / HPOrig) < 0.01)
+                {
+                    healthUpdate = false;
+
+                } 
+            }
+            else
+            {
+
+                if ( ((float)HP / HPOrig) - GameManager.instance.playerHP.fillAmount < 0.001)
+                {
+                    healthUpdate = false;
+                    healing = false;
+
+                }
+            }
+        }
+
+
         //Ammo
-        GameManager.instance.playerAmmo.fillAmount = Mathf.Lerp(GameManager.instance.playerAmmo.fillAmount, (float)currGun.ammoCur / currGun.ammoMax, 2 * Time.deltaTime);
-        
+        if (ammoUpdate)
+        {
+
+            GameManager.instance.playerAmmo.fillAmount = Mathf.Lerp(GameManager.instance.playerAmmo.fillAmount, (float)currGun.ammoCur / currGun.ammoMax, 2 * Time.deltaTime);
+
+           
+        }
 
     }
     void UpdateAmmo()
@@ -330,13 +371,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     public void takeDamage(int ammount)
     {
        HP -= ammount;
+       GameManager.instance.FlashScreen(Color.softRed);
+       healthUpdate = true;
 
         if (HP <= 0) { 
         
             GameManager.instance.YouLose();
         }     
 
-        healthUpdate = true; 
     }
 
     public void pickUp(int amount, int type)
@@ -352,7 +394,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 HP = HPOrig;
             }
 
-           
+            healthUpdate = true;
+            healing = true;
+            GameManager.instance.FlashScreen(Color.lightGreen);
         }
         if (type == 1) {
 
@@ -367,7 +411,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         shootDist = gun.shootDistance;
         shootCoolDown = gun.shootRate;
         gunNoiseLevel = gun.shootVol * 10;
-       Instantiate(gun.model, gunModel.transform);
+       actualGun = Instantiate(gun.model, gunModel.transform);
         currGun.ammoCur = currGun.ammoMax;
      
         //gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class treasure : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class treasure : MonoBehaviour
     public AudioClip[] pistolSound;
     public AudioClip[] rifleSound;
     public AudioClip[] sniperSound;
-    public TextMeshProUGUI text;
+    public TextMeshPro text;
 
     private bool nearby = false;
     private playerController player;
@@ -30,7 +31,7 @@ public class treasure : MonoBehaviour
         {
             text.transform.rotation = Quaternion.LookRotation(text.transform.position - Camera.main.transform.position);
         }
-        if (nearby && Input.GetKeyDown(KeyCode.Space))
+        if (nearby && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             gunSwap();
         }
