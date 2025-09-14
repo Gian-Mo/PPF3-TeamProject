@@ -1,5 +1,7 @@
-using UnityEngine;
+using NUnit.Framework.Interfaces;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class enemyAI_basic : MonoBehaviour, IDamage, INoise
@@ -15,6 +17,8 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     [SerializeField] int roamDist;
     [SerializeField] int roamPauseTime;
     [SerializeField] int animTransSpeed;
+
+    [SerializeField] List<GameObject> dropTable = new List<GameObject>();
 
     [SerializeField] GameObject bullet;
     [SerializeField] float shootRate;
