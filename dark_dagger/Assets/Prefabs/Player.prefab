@@ -2362,7 +2362,7 @@ MonoBehaviour:
   meeleDamage: 10
   shootCoolDown: 0.75
   meeleCoolDown: 3
-  currGun: {fileID: 0}
+  currGun: {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
   gunModel: {fileID: 565943518005893007}
   playerVel: {x: 0, y: 0, z: 0}
   move: {fileID: 7986204955325603242, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}

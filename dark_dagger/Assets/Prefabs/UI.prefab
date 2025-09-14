@@ -2209,7 +2209,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2908464253244225038}
         m_TargetAssemblyTypeName: buttonFunctionality, Assembly-CSharp
-        m_MethodName: Resume
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2269,11 +2269,12 @@ MonoBehaviour:
   menuActive: {fileID: 0}
   menuPause: {fileID: 2012767613659602799}
   menuWin: {fileID: 0}
-  menuLose: {fileID: 0}
+  menuLose: {fileID: 7223538243292379982}
   menuLoading: {fileID: 3666605621826744608}
   AmmoCurWeapon: {fileID: 0}
   AmmoCurInventory: {fileID: 0}
   PlayerInput: {fileID: 8038950709946415164}
+  buttonController: {fileID: 8273775990107721245}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   playerHP: {fileID: 5788167654972697379}
@@ -2281,7 +2282,7 @@ MonoBehaviour:
   menu: {fileID: 8140549699904887516, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   menu2: {fileID: -3565235732013026194, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   isPaused: 0
-  creation: 1
+  creation: 0
   mapManagerScript: {fileID: 3752158309372370318}
   navMesh: {fileID: 0}
   level: 0
@@ -2625,13 +2626,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7754086683799485318}
+  - component: {fileID: 6587873503849256364}
   m_Layer: 5
   m_Name: LoseMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7754086683799485318
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2656,6 +2658,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &6587873503849256364
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7223538243292379982}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7235739032958369411
 GameObject:
   m_ObjectHideFlags: 0
