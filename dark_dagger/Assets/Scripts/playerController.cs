@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool ableToCrouch;
     bool healthUpdate;
     bool ammoUpdate;  
-   public int totalAmmo;
+    public int totalAmmo;
     float meeleTimer;
     float shootTimer;
 
