@@ -25,8 +25,12 @@ public class MainMenuManager : MonoBehaviour
         SceneManager.LoadScene("Testest");
       
     }
-    
-   public void Settings()
+    public void StartShowcase()
+    {
+        SceneManager.LoadScene("Showcase");
+
+    }
+    public void Settings()
    {
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);

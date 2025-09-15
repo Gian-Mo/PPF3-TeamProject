@@ -1126,6 +1126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spawnPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 7213874270324416711, guid: 2a8d197820b4804458a423d7d8bc84b4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8261953173878690692, guid: 2a8d197820b4804458a423d7d8bc84b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.031098736
@@ -1166,7 +1170,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7213874270324416711, guid: 2a8d197820b4804458a423d7d8bc84b4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -16,8 +16,8 @@ MonoBehaviour:
   shootDamage: 1
   shootDistance: 10
   shootRate: 1
-  ammoCur: 12
-  ammoMax: 12
+  ammoCur: 0
+  ammoMax: 5
   type: 
   shootSound: []
   shootVol: 1

@@ -12,7 +12,7 @@ public class playerSpawner : MonoBehaviour
         if (player != null)
         {
             Vector3 spawnPos = transform.position;
-            player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 1.0f, spawnPos.z);
+            player.transform.position = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z);
            
         }
     }

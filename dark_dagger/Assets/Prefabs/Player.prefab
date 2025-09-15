@@ -2580,7 +2580,7 @@ MonoBehaviour:
   meele: {fileID: 7339354455106527120, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   crouch: {fileID: -7903316612819512164, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   reload: {fileID: 3976654253434946608, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
-  totalAmmo: 100
+  totalAmmo: 5
   noiseLevel: 1
 --- !u!143 &2729351328922524811
 CharacterController:
