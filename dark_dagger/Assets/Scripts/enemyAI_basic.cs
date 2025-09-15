@@ -165,6 +165,9 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
         }
         if (HP <= 0)
         {
+            int randomIndex = Random.Range(0, dropTable.Count);
+            Instantiate(dropTable[randomIndex], transform.position, transform.rotation);
+
             Destroy(gameObject);
         }
     }
