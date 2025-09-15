@@ -3602,8 +3602,8 @@ MonoBehaviour:
   - {fileID: 1125753827682347519, guid: 2ffb21cbbc099b048b51e990aabd5de7, type: 3}
   bossPieces:
   - {fileID: 5251630235378299775, guid: 8aa4c4051b6eec34e80cb72614a8d534, type: 3}
-  gridSize: 5
-  blockSize: 15
+  gridSize: 3
+  blockSize: 20
   enemySpawns: []
 --- !u!114 &7686008627166132478
 MonoBehaviour:
