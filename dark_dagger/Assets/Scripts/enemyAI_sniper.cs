@@ -1,10 +1,6 @@
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI.Table;
+
 
 public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
 {
