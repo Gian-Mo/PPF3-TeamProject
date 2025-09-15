@@ -564,25 +564,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: bossAt
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: navMesh
       value: 
       objectReference: {fileID: 154657116}
-    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: creation
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: gridSize
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3752158309372370318, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: blockSize
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 7235739032958369411, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: m_Name
       value: UI
