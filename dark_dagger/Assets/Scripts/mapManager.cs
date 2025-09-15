@@ -191,7 +191,7 @@ private position move(position p, direction d)
             Vector3 floorScale = floorRef.transform.localScale;
             float width = floorScale.x * 10f;
             float depth = floorScale.y * 10f;
-            build = new Vector3(floorPos.x - width/2f, -2 + floorPos.y, floorPos.z + depth/2f);
+            build = new Vector3(floorPos.x - width/2f, -3 + floorPos.y, floorPos.z + depth/2f);
         }
 
         List<List<tile>> map = new List<List<tile>>();
@@ -305,14 +305,14 @@ private position move(position p, direction d)
             Vector3 floorScale = floorRef.transform.localScale;
             float width = floorScale.x * 10f;
             float depth = floorScale.y * 10f;
-            build = new Vector3(floorPos.x - width / 2f + 15, -2 + floorPos.y, floorPos.z + depth / 2f);
+            build = new Vector3(floorPos.x - width / 2f + 20, -3 + floorPos.y, 7 + floorPos.z + depth / 2f);
         }
 
         GameObject startPrefab = startPieces[rand.Next(startPieces.Length)];
         GameObject startRoom = Instantiate(startPrefab, build, Quaternion.identity, transform);
         mapObj.Add(startRoom);
 
-        build = build + new Vector3(blockSize - 12, 0, -12);
+        build = build + new Vector3(blockSize - 20, 0, -20);
         GameObject bossPrefab = bossPieces[rand.Next(bossPieces.Length)];
         GameObject bossRoom = Instantiate(bossPrefab, build, Quaternion.identity, transform);
         mapObj.Add(bossRoom);
