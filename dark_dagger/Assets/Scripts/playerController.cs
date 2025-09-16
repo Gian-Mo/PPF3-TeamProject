@@ -175,10 +175,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 {
                     SetShootAnim();
                    
-                    if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
-                    {
                         StartCoroutine(TurnPlayerWhenShoot()); 
-                    }
+                    //if (Quaternion.Angle(Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), model.transform.rotation) > 90)
+                    //{
+                    //}
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                     GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
                     Damage gunDmg = bullet.GetComponent<Damage>();
