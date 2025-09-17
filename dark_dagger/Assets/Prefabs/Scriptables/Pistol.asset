@@ -16,8 +16,9 @@ MonoBehaviour:
   shootDamage: 1
   shootDistance: 10
   shootRate: 1
-  ammoCur: 0
+  ammoCur: 3
   ammoMax: 5
   type: 
+  muzzleFlash: {fileID: 198792769130808804, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}
   shootSound: []
   shootVol: 1
