@@ -384,9 +384,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
        GameManager.instance.FlashScreen(Color.softRed);
        healthUpdate = true;
 
-        if (HP <= 0) { 
-        
-            GameManager.instance.YouLose();
+        if (HP <= 0) {
+
+            StartCoroutine(death());
         }     
 
     }
@@ -437,5 +437,13 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         {
             detector.hearNoise();
         }
+    }
+    IEnumerator death()
+    {
+        GameManager.instance.PlayerInput.SwitchCurrentActionMap("Menus");
+        anim.SetTrigger("Death");
+        yield return new WaitForSeconds(2);
+        GameManager.instance.YouLose();
+
     }
 }

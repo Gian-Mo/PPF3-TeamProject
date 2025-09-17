@@ -3555,7 +3555,7 @@ MonoBehaviour:
   menu: {fileID: 8140549699904887516, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   menu2: {fileID: -3565235732013026194, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   isPaused: 0
-  creation: 0
+  creation: 1
   mapManagerScript: {fileID: 3752158309372370318}
   navMesh: {fileID: 0}
   level: 0

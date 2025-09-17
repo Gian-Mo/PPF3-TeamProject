@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text AmmoCurWeapon;
     public TMP_Text AmmoCurInventory;
 
-    [SerializeField] PlayerInput PlayerInput;
+    public PlayerInput PlayerInput;
     [SerializeField] ButtonController buttonController;
 
     public GameObject player;

@@ -564,17 +564,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: bossAt
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1410811570768484284, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: navMesh
       value: 
       objectReference: {fileID: 154657116}
-    - target: {fileID: 3666605621826744608, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7235739032958369411, guid: 06d706df26067d74ab4abe63d14f1a29, type: 3}
       propertyPath: m_Name
       value: UI
