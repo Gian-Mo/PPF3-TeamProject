@@ -91,10 +91,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
             controller.Move(playerVel);
 
-        if (shootRot)
-        {
-            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)), 20 * Time.deltaTime); 
-        }
+       
 
         SetAnimLoco();
 
@@ -181,21 +178,24 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                 {
                     SetShootAnim();
                    
-                    StartCoroutine(TurnPlayerWhenShoot()); 
+                    StartCoroutine(TurnPlayerWhenShoot(0.05f)); 
                     
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
-                    MuzzleEffect();
-                    GameObject bullet = Instantiate(projectile,shootPos.position,Quaternion.LookRotation(mouseDirection));
-                    Damage gunDmg = bullet.GetComponent<Damage>();
-                    if(gunDmg != null && currGun != null)
-                        gunDmg.setDamage(currGun.shootDamage);                    
+                
                     
+                    MuzzleEffect();
+                    GameObject bullet = Instantiate(projectile, shootPos.position, Quaternion.LookRotation(mouseDirection));
+                    Damage gunDmg = bullet.GetComponent<Damage>();
+                    if (gunDmg != null && currGun != null)
+                        gunDmg.setDamage(currGun.shootDamage);
+
                     noiseLevel = gunNoiseLevel;
 
                     currGun.ammoCur--;
                     ammoUpdate = true;
 
-                    UpdateAmmo();
+                    UpdateAmmo(); 
+                  
                 }
        
                 shootTimer = 0;
@@ -323,11 +323,16 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         shootLine.enabled = false;
     }
-    IEnumerator TurnPlayerWhenShoot()
+    IEnumerator TurnPlayerWhenShoot(float duration)
     {
-        shootRot = true;
-        yield return new WaitForSeconds(0.5f);
-        shootRot = false;
+        float timer = 0;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            model.transform.rotation = Quaternion.Lerp(model.transform.rotation, Quaternion.LookRotation(new Vector3(mouseDirection.x, 0, mouseDirection.z)),timer/duration); 
+            yield return null;
+        }
+     
     }
 
     public void UpdatePalyerUI()
