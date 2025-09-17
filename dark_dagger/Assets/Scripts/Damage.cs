@@ -1,5 +1,6 @@
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 
@@ -13,6 +14,7 @@ public class Damage : MonoBehaviour
     [SerializeField] float damageRate;
     [SerializeField] int destroyTime;
     [SerializeField] int speed;
+    public ParticleSystem hitEffect;
 
 
     bool isDamaging;
@@ -21,6 +23,7 @@ public class Damage : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+       
         if (type == damageType.moving || type == damageType.homing)
         {
             Destroy(gameObject, destroyTime);
@@ -45,14 +48,20 @@ public class Damage : MonoBehaviour
     {
         if (collision.isTrigger) return;
 
+          
         IDamage dmg = collision.GetComponent<IDamage>();
         if (dmg != null)
         {
             dmg.takeDamage(damageAmount);
-
         }
+
         if (type == damageType.moving || type == damageType.homing)
         {
+            if (hitEffect != null) { 
+               ParticleSystem hit = Instantiate(hitEffect,transform.position, transform.rotation);
+                hit.transform.Translate(new Vector3(0, 0, -1));
+            }
+
             Destroy(gameObject);
         }
     }
