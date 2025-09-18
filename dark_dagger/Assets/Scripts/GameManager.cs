@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
         if (menuActive == null)
         {
 
+            playerScript.canChangeCursor = false;
             statePause();
             menuActive = menuPause;
             menuActive.SetActive(true);
@@ -138,6 +139,7 @@ public class GameManager : MonoBehaviour
             stateUnpause();
 
             CursorManager.instance.SetAimCursor();
+            playerScript.canChangeCursor = true;
 
             buttonController.buttons.Clear();
         }

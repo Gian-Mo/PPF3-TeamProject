@@ -41,9 +41,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool shootRot;
     bool ableToShoot;
     bool ableToCrouch;
+    bool inShootDist;
     bool healthUpdate;
     bool healing;
-    bool ammoUpdate;  
+    bool ammoUpdate;
+    public bool canChangeCursor;
     public int totalAmmo;
     float meeleTimer;
     float shootTimer;
@@ -61,6 +63,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         heighOrig = controller.height;
         speedOrig = speed;
         anim.SetBool("Pistol", true);
+        canChangeCursor = true;
 
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
@@ -95,10 +98,24 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         SetAnimLoco();
 
-        if (ableToShoot) { 
-            
+        if (canChangeCursor)
+        {
+            inShootDist = CanShoot(); 
+
+            if (inShootDist) {
+                CursorManager.instance.SetAimCursor();
+            }
+            else
+            {
+                CursorManager.instance.SetFadedAimCursor();
+            }
+        }
+
+        if (ableToShoot)
+        {
+
             ShootBullet();
-        
+
         }
 
         Crouch();
@@ -158,6 +175,18 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
         ammoUpdate = true;
         UpdateAmmo();
+   }
+
+    bool CanShoot()
+    {
+        Vector3 mouseTemp = MousePos();
+        if(Vector3.Distance(mouseTemp,transform.position) <= shootDist)
+        {
+            mouseDirection = mouseTemp - transform.position;
+            return true;
+        }  
+
+        return false;
     }
     void ShootBullet()
     {
@@ -166,19 +195,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (!GameManager.instance.isPaused)
         {
             if (shootTimer >= shootCoolDown && currGun.ammoCur > 0)
-            {   
-                RaycastHit hit;
-                mouseDirection = MousePos() - transform.position;
-            
+            {                      
 
-                Debug.DrawRay(transform.position, mouseDirection, Color.white, 0.5f);       
-      
-
-                if(Physics.Raycast(transform.position, mouseDirection.normalized, out hit, shootDist))
+                if(inShootDist)
                 {
+
                     SetShootAnim();
                    
-                    StartCoroutine(TurnPlayerWhenShoot(0.05f)); 
+                    StartCoroutine(TurnPlayerWhenShoot(0.025f)); 
                     
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                 

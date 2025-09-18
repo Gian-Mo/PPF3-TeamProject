@@ -25,9 +25,9 @@ public class CursorManager : MonoBehaviour
         Cursor.SetCursor(texture[0], new Vector2(3,3), CursorMode.Auto);
     }
 
-    private void FadeTexture()
+    public void SetFadedAimCursor()
     {
-      
+        Cursor.SetCursor(texture[2], new Vector2(texture[2].width / 2, texture[2].height / 2), CursorMode.Auto);
     }
     
 }

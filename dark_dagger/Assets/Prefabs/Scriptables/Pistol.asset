@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 8825085113668702994, guid: dd882ff3e1cd2404bb1994b073268b45, type: 3}
   shootDamage: 1
-  shootDistance: 10
+  shootDistance: 8
   shootRate: 1
-  ammoCur: 3
+  ammoCur: 4
   ammoMax: 5
   type: 
   muzzleFlash: {fileID: 198792769130808804, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}

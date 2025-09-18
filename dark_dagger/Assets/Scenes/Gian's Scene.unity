@@ -151,6 +151,7 @@ MonoBehaviour:
   texture:
   - {fileID: 2800000, guid: e33ef415e6dd30e4bbd23f31ec36c1ef, type: 3}
   - {fileID: 2800000, guid: 0ee2900adc23bcc48832dada777a0414, type: 3}
+  - {fileID: 2800000, guid: 4280b4cb65748344c92f837aafdf6f25, type: 3}
 --- !u!4 &4213532
 Transform:
   m_ObjectHideFlags: 0
@@ -569,7 +570,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5614108213232790016, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: HP
-      value: 100
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5614108213232790016, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: totalAmmo
@@ -953,7 +954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2750570564767740663, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: HP
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2750570564767740663, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: faceTargetSpeed
