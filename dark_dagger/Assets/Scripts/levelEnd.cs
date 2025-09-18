@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class levelEnd : MonoBehaviour
 {
-    public GameManager manager;
+    public LevelManager manager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
      if(manager == null)
-            manager = GameManager.instance;
+            manager = LevelManager.instance;
     }
 
     private void OnTriggerEnter(Collider other)

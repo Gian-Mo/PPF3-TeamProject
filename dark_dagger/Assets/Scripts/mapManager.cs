@@ -184,13 +184,16 @@ private position move(position p, direction d)
         enemySpawns.Clear();
 
         GameObject floorRef = GameObject.FindGameObjectWithTag("FloorReference");
+        Debug.Log($"FloorRef pos={floorRef.transform.position} localScale={floorRef.transform.localScale} lossyScale={floorRef.transform.lossyScale}");
+        Debug.Log($"mapManager.transform lossyScale={transform.lossyScale} parent lossyScale={(transform.parent ? transform.parent.lossyScale : Vector3.one)}");
+
         Vector3 build = Vector3.zero;
         if (floorRef != null)
         {
             Vector3 floorPos = floorRef.transform.position;
             Vector3 floorScale = floorRef.transform.localScale;
             float width = floorScale.x * 10f;
-            float depth = floorScale.y * 10f;
+            float depth = floorScale.z * 10f;
             build = new Vector3(floorPos.x - width/2f, -3 + floorPos.y, floorPos.z + depth/2f);
         }
 

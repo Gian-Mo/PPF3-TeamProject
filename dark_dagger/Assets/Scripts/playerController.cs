@@ -45,7 +45,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool healthUpdate;
     bool healing;
     bool ammoUpdate;
-    public bool canChangeCursor;
+    public bool canChangeCursor = true;
     public int totalAmmo;
     float meeleTimer;
     float shootTimer;
@@ -63,7 +63,6 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         heighOrig = controller.height;
         speedOrig = speed;
         anim.SetBool("Pistol", true);
-        canChangeCursor = true;
 
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
@@ -109,6 +108,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             {
                 CursorManager.instance.SetFadedAimCursor();
             }
+
         }
 
         if (ableToShoot)
