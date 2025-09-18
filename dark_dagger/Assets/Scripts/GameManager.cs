@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         PlayerInput.SwitchCurrentActionMap("Menus");
+        CursorManager.instance.SetMenusCursor();
+
     }
 
     public void stateUnpause()
@@ -98,6 +100,8 @@ public class GameManager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = null;
         PlayerInput.SwitchCurrentActionMap("Gameplay");
+       
+
     }
 
 
@@ -132,8 +136,10 @@ public class GameManager : MonoBehaviour
         else if (menuActive == menuPause)
         {
             stateUnpause();
-          
-           buttonController.buttons.Clear();
+
+            CursorManager.instance.SetAimCursor();
+
+            buttonController.buttons.Clear();
         }
 
     }

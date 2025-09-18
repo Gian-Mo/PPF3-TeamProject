@@ -1,19 +1,33 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class CursorManager : MonoBehaviour
 {
-    [SerializeField] Texture2D texture;
+     public static CursorManager instance;
+    [SerializeField] Texture2D[] texture;
 
-    void Start()
+
+    private void Awake()
     {
-        
-        Cursor.SetCursor(texture,new Vector2(texture.width / 2, texture.height / 2),CursorMode.Auto);
+        if (instance == null) { instance = this; }
+        // SetMenusCursor();
+        SetAimCursor();
+    }
+
+    public void SetAimCursor()
+    {
+        Cursor.SetCursor(texture[1], new Vector2(texture[1].width / 2, texture[1].height / 2), CursorMode.Auto);
       
     }
 
-  
-    void Update()
+    public void SetMenusCursor()
     {
-        
+        Cursor.SetCursor(texture[0], new Vector2(3,3), CursorMode.Auto);
     }
+
+    private void FadeTexture()
+    {
+      
+    }
+    
 }
