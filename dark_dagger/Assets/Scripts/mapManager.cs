@@ -184,8 +184,6 @@ private position move(position p, direction d)
         enemySpawns.Clear();
 
         GameObject floorRef = GameObject.FindGameObjectWithTag("FloorReference");
-        Debug.Log($"FloorRef pos={floorRef.transform.position} localScale={floorRef.transform.localScale} lossyScale={floorRef.transform.lossyScale}");
-        Debug.Log($"mapManager.transform lossyScale={transform.lossyScale} parent lossyScale={(transform.parent ? transform.parent.lossyScale : Vector3.one)}");
 
         Vector3 build = Vector3.zero;
         if (floorRef != null)
@@ -194,7 +192,7 @@ private position move(position p, direction d)
             Vector3 floorScale = floorRef.transform.localScale;
             float width = floorScale.x * 10f;
             float depth = floorScale.z * 10f;
-            build = new Vector3(floorPos.x - width/2f, -3 + floorPos.y, floorPos.z + depth/2f);
+            build = new Vector3(floorPos.x - width/2f, -3.5f + floorPos.y, floorPos.z + depth/2f);
         }
 
         List<List<tile>> map = new List<List<tile>>();
@@ -281,7 +279,7 @@ private position move(position p, direction d)
                 if (prefab != null)
                 {
                     if (prefab.CompareTag("Problem"))
-                        pos += new Vector3(0, 1.75f, 0);
+                        pos += new Vector3(0, 2.75f, 0);
                     int turn = getRotAmt(map[r][c]);
                     Quaternion rot = Quaternion.Euler(0f, 90f * turn, 0f);
                     GameObject piece = Instantiate(prefab, pos, rot, transform);
