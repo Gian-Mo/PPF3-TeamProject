@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
         statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
-        StartCoroutine(FadeMenus(1f, 0.5f, menuActive));
+        StartCoroutine(FadeMenus(1f, 0.3f, menuActive));
     }
     public void YouWin()
     {
@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
         statePause();
         menuActive = menuWin;
         menuActive.SetActive(true);
-        StartCoroutine(FadeMenus(1f, 0.5f, menuActive));
+        StartCoroutine(FadeMenus(1f, 0.3f, menuActive));
     }
     void Pause(InputAction.CallbackContext context)
     {
