@@ -24,6 +24,8 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     [SerializeField] float shootRate;
     [SerializeField] Transform shootPos;
 
+    [SerializeField] AudioSource hitSound;
+
     Color[] colorOrig;
 
     float shootTimer;
@@ -155,7 +157,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
 
     public void takeDamage(int amount)
     {
-
+        hitSound.Play();
         if (HP > 0)
         {
             HP -= amount;
