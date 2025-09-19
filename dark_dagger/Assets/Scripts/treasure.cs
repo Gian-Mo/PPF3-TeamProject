@@ -15,7 +15,7 @@ public class treasure : MonoBehaviour
 
     private bool nearby = false;
     private playerController player;
-
+    [SerializeField] private int level = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -92,6 +92,18 @@ public class treasure : MonoBehaviour
             loot.ammoMax = rand.Next(3, 8);
             loot.ammoCur = loot.ammoMax;
         }
+        if (level != 0)
+        {
+            float lowMod = Mathf.Pow(0.9f, level);
+            float highMod = Mathf.Pow(1.2f, level);
+
+            loot.shootVol *= lowMod;
+            loot.shootRate *= lowMod;
+            loot.shootDamage *= Mathf.Max(1, Mathf.RoundToInt(loot.shootDamage * highMod));
+            loot.shootDistance *= Mathf.Max(1, Mathf.RoundToInt(loot.shootDistance * highMod));
+            loot.ammoMax *= Mathf.Max(1, Mathf.RoundToInt(loot.ammoMax * highMod));
+            loot.ammoCur = loot.ammoMax;
+        }
 
         return loot;
     }
@@ -100,7 +112,8 @@ public class treasure : MonoBehaviour
     {
         if (text != null && gun != null)
         {
-            text.text = $"Type: {gun.type}\nDamage: {gun.shootDamage}\nShots per Second: {gun.shootRate:F2}\nRange: {gun.shootDistance}";
+            string adj = gunQuality(gun);
+            text.text = $"Type:{adj} {gun.type}\nDamage: {gun.shootDamage}\nShots per Second: {gun.shootRate:F2}\nRange: {gun.shootDistance}";
         }
     }
 
@@ -134,5 +147,21 @@ public class treasure : MonoBehaviour
         player.equipGun(gun);
         gun = hold;
         updateGunUI();
+    }
+
+    private string gunQuality(gunStats curr)
+    {
+        float shootValTier = 1f / curr.shootVol;
+        float shootRateTier = 1f / curr.shootRate;
+        float tot = shootValTier + shootRateTier + curr.shootDamage + curr.shootDistance + curr.ammoMax;
+        if (tot < 35.5)
+            return "Poor";
+        if(tot < 43.0)
+            return "Decent";
+        if (tot < 50.4)
+            return "Good";
+        if (tot < 60.0)
+            return "Great";
+        return "Pristine";
     }
 }
