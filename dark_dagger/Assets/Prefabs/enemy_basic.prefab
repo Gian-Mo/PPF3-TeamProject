@@ -2261,6 +2261,7 @@ MonoBehaviour:
   bullet: {fileID: 8398195534700516955, guid: 09dedc8f4b453a041b743139de6bfe67, type: 3}
   shootRate: 2.5
   shootPos: {fileID: 4016908865207545454}
+  hitSound: {fileID: 0}
 --- !u!95 &3195396761138252160
 Animator:
   serializedVersion: 7

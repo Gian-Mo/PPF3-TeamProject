@@ -19,6 +19,8 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
     [SerializeField] Transform shootPos;
     [SerializeField] Quaternion angleDeviation;
 
+    [SerializeField] AudioSource hitSound;
+
     Color[] colorOrig;
     LineRenderer lineRenderer;
 
@@ -106,7 +108,7 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
 
     public void takeDamage(int amount)
     {
-
+        hitSound.Play();
         if (HP > 0)
         {
             HP -= amount;
