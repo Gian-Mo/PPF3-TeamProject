@@ -203,10 +203,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
                     SetShootAnim();
                    
-                    StartCoroutine(TurnPlayerWhenShoot(0.025f)); 
                     
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                 
+                    StartCoroutine(TurnPlayerWhenShoot(0.01f)); 
                     
                     MuzzleEffect();
                     GameObject bullet = Instantiate(projectile, shootPos.position, Quaternion.LookRotation(mouseDirection));
