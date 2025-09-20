@@ -302,7 +302,7 @@ MonoBehaviour:
   gun: {fileID: 0}
   pistolModel: {fileID: 8825085113668702994, guid: dd882ff3e1cd2404bb1994b073268b45, type: 3}
   rifleModel: {fileID: 8825085113668702994, guid: da13973c69bbb414295ab219f7de00a2, type: 3}
-  sniperModel: {fileID: 8825085113668702994, guid: dd882ff3e1cd2404bb1994b073268b45, type: 3}
+  sniperModel: {fileID: 8825085113668702994, guid: ea0f9f778a6b3a4409f95ae415db1dce, type: 3}
   pistolSound: []
   rifleSound: []
   sniperSound: []
