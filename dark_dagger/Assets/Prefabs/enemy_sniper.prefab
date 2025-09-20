@@ -1744,7 +1744,7 @@ MonoBehaviour:
   roamAngle: 45
   roamPauseTime: 2
   bullet: {fileID: 8398195534700516955, guid: c8f54f03e0935d54180e563ee349346b, type: 3}
-  shootRate: 1
+  shootRate: 3
   shootPos: {fileID: 8118546858905295285}
   angleDeviation: {x: 0, y: 0, z: 0, w: 0}
   hitSound: {fileID: 7239244250109941224}
