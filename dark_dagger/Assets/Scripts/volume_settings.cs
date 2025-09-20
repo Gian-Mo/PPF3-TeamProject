@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class volume_settings : MonoBehaviour
@@ -10,8 +11,7 @@ public class volume_settings : MonoBehaviour
 
     private void Start()
     {
-        SetMusicVolume();
-        SetSFXVolume();
+        Load();
     }
     public void SetMusicVolume()
     {
@@ -22,5 +22,20 @@ public class volume_settings : MonoBehaviour
     {
         float volume = effectsSlider.value;
         audioMixer.SetFloat("sfx", Mathf.Log10(volume) * 20);
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetFloat("Music", musicSlider.value);
+        PlayerPrefs.SetFloat("SFX", effectsSlider.value);
+    }
+    public void Load()
+    {
+       musicSlider.value =  PlayerPrefs.GetFloat("Music");
+       effectsSlider.value = PlayerPrefs.GetFloat("SFX");
+        audioMixer.SetFloat("music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
+        audioMixer.SetFloat("sfx", Mathf.Log10(PlayerPrefs.GetFloat("SFX")) * 20);
+
+
     }
 }

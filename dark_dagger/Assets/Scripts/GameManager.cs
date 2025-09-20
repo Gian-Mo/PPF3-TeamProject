@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using Unity.AI.Navigation;
 using System.Collections.Generic;
+using System;
 
 
 
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
+    [SerializeField] GameObject menuSettings;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
     [SerializeField] GameObject menuLoading;
@@ -125,6 +127,30 @@ public class GameManager : MonoBehaviour
             buttonController.buttons.Clear();
         }
 
+    }
+
+   public void OnSettings()
+   {
+        menuActive.SetActive(false);
+        menuActive = menuSettings;
+        menuActive.SetActive(true);
+        menu2.action.started -= Pause;
+        menu2.action.started += Back;
+
+    }
+
+    private void Back(InputAction.CallbackContext context)
+    {
+        OffSettings();
+    }
+
+    public void OffSettings()
+    {
+        menuActive.SetActive(false);
+        menuActive = menuPause;
+        menuActive.SetActive(true);
+        menu2.action.started -= Back;
+        menu2.action.started += Pause;
     }
 
     IEnumerator FadeMenus(float to, float duration, GameObject objectToFade)
