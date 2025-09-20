@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -62,7 +63,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         HPOrig = HP;
         heighOrig = controller.height;
         speedOrig = speed;
-        anim.SetBool("Pistol", true);
+       
         canChangeCursor = true;
 
         objectCollider = GetComponent<SphereCollider>();
@@ -151,11 +152,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         anim.SetFloat("Speed",Mathf.Lerp( animSpeedCur, playerSpeedCur, Time.deltaTime * animTranSpeed));
 
     }
-    void SetShootAnim()
-    {
-        actualGun.GetComponent<Animator>().SetTrigger("Shoot");        
-
-    }
+  
     void MuzzleEffect()
     {
        
@@ -200,15 +197,12 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
                 if(inShootDist)
                 {
-
-                    SetShootAnim();
-                   
                     
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                 
                     StartCoroutine(TurnPlayerWhenShoot(0.01f)); 
                     
-                    MuzzleEffect();
+                    //MuzzleEffect();
                     GameObject bullet = Instantiate(projectile, shootPos.position, Quaternion.LookRotation(mouseDirection));
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if (gunDmg != null && currGun != null)
@@ -442,10 +436,12 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     public void equipGun(gunStats gun)
     {
+        ChangeAnims(gun.type, currGun.type);
         currGun = gun;
         shootDist = gun.shootDistance;
         shootCoolDown = gun.shootRate;
         gunNoiseLevel = gun.shootVol * 10;
+        if (actualGun != null) { Destroy(actualGun); }
        actualGun = Instantiate(gun.model, gunModel.transform);
         currGun.ammoCur = currGun.ammoMax;
      
@@ -470,5 +466,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         yield return new WaitForSeconds(2);
         GameManager.instance.YouLose();
 
+    }
+
+   void ChangeAnims(string on, string off)
+    {
+            anim.SetBool(on, true);
+        if (!off.Equals(on))
+        {
+            anim.SetBool(off, false);  
+        }
+        
     }
 }
