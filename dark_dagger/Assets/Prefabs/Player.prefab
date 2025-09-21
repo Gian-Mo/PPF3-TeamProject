@@ -750,7 +750,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 30
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -2821,6 +2821,7 @@ MonoBehaviour:
   meele: {fileID: 7339354455106527120, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   crouch: {fileID: -7903316612819512164, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   reload: {fileID: 3976654253434946608, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
+  radar: {fileID: 3464308333550256699, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   canChangeCursor: 0
   totalAmmo: 100
   noiseLevel: 1

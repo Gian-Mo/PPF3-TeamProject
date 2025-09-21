@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -34,6 +35,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     public InputActionReference meele;
    public InputActionReference crouch; 
     public InputActionReference reload;
+    public InputActionReference radar;
+
     Vector3 mouseDirection;
 
     bool shootRot;
@@ -255,7 +258,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         EnableCrouch(true);
         meele.action.started += Meele;
         reload.action.started += Reload;
+        radar.action.started += Radar;
     }
+
 
     private void OnDisable()
     {
@@ -263,6 +268,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         EnableCrouch(false);
         meele.action.started -= Meele;
         reload.action.started -= Reload;
+        radar.action.started -= Radar;
     }
 
     private void EnableShoot(bool enable)
@@ -280,6 +286,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             shoot.action.canceled -= ShootFalse;
         }
     }
+  
     private void EnableCrouch(bool enable)
     {
         if (enable)
@@ -330,6 +337,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         ableToShoot = false;
     }
 
+    private void Radar(InputAction.CallbackContext context)
+    {
+      
+
+    }
 
     IEnumerator MeeleFeedBack(RaycastHit hit)
     {

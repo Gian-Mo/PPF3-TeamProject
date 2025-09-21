@@ -463,7 +463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5150154785115402526
 Transform:
   m_ObjectHideFlags: 0
@@ -2376,6 +2376,7 @@ MonoBehaviour:
   hitSound: {fileID: -4321440893039539240}
   walkSound: {fileID: 4443846099780634371}
   shootSound: {fileID: -8242657703458968348}
+  mapIcon: {fileID: 2296088839005322740}
 --- !u!95 &3195396761138252160
 Animator:
   serializedVersion: 7

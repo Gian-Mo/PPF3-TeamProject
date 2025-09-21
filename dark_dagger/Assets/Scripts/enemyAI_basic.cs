@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class enemyAI_basic : MonoBehaviour, IDamage, INoise
+public class enemyAI_basic : MonoBehaviour, IDamage, INoise, IRadar
 {
     [SerializeField] Renderer model;
     [SerializeField] NavMeshAgent agent;
@@ -27,6 +27,10 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     [SerializeField] AudioSource hitSound;
     [SerializeField] AudioSource walkSound;
     [SerializeField] AudioSource shootSound;
+    public GameObject mapIcon;
+    bool detected;
+    float detectionTimer;
+    float detectionDuration;
 
     Color[] colorOrig;
 
@@ -49,6 +53,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
         colorOrig[2] = model.materials[2].color;
         startingPos = transform.position;
         stoppingDistOrig = agent.stoppingDistance;
+        detected = false;
     }
 
     // Update is called once per frame
@@ -78,6 +83,18 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
         else if (!PlayerinTrigger)
         {
             checkRoam();
+        }
+
+        if (detected)
+        {
+            detectionTimer += Time.deltaTime;
+
+            if(detectionTimer >= detectionDuration)
+            {
+                mapIcon.SetActive(false);
+                detected = false;
+                detectionTimer = 0;
+            }
         }
     }
 
@@ -177,7 +194,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
         }
         if (HP <= 0)
         {
-            LevelManager.instance.currEnemy--;
+           if (LevelManager.instance != null) LevelManager.instance.currEnemy--;
             int randomIndex = Random.Range(0, dropTable.Count);
             Instantiate(dropTable[randomIndex], transform.position, transform.rotation);
 
@@ -199,5 +216,18 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     public void hearNoise()
     {
         agent.SetDestination(GameManager.instance.player.transform.position);
+    }
+
+    public void getDetected(float duration)
+    {
+       mapIcon.SetActive(true);
+        detected = true;
+
+        detectionDuration = duration;
+    }
+
+    public void setTimer(float timer)
+    {
+      detectionTimer = timer;
     }
 }
