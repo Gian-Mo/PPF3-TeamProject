@@ -31,6 +31,7 @@ public class mapManager : MonoBehaviour
     public List<Vector3> enemySpawns = new List<Vector3>();
     private enum direction { UP = 0, RIGHT, DOWN, LEFT };
 
+
     private class tile
     {
         public string type;
@@ -245,7 +246,15 @@ private position move(position p, direction d)
 
         currMap = map;
 
-        for (int r = 0; r < gridSize; r++)
+        bool jail1 = false;
+        bool jail2 = false;
+        if (rand.Next(2) == 1)
+        {
+            jail1 = true;
+            jail2 = true;
+        }
+
+            for (int r = 0; r < gridSize; r++)
         {
             for (int c = 0; c < gridSize + 1; c++)
             {
@@ -268,13 +277,33 @@ private position move(position p, direction d)
                             prefab = lPieces[rand.Next(lPieces.Length)]; break;
                     case "C":
                         if (endPieces.Length > 0)
-                            prefab = endPieces[rand.Next(endPieces.Length)]; break;
+                        {
+                            int roll;
+                            if (jail1)
+                            {
+                                roll = 2;
+                                jail1 = false;
+                            }
+                            else
+                                roll = rand.Next(endPieces.Length - 1);
+                            prefab = endPieces[roll];
+                        }
+                        break;
                     case "O":
                         if (crossPieces.Length > 0)
                             prefab = startPieces[rand.Next(startPieces.Length)]; break;
                     case "X":
                         if (winPieces.Length > 0)
-                            prefab = winPieces[rand.Next(winPieces.Length)]; break;
+                        {
+                            if (jail2)
+                            {
+                                prefab = winPieces[1];
+                                jail2 = false;
+                            }
+                            else
+                                prefab = winPieces[rand.Next(winPieces.Length - 1)];
+                        }
+                        break;
                 }
                 if (prefab != null)
                 {

@@ -88,10 +88,12 @@ MonoBehaviour:
   endPieces:
   - {fileID: 4833548697256074972, guid: f88e532bb5a855f45bacac0ca85996ff, type: 3}
   - {fileID: 829964778487649456, guid: ba9879349173ad54db8d5267b87d3ec1, type: 3}
+  - {fileID: 829964778487649456, guid: 7a37f36a391ad704aa466f5297a5494e, type: 3}
   startPieces:
   - {fileID: 6483574858957289881, guid: 94ae7cf56b5311c47ad761951f77f656, type: 3}
   winPieces:
   - {fileID: 1125753827682347519, guid: 2ffb21cbbc099b048b51e990aabd5de7, type: 3}
+  - {fileID: 1125753827682347519, guid: 0669d9e3f82657145990d3d0792edfe5, type: 3}
   bossPieces:
   - {fileID: 5251630235378299775, guid: 8aa4c4051b6eec34e80cb72614a8d534, type: 3}
   gridSize: 3
