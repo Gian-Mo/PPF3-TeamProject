@@ -60,7 +60,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise, IRadar
     void Update()
     {
         setAnimLoco();
-        if (agent.velocity.normalized.magnitude > 0)
+        if (agent.velocity.normalized.magnitude > 0 && Time.timeScale != 0)
         {
             walkSound.enabled = true;
         }
