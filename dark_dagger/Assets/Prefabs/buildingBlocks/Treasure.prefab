@@ -303,9 +303,9 @@ MonoBehaviour:
   pistolModel: {fileID: 8825085113668702994, guid: dd882ff3e1cd2404bb1994b073268b45, type: 3}
   rifleModel: {fileID: 8825085113668702994, guid: da13973c69bbb414295ab219f7de00a2, type: 3}
   sniperModel: {fileID: 8825085113668702994, guid: ea0f9f778a6b3a4409f95ae415db1dce, type: 3}
-  pistolSound: []
-  rifleSound: []
-  sniperSound: []
+  pistolSound: {fileID: 8300000, guid: 0296ae870c082a741b8816ca5c4dba89, type: 3}
+  rifleSound: {fileID: 8300000, guid: a954f66ab1b02384f8ff209728ebbdb1, type: 3}
+  sniperSound: {fileID: 8300000, guid: d2b23c845f5d3684ca3bba9df58cd6e9, type: 3}
   text: {fileID: 8495351993712164136}
   level: 0
 --- !u!65 &3200432589944663750
