@@ -1186,7 +1186,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3710761267070908199
 Transform:
   m_ObjectHideFlags: 0
@@ -1858,8 +1858,8 @@ MonoBehaviour:
   shootRate: 3
   shootPos: {fileID: 8118546858905295285}
   angleDeviation: {x: 0, y: 0, z: 0, w: 0}
-  hitSound: {fileID: 0}
-  shootSound: {fileID: 0}
+  hitSound: {fileID: 7239244250109941224}
+  shootSound: {fileID: -2163616256042542148}
 --- !u!95 &3751324259295738559
 Animator:
   serializedVersion: 7

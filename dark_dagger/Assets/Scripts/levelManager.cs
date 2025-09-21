@@ -52,6 +52,11 @@ public class LevelManager : MonoBehaviour
     {
         gameManager.ShowLoading(true);
         enemySpawner.resetEnemies();
+        GameObject[] drops = GameObject.FindGameObjectsWithTag("Dropped");
+        for(int i = 0; i < drops.Length; i++)
+        {
+            Destroy(drops[i]);
+        }
 
         float waitTime = 3f;
         float timeDone = 0f;
