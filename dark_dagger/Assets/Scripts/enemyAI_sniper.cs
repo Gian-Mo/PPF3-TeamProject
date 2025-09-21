@@ -20,6 +20,7 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
     [SerializeField] Quaternion angleDeviation;
 
     [SerializeField] AudioSource hitSound;
+    [SerializeField] AudioSource shootSound;
 
     Color[] colorOrig;
     LineRenderer lineRenderer;
@@ -101,6 +102,7 @@ public class enemyAI_sniper : MonoBehaviour, IDamage, INoise
 
         if (shootTimer >= shootRate)
         {
+            shootSound.Play();
             Instantiate(bullet, shootPos.position, transform.rotation);
             shootTimer = 0;
         }   

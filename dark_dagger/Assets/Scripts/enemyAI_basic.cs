@@ -26,6 +26,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
 
     [SerializeField] AudioSource hitSound;
     [SerializeField] AudioSource walkSound;
+    [SerializeField] AudioSource shootSound;
 
     Color[] colorOrig;
 
@@ -160,7 +161,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     void shoot()
     {
         shootTimer = 0;
-
+        shootSound.Play();
         Instantiate(bullet, shootPos.position, transform.rotation);
     }
 
