@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] GameObject mainMenu;
     [SerializeField] GameObject settingsMenu;
+    [SerializeField] GameObject creditsMenu;
 
     public InputActionReference back;
 
@@ -36,10 +37,17 @@ public class MainMenuManager : MonoBehaviour
         settingsMenu.SetActive(true);
 
    }
+    public void Credits()
+    {
+        mainMenu.SetActive(false);
+        creditsMenu.SetActive(true);
 
-   void Back(InputAction.CallbackContext context)
+    }
+
+    void Back(InputAction.CallbackContext context)
    {
         settingsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
         mainMenu.SetActive(true);
 
    }

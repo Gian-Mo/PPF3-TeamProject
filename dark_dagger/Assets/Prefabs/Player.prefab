@@ -2828,7 +2828,7 @@ MonoBehaviour:
   reload: {fileID: 3976654253434946608, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   radar: {fileID: -1232746232943259431, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   canChangeCursor: 1
-  totalAmmo: 100
+  totalAmmo: 10
   noiseLevel: 1
   gunList:
   - {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
