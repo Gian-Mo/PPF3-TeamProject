@@ -5,7 +5,7 @@ public class Radar : MonoBehaviour
 {
     [SerializeField] float increasePerSec;
     [SerializeField] float expandDuration;
-    [SerializeField] float detectionDuration;
+    public float detectionDuration;
     IRadar radar;
     float timer;    
    

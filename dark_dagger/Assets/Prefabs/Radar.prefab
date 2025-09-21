@@ -123,4 +123,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   increasePerSec: 10
   expandDuration: 5
-  detectionDuration: 1
+  detectionDuration: 5

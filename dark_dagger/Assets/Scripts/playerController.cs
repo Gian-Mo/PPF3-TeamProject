@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] GameObject gunModel;
     public int radarKills;
 
+    GameObject radarCurr;
     int HPOrig;
     float heighOrig;
     int speedOrig; 
@@ -49,10 +50,14 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     bool healthUpdate;
     bool healing;
     bool ammoUpdate;
+    bool radarUpdate;
     public bool canChangeCursor;
     public int totalAmmo;
     float meeleTimer;
     float shootTimer;
+   
+    float detectionTimer;
+    float detectionDuration;
 
     float gunNoiseLevel;
     SphereCollider objectCollider;
@@ -70,7 +75,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         speedOrig = speed;
        
         canChangeCursor = true;
-
+        radarCurr = null;
+        detectionDuration = radarObject.GetComponent<Radar>().detectionDuration;
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
         equipGun(currGun);
@@ -84,6 +90,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         objectCollider.radius = noiseLevel;
         Move();
         selectGun();
+       
     }
 
 
@@ -91,6 +98,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     {
         meeleTimer += Time.deltaTime;
         shootTimer += Time.deltaTime;
+        if(radarUpdate && radarCurr == null)
+        {
+            detectionTimer += Time.deltaTime;
+        }
 
         playerVel = move.action.ReadValue<Vector3>();
         playerVel = playerVel.normalized * speed * Time.deltaTime;
@@ -135,7 +146,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         Crouch();
 
-       UpdatePalyerUI();
+       UpdatePlayerUI();
     }
 
     void Crouch()
@@ -351,8 +362,10 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         if (radarKills >= killsForRadar)
         {
-            Instantiate(radarObject, transform.position, Quaternion.identity); 
+           radarCurr = Instantiate(radarObject, transform.position, Quaternion.identity); 
             radarKills = 0;
+            radarUpdate = true;
+           
         }
 
     }
@@ -381,7 +394,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
      
     }
 
-    public void UpdatePalyerUI()
+    public void UpdatePlayerUI()
     {
         //HP
         if (healthUpdate)
@@ -417,6 +430,27 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
            
         }
+
+        if(radarKills >= killsForRadar) GameManager.instance.playerRadar.fillAmount = 0;
+
+        if (radarUpdate)
+        {
+
+            if (detectionTimer > detectionDuration)
+            {
+                radarUpdate = false;
+                detectionTimer = 0;
+                GameManager.instance.playerRadar.fillAmount = 1;
+            }
+            else
+            {
+
+                GameManager.instance.playerRadar.fillAmount = Mathf.Lerp(GameManager.instance.playerRadar.fillAmount, detectionTimer / detectionDuration, 2 * Time.deltaTime); 
+            }
+
+
+        }
+      
 
     }
     void UpdateAmmo()
