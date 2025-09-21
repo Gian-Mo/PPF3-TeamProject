@@ -22,6 +22,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] AudioSource gunSound;
     [SerializeField] GameObject radarObject;
     [SerializeField] int killsForRadar;
+    [SerializeField] AudioSource walk;
 
     public gunStats currGun;
     [SerializeField] GameObject gunModel;
@@ -98,9 +99,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         {
             model.transform.rotation = Quaternion.Lerp(model.transform.rotation,Quaternion.LookRotation(playerVel.normalized),8 * Time.deltaTime);
             noiseLevel = 2;
+            walk.enabled = true;
+        }
+        else
+        {
+            walk.enabled = false;
         }
             controller.Move(playerVel);
 
+     
        
 
         SetAnimLoco();

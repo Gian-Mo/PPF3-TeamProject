@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public Image playerHP;
     public Image playerAmmo;
+    public Image playerRadar;
     public GameObject playerGetsDamaged;
 
 
