@@ -27,7 +27,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void StartShowcase()
     {
-        SceneManager.LoadScene("Showcase");
+        SceneManager.LoadScene("Tutorial");
 
     }
     public void Settings()
