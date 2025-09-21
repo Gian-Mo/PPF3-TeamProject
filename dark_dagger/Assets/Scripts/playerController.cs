@@ -451,6 +451,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     }
 
+    
     void selectGun()
     {
         if (Mouse.current.scroll.ReadValue().y > 0 && gunListPos > 0)
