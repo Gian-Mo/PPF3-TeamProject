@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3260621395397631359}
   m_Layer: 0
-  m_Name: StartPoint
+  m_Name: StartPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
