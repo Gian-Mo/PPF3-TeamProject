@@ -1,9 +1,6 @@
-
-using System;
 using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour, IDamage, IPickUp
@@ -55,6 +52,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     SphereCollider objectCollider;
     public float noiseLevel = 0;
     GameObject actualGun;
+    public List<gunStats> gunList = new List<gunStats>(2);
+    public int gunListPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -69,6 +68,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
         equipGun(currGun);
+        gunList[0] = currGun;
         UpdateAmmo();
     }
 
@@ -77,6 +77,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     {
         objectCollider.radius = noiseLevel;
         Move();
+        selectGun();
     }
 
 
@@ -444,10 +445,29 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         if (actualGun != null) { Destroy(actualGun); }
         actualGun = Instantiate(gun.model, gunModel.transform);
         currGun.ammoCur = currGun.ammoMax;
+<<<<<<< Updated upstream
         gunSound.resource = gun.shootSound;
      
+=======
+        gunList[gunListPos] = gun;
+
+>>>>>>> Stashed changes
         //gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         //gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
+    }
+
+    void selectGun()
+    {
+        if (Mouse.current.scroll.ReadValue().y > 0 && gunListPos > 0)
+        {
+            gunListPos--;
+            equipGun(gunList[gunListPos]);
+        }
+        else if (Mouse.current.scroll.ReadValue().y < 0 && gunListPos < gunList.Count - 1)
+        {
+            gunListPos++;
+            equipGun(gunList[gunListPos]);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
