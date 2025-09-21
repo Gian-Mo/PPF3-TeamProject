@@ -2824,6 +2824,10 @@ MonoBehaviour:
   canChangeCursor: 0
   totalAmmo: 100
   noiseLevel: 1
+  gunList:
+  - {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
+  - {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
+  gunListPos: 0
 --- !u!143 &2729351328922524811
 CharacterController:
   m_ObjectHideFlags: 0
