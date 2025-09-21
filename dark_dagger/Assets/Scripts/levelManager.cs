@@ -120,7 +120,6 @@ public class LevelManager : MonoBehaviour
     {
         if (!bossCurr && enemySpawner != null)
         {
-            currEnemy = enemySpawner.livingEnemies.Count;
             if (currEnemy < ((level + 1) * 3) && exists)
             {
                 enemySpawner.spawnRandomEnemy();
