@@ -20,5 +20,5 @@ MonoBehaviour:
   ammoMax: 5
   type: Pistol
   muzzleFlash: {fileID: 198792769130808804, guid: 4543ab5e3d405ec40a8d4e9aa5165030, type: 3}
-  shootSound: []
+  shootSound: {fileID: 8300000, guid: 0296ae870c082a741b8816ca5c4dba89, type: 3}
   shootVol: 1

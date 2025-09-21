@@ -8,9 +8,9 @@ public class treasure : MonoBehaviour
     public GameObject pistolModel;
     public GameObject rifleModel;
     public GameObject sniperModel;
-    public AudioClip[] pistolSound;
-    public AudioClip[] rifleSound;
-    public AudioClip[] sniperSound;
+    public AudioClip pistolSound;
+    public AudioClip rifleSound;
+    public AudioClip sniperSound;
     public TextMeshPro text;
 
     private bool nearby = false;

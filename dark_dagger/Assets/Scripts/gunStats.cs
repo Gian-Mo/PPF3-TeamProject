@@ -13,6 +13,6 @@ public class gunStats : ScriptableObject
     public string type;
     
     public ParticleSystem muzzleFlash;
-    public AudioClip[] shootSound;
+    public AudioClip shootSound;
     [Range(0, 1)] public float shootVol;
 }

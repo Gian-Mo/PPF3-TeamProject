@@ -21,7 +21,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] int meeleDamage;
     [SerializeField] float shootCoolDown;
     [SerializeField] float meeleCoolDown;
-
+    [SerializeField] AudioSource gunSound;
    
 
     public gunStats currGun;
@@ -207,7 +207,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
                     Damage gunDmg = bullet.GetComponent<Damage>();
                     if (gunDmg != null && currGun != null)
                         gunDmg.setDamage(currGun.shootDamage);
-
+                    gunSound.Play();
                     noiseLevel = gunNoiseLevel;
 
                     currGun.ammoCur--;
@@ -227,7 +227,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         RaycastHit hit;
         if (Physics.Raycast(shootPos.position,model.transform.forward,out hit,3))
         {
-             StartCoroutine(MeeleFeedBack(hit));
+            StartCoroutine(MeeleFeedBack(hit));
             IDamage dmg = hit.collider.GetComponent<IDamage>();
 
             if (dmg != null)
@@ -243,7 +243,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         Ray ray = Camera.main.ScreenPointToRay(mouseScreenPos);
         RaycastHit hit;
 
-       Physics.Raycast(ray, out hit);       
+        Physics.Raycast(ray, out hit);       
 
         return hit.point;
     }
@@ -440,10 +440,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         currGun = gun;
         shootDist = gun.shootDistance;
         shootCoolDown = gun.shootRate;
-        gunNoiseLevel = gun.shootVol * 10;
+        gunNoiseLevel = gun.shootVol * 75;
         if (actualGun != null) { Destroy(actualGun); }
-       actualGun = Instantiate(gun.model, gunModel.transform);
+        actualGun = Instantiate(gun.model, gunModel.transform);
         currGun.ammoCur = currGun.ammoMax;
+        gunSound.resource = gun.shootSound;
      
         //gunModel.GetComponent<MeshFilter>().sharedMesh = gun.model.GetComponent<MeshFilter>().sharedMesh;
         //gunModel.GetComponent<MeshRenderer>().sharedMaterial = gun.model.GetComponent<MeshRenderer>().sharedMaterial;
