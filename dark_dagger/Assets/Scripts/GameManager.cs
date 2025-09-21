@@ -40,9 +40,8 @@ public class GameManager : MonoBehaviour
 
     public bool isPaused = false;
     float timesScaleOrig;
-    int gameGoalCount;
 
-
+    [SerializeField] GameObject hotBar;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -55,6 +54,7 @@ public class GameManager : MonoBehaviour
         timesScaleOrig = Time.timeScale;
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+        updateHotBar();
     }
 
 
@@ -129,8 +129,8 @@ public class GameManager : MonoBehaviour
 
     }
 
-   public void OnSettings()
-   {
+    public void OnSettings()
+    {
         menuActive.SetActive(false);
         menuActive = menuSettings;
         menuActive.SetActive(true);
@@ -182,7 +182,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
+        if ((Mouse.current.scroll.ReadValue().y != 0 || Keyboard.current.spaceKey.wasPressedThisFrame))
+        {
+            updateHotBar();
+        }
     }
 
     public void FlashScreen(Color color)
@@ -206,4 +209,65 @@ public class GameManager : MonoBehaviour
         menuLoading.SetActive(show);
     }
 
+    public void updateHotBar()
+    {
+        Transform item1 = hotBar.transform.Find("Item1");
+        Transform item2 = hotBar.transform.Find("Item2");
+        resetHotBar(item1);
+        resetHotBar(item2);
+        if (playerScript.gunList.Count > 1)
+        {
+            string type = playerScript.gunList[0].type;
+            switch (type)
+            {
+                case "Pistol":
+                    item1.Find("Pistol").gameObject.SetActive(true);
+                    break;
+                case "Rifle":
+                    item1.Find("Rifle").gameObject.SetActive(true);
+                    break;
+                case "Sniper":
+                    item1.Find("Sniper").gameObject.SetActive(true);
+                    break;
+                default:
+                    Debug.LogWarning("NOT A GUN TYPE, OH GOD, HELP");
+                    break;
+            }
+            type = playerScript.gunList[1].type;
+            switch (type)
+            {
+                case "Pistol":
+                    item2.Find("Pistol").gameObject.SetActive(true);
+                    break;
+                case "Rifle":
+                    item2.Find("Rifle").gameObject.SetActive(true);
+                    break;
+                case "Sniper":
+                    item2.Find("Sniper").gameObject.SetActive(true);
+                    break;
+                default:
+                    Debug.LogWarning("NOT A GUN TYPE, OH GOD, HELP");
+                    break;
+            }
+            if(playerScript.gunListPos == 0)
+            {
+                item1.Find("BoxSelect").gameObject.SetActive(true);
+                item1.Find("Box").gameObject.SetActive(false);
+            }
+            if (playerScript.gunListPos == 1)
+            {
+                item2.Find("BoxSelect").gameObject.SetActive(true);
+                item2.Find("Box").gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void resetHotBar(Transform item)
+    {
+        item.Find("Pistol").gameObject.SetActive(false);
+        item.Find("Rifle").gameObject.SetActive(false);
+        item.Find("Sniper").gameObject.SetActive(false);
+        item.Find("BoxSelect").gameObject.SetActive(false);
+        item.Find("Box").gameObject.SetActive(true);
+    }
 }

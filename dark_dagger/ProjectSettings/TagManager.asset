@@ -12,6 +12,7 @@ TagManager:
   - FloorReference
   - Boss
   - Win
+  - Locked
   layers:
   - Default
   - TransparentFX
