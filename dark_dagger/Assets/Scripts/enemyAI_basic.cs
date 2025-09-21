@@ -197,7 +197,8 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise, IRadar
            if (LevelManager.instance != null) LevelManager.instance.currEnemy--;
             int randomIndex = Random.Range(0, dropTable.Count);
             Instantiate(dropTable[randomIndex], transform.position, transform.rotation);
-
+            GameManager.instance.playerScript.radarKills++;
+            
             Destroy(gameObject);
         }
     }

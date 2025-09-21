@@ -63,7 +63,7 @@
                 {
                     "name": "Radar",
                     "type": "Button",
-                    "id": "62113653-b1e6-40bd-b677-2f70e27bc858",
+                    "id": "805234a5-ecab-41cc-b8f1-6c928a9ff60c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -194,7 +194,7 @@
                 },
                 {
                     "name": "",
-                    "id": "50d003e2-774c-4725-bb39-3921f5ea1752",
+                    "id": "cd39fac2-3e9e-45ef-815b-eb66d5e20e1c",
                     "path": "",
                     "interactions": "",
                     "processors": "",
@@ -205,7 +205,7 @@
                 },
                 {
                     "name": "",
-                    "id": "de903c6e-fdf9-4551-8a56-6f3849810b8f",
+                    "id": "1d8533f2-c693-4933-91c7-8bb479512a15",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",

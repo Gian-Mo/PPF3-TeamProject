@@ -20,10 +20,12 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] float shootCoolDown;
     [SerializeField] float meeleCoolDown;
     [SerializeField] AudioSource gunSound;
-   
+    [SerializeField] GameObject radarObject;
+    [SerializeField] int killsForRadar;
 
     public gunStats currGun;
     [SerializeField] GameObject gunModel;
+    public int radarKills;
 
     int HPOrig;
     float heighOrig;
@@ -339,7 +341,12 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
     private void Radar(InputAction.CallbackContext context)
     {
-      
+
+        if (radarKills >= killsForRadar)
+        {
+            Instantiate(radarObject, transform.position, Quaternion.identity); 
+            radarKills = 0;
+        }
 
     }
 
