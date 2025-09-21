@@ -663,14 +663,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2786194032768068899, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
-      propertyPath: bossAt
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2786194032768068899, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
-      propertyPath: exists
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2786194032768068899, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
       propertyPath: navMesh
       value: 
       objectReference: {fileID: 154657116}
@@ -680,7 +672,7 @@ PrefabInstance:
       objectReference: {fileID: 1651888866}
     - target: {fileID: 6091763757763900272, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
       propertyPath: m_Name
-      value: HandOfGod
+      value: LevelManager
       objectReference: {fileID: 0}
     - target: {fileID: 6414123719680130781, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
       propertyPath: m_LocalPosition.x

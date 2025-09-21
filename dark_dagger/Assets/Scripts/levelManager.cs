@@ -83,6 +83,7 @@ public class LevelManager : MonoBehaviour
 
         if (!bossCurr && enemySpawner != null)
         {
+            currEnemy = 0;
             List<Vector3> spawns = new List<Vector3>(mapManagerScript.enemySpawns);
             if (spawns.Count > 0)
             {

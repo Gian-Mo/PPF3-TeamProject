@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4282561214729400602}
   - component: {fileID: 7994550225361464538}
   m_Layer: 0
-  m_Name: HandOfGod
+  m_Name: LevelManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
   enemySpawner: {fileID: 7994550225361464538}
   currEnemy: 0
   exists: 0
-  bossAt: 3
+  bossAt: 2
   bossCurr: 0
   gameManager: {fileID: 0}
 --- !u!114 &4282561214729400602
