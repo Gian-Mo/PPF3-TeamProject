@@ -25,6 +25,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     [SerializeField] Transform shootPos;
 
     [SerializeField] AudioSource hitSound;
+    [SerializeField] AudioSource walkSound;
 
     Color[] colorOrig;
 
@@ -53,8 +54,16 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise
     void Update()
     {
         setAnimLoco();
+        if (agent.velocity.normalized.magnitude > 0)
+        {
+            walkSound.enabled = true;
+        }
+        else
+        {
+            walkSound.enabled = false;
+        }
 
-        shootTimer += Time.deltaTime;
+            shootTimer += Time.deltaTime;
 
         if (agent.remainingDistance <= 0.01f)
         {

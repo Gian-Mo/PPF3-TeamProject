@@ -1016,6 +1016,10 @@ PrefabInstance:
       propertyPath: faceTargetSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4443846099780634371, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8416915961655418077, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_Name
       value: enemy_basic
