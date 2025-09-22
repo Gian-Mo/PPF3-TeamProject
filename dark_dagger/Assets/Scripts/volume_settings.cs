@@ -33,8 +33,8 @@ public class volume_settings : MonoBehaviour
     {
        musicSlider.value =  PlayerPrefs.GetFloat("Music");
        effectsSlider.value = PlayerPrefs.GetFloat("SFX");
-        audioMixer.SetFloat("music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
-        audioMixer.SetFloat("sfx", Mathf.Log10(PlayerPrefs.GetFloat("SFX")) * 20);
+       audioMixer.SetFloat("music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
+       audioMixer.SetFloat("sfx", Mathf.Log10(PlayerPrefs.GetFloat("SFX")) * 20);
 
 
     }
