@@ -108,6 +108,7 @@ public class LevelManager : MonoBehaviour
         exists = true;
 
         Time.timeScale = timesScaleOrig;
+        gameManager.timesScaleOrig = timesScaleOrig;
         gameManager.ShowLoading(false);
     }
 

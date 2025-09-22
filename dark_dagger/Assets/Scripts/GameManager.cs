@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     public InputActionReference menu2;
 
     public bool isPaused = false;
-    float timesScaleOrig;
+    public float timesScaleOrig;
 
     [SerializeField] GameObject hotBar;
 
