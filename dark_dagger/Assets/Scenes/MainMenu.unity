@@ -1086,6 +1086,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0.00020002002
       objectReference: {fileID: 0}
+    - target: {fileID: 2507070938954784722, guid: cbf87dc7d46a29a4db8815b1cdec1c3f, type: 3}
+      propertyPath: m_Value
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5023751509963104648, guid: cbf87dc7d46a29a4db8815b1cdec1c3f, type: 3}
+      propertyPath: m_Value
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5121274069617204415, guid: cbf87dc7d46a29a4db8815b1cdec1c3f, type: 3}
       propertyPath: m_Name
       value: Settingsmenu
