@@ -53,10 +53,12 @@ public class LevelManager : MonoBehaviour
         gameManager.ShowLoading(true);
         enemySpawner.resetEnemies();
         GameObject[] drops = GameObject.FindGameObjectsWithTag("Dropped");
-        for(int i = 0; i < drops.Length; i++)
+        for (int i = 0; i < drops.Length; i++)
         {
             Destroy(drops[i]);
         }
+
+        Time.timeScale = 0;
 
         float waitTime = 3f;
         float timeDone = 0f;
@@ -67,7 +69,7 @@ public class LevelManager : MonoBehaviour
             {
                 break;
             }
-            timeDone += Time.deltaTime;
+            timeDone += Time.unscaledDeltaTime;
             yield return null;
         }
 
@@ -104,6 +106,8 @@ public class LevelManager : MonoBehaviour
             enemySpawner.findSpawns();
         }
         exists = true;
+
+        Time.timeScale = timesScaleOrig;
         gameManager.ShowLoading(false);
     }
 
