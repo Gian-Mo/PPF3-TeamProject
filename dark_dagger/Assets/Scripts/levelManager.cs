@@ -60,19 +60,6 @@ public class LevelManager : MonoBehaviour
 
         Time.timeScale = 0;
 
-        float waitTime = 3f;
-        float timeDone = 0f;
-
-        while (timeDone < waitTime)
-        {
-            if (Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                break;
-            }
-            timeDone += Time.unscaledDeltaTime;
-            yield return null;
-        }
-
 
         if (level == bossAt)
         {
@@ -110,6 +97,8 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = timesScaleOrig;
         gameManager.timesScaleOrig = timesScaleOrig;
         gameManager.ShowLoading(false);
+
+        yield return null;
     }
 
     private IEnumerator genMap()
