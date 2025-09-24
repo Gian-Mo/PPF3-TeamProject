@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 
 public class ButtonController : MonoBehaviour
@@ -25,6 +27,7 @@ public class ButtonController : MonoBehaviour
         {
             wasPressed = false;
             buttons = new List<GameObject>(GameObject.FindGameObjectsWithTag("Button"));
+            buttons.Sort(ButtonSort);
         }
        
        if(wasPressed && buttons.Count > 0) buttons[currentSelected].GetComponent<Button>().Select();
@@ -84,4 +87,16 @@ public class ButtonController : MonoBehaviour
 
         wasPressed = true;
    }
+
+    int ButtonSort(GameObject a, GameObject b)
+    {
+        if (a.transform.position.y < b.transform.position.y)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
 }
