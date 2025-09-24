@@ -120,10 +120,19 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             walk.enabled = false;
         }
 
-            controller.Move(playerVel);
 
-     
-       
+
+        if (transform.position.y <= 1 )
+        {
+            controller.Move(playerVel);
+        }
+        else
+        {
+            controller.Move(new Vector3(0, -1, 0));
+        }
+
+
+
 
         SetAnimLoco();
 
