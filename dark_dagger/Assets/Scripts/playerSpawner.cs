@@ -12,7 +12,7 @@ public class playerSpawner : MonoBehaviour
         if (player != null)
         {
             Vector3 spawnPos = transform.position;
-            player.transform.position = new Vector3(spawnPos.x, spawnPos.y, spawnPos.z);
+            player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 1.0f, spawnPos.z);
            
         }
     }
@@ -22,9 +22,13 @@ public class playerSpawner : MonoBehaviour
             player = GameObject.FindWithTag("Player");
         if (player != null && hunt == 0)
         {
-            Vector3 spawnPos = transform.position;
-            player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 1.0f, spawnPos.z);
-            hunt++;
+            float far = Vector3.Distance(transform.position, player.transform.position);
+            if (far > 1.0)
+            {
+                Vector3 spawnPos = transform.position;
+                player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 1.0f, spawnPos.z);
+                hunt++;
+            }
         }
     }
 }

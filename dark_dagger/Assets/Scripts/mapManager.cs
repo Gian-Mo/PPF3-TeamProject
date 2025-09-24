@@ -234,6 +234,7 @@ private position move(position p, direction d)
                 }
             }
         }
+        bool key = false;
         for (int r = 0; r < gridSize; r++)
         {
             for (int c = 0; c < gridSize + 1; c++)
@@ -241,6 +242,8 @@ private position move(position p, direction d)
                 if (map[r][c].type == "O" || map[r][c].type == "X")
                     continue;
                 map[r][c] = getTile(map[r][c].open);
+                if(key == false && map[r][c].type == "C")
+                    key = true;
             }
         }
 
@@ -248,7 +251,7 @@ private position move(position p, direction d)
 
         bool jail1 = false;
         bool jail2 = false;
-        if (rand.Next(2) == 1)
+        if (rand.Next(2) == 1 && key)
         {
             jail1 = true;
             jail2 = true;

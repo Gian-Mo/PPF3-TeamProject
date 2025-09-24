@@ -80,7 +80,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         objectCollider = GetComponent<SphereCollider>();
         objectCollider.radius = noiseLevel;
         equipGun(currGun);
-        gunList[0] = currGun;
+        gunList[0].ammoCur = gunList[0].ammoMax;
+        gunList[1].ammoCur = gunList[1].ammoMax;
         UpdateAmmo();
     }
 
@@ -89,7 +90,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     {
         objectCollider.radius = noiseLevel;
         Move();
-        selectGun();
+        if(Time.timeScale > 0)
+            selectGun();
        
     }
 
@@ -504,25 +506,30 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         gunNoiseLevel = gun.shootVol * 75;
         if (actualGun != null) { Destroy(actualGun); }
         actualGun = Instantiate(gun.model, gunModel.transform);
-        currGun.ammoCur = currGun.ammoMax;
+        currGun.ammoCur = gun.ammoCur;
         gunSound.resource = gun.shootSound;
-     
         gunList[gunListPos] = gun;
+
+        GameManager.instance.updateHotBar();
 
     }
 
-    
+
     void selectGun()
     {
         if (Mouse.current.scroll.ReadValue().y > 0 && gunListPos > 0)
         {
+            gunList[gunListPos].ammoCur = currGun.ammoCur;
             gunListPos--;
             equipGun(gunList[gunListPos]);
+            UpdateAmmo();
         }
         else if (Mouse.current.scroll.ReadValue().y < 0 && gunListPos < gunList.Count - 1)
         {
+            gunList[gunListPos].ammoCur = currGun.ammoCur;
             gunListPos++;
             equipGun(gunList[gunListPos]);
+            UpdateAmmo();
         }
     }
 
@@ -554,4 +561,5 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
         
     }
+
 }

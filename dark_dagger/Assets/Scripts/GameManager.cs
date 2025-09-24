@@ -183,10 +183,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if ((Mouse.current.scroll.ReadValue().y != 0 || Keyboard.current.spaceKey.wasPressedThisFrame))
-        {
-            updateHotBar();
-        }
+
     }
 
     public void FlashScreen(Color color)
