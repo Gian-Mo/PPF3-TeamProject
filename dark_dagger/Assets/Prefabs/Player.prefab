@@ -2493,7 +2493,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2047
+    m_Bits: 6143
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2817,6 +2817,9 @@ MonoBehaviour:
   radarObject: {fileID: 5540232505000439422, guid: 5f347e9ff1d907d42b76c89ea1d53082, type: 3}
   killsForRadar: 3
   walk: {fileID: 2647016190721902879}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 64
   currGun: {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
   gunModel: {fileID: 565943518005893007}
   radarKills: 0

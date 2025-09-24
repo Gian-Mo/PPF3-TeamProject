@@ -13,6 +13,7 @@ TagManager:
   - Boss
   - Win
   - Locked
+  - Dropped
   layers:
   - Default
   - TransparentFX

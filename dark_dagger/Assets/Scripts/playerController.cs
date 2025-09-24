@@ -23,6 +23,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] GameObject radarObject;
     [SerializeField] int killsForRadar;
     [SerializeField] AudioSource walk;
+    [SerializeField] LayerMask ignoreLayer;
 
     public gunStats currGun;
     [SerializeField] GameObject gunModel;
@@ -116,6 +117,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         {
             walk.enabled = false;
         }
+
             controller.Move(playerVel);
 
      
@@ -221,7 +223,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
                 if(inShootDist)
                 {
-                    
+                    Debug.DrawRay(transform.position, mouseDirection, Color.white, 1);
+
                     mouseDirection = new Vector3(mouseDirection.x, 0, mouseDirection.z);
                 
                     StartCoroutine(TurnPlayerWhenShoot(0.01f)); 
@@ -267,7 +270,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         Ray ray = Camera.main.ScreenPointToRay(mouseScreenPos);
         RaycastHit hit;
 
-        Physics.Raycast(ray, out hit);       
+        if (!Physics.Raycast(ray, out hit, Mathf.Infinity, ignoreLayer))
+        {
+     
+            Physics.Raycast(ray, out hit);     
+        }   
 
         return hit.point;
     }
