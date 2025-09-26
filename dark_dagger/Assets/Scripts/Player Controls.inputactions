@@ -161,6 +161,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c44a5811-a6d7-460a-a8d3-49ad80be7e4c",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "51e17f5d-561a-4b9a-8d97-276bcca3d10a",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
@@ -271,6 +282,17 @@
                 },
                 {
                     "name": "",
+                    "id": "f2e4108a-ba13-4c6e-ae1b-fd72120b6cf9",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f8d1861d-299e-48a1-a2f6-34e6547aa56c",
                     "path": "<Keyboard>/w",
                     "interactions": "",
@@ -282,8 +304,8 @@
                 },
                 {
                     "name": "",
-                    "id": "9a92a6a4-9b8c-45be-b41e-37f6971ad753",
-                    "path": "<Keyboard>/enter",
+                    "id": "0efd242e-a210-41b9-abd7-e49a61b1ca3e",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -317,6 +339,17 @@
                     "name": "",
                     "id": "1388d370-4314-42c9-834d-dff6054f3a31",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Enter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9a92a6a4-9b8c-45be-b41e-37f6971ad753",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
