@@ -1037,6 +1037,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: enemy_sniper
       objectReference: {fileID: 0}
+    - target: {fileID: 7213797812522944581, guid: 6bc80b2225e35164cb0ffda9b24ce8ae, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1295,19 +1299,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.2556322
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.96677417
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1315,7 +1319,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -150.378
       objectReference: {fileID: 0}
     - target: {fileID: 1627778859774845119, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1331,7 +1335,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8416915961655418077, guid: e5ed1dbe6b78cd34ab03fcb233f3ba06, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

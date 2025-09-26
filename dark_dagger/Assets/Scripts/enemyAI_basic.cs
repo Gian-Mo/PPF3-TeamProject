@@ -179,7 +179,7 @@ public class enemyAI_basic : MonoBehaviour, IDamage, INoise, IRadar
     {
         shootTimer = 0;
         shootSound.Play();
-        Instantiate(bullet, shootPos.position, transform.rotation);
+        Instantiate(bullet, new Vector3(shootPos.position.x, shootPos.position.y - 0.5f, shootPos.position.z), transform.rotation);
     }
 
     public void takeDamage(int amount)
