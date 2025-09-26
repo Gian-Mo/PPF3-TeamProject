@@ -11,6 +11,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 
 public class ButtonController : MonoBehaviour
 {
+    public static ButtonController instance;
     public List<GameObject> buttons;
     public AudioResource[] sounds;
     public AudioSource source;
@@ -23,6 +24,10 @@ public class ButtonController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (instance == null)
+        {
+            instance = this; 
+        }
         if (buttons.Count == 0)
         {
             wasPressed = false;
@@ -30,7 +35,7 @@ public class ButtonController : MonoBehaviour
             buttons.Sort(ButtonSort);
         }
        
-       if(wasPressed && buttons.Count > 0) buttons[currentSelected].GetComponent<Button>().Select();
+       if(wasPressed && buttons.Count > 0 && currentSelected >= 0 && currentSelected < buttons.Count) buttons[currentSelected].GetComponent<Button>().Select();
     }
 
     private void OnEnable()
@@ -83,10 +88,20 @@ public class ButtonController : MonoBehaviour
    {
         source.resource = sounds[1];
         source.Play();
-        buttons[currentSelected].GetComponent<Button>().onClick.Invoke();
+        if (currentSelected != -1)
+        {
+            buttons[currentSelected].GetComponent<Button>().onClick.Invoke(); 
+        }
 
         wasPressed = true;
    }
+
+   
+    public void ButtonClear()
+    {
+        currentSelected = -1;
+        buttons.Clear();
+    }
 
     int ButtonSort(GameObject a, GameObject b)
     {

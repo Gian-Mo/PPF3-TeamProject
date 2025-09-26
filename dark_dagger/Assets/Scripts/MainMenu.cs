@@ -35,12 +35,14 @@ public class MainMenuManager : MonoBehaviour
    {
         mainMenu.SetActive(false);
         settingsMenu.SetActive(true);
+        ButtonController.instance.ButtonClear();
 
    }
     public void Credits()
     {
         mainMenu.SetActive(false);
         creditsMenu.SetActive(true);
+        ButtonController.instance.ButtonClear();
 
     }
 
@@ -49,7 +51,7 @@ public class MainMenuManager : MonoBehaviour
         settingsMenu.SetActive(false);
         creditsMenu.SetActive(false);
         mainMenu.SetActive(true);
-
+        ButtonController.instance.ButtonClear();
    }
     
 

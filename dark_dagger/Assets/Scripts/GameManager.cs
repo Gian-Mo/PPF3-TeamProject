@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
     private void Back(InputAction.CallbackContext context)
     {
         OffSettings();
+        ButtonController.instance.ButtonClear();
     }
 
     public void OffSettings()
