@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour, IDamage, IPickUp
 {
@@ -41,6 +42,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
    public InputActionReference crouch; 
     public InputActionReference reload;
     public InputActionReference radar;
+    public Image meleeCursor;
 
     Vector3 mouseDirection;
 
@@ -75,6 +77,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         heighOrig = controller.height;
         speedOrig = speed;
        
+        meeleTimer = meeleCoolDown;
         canChangeCursor = true;
         radarCurr = null;
         detectionDuration = radarObject.GetComponent<Radar>().detectionDuration;
@@ -140,9 +143,6 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             controller.Move(new Vector3(0, -1, 0));
         }
 
-
-
-
         SetAnimLoco();
 
         if (canChangeCursor)
@@ -164,6 +164,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
             ShootBullet();
 
+        }
+
+        if (meeleTimer < meeleCoolDown) {
+
+            meleeCursor.fillAmount -= (float) 1 / meeleCoolDown * Time.deltaTime;
         }
 
         Crouch();
@@ -359,7 +364,9 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
             {
                 MeeleAttack(); 
                 meeleTimer = 0;
+                meleeCursor.fillAmount = 1;
             }
+           
         }
     }
     private void Reload(InputAction.CallbackContext context) { 
