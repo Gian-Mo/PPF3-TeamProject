@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject hotBar;
 
 
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -183,7 +184,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
     }
 
     public void FlashScreen(Color color)

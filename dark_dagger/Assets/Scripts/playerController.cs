@@ -93,7 +93,16 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         Move();
         if(Time.timeScale > 0)
             selectGun();
-       
+        if (transform.position == Vector3.zero)
+        {
+            GameObject spawn = GameObject.FindWithTag("Start");
+            if (spawn != null)
+            {
+                Vector3 spawnPos = spawn.transform.position;
+                transform.position = new Vector3(spawnPos.x, spawnPos.y + 1.0f, spawnPos.z);
+            }
+        }
+
     }
 
 

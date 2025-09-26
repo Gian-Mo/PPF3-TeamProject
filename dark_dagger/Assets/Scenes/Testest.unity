@@ -426,6 +426,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5614108213232790016, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
+      propertyPath: 'gunList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 70efb05efc80a2043ad7027a19b68876, type: 2}
     - target: {fileID: 7611941764604202675, guid: 1fe8c0cccb387ff4f969e8e969ab0fd2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -653,8 +657,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 154657116}
     - target: {fileID: 2786194032768068899, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
+      propertyPath: creation
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2786194032768068899, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
       propertyPath: startSize
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2786194032768068899, guid: e4de31d2578d93447bccb02b488c8102, type: 3}
       propertyPath: gameManager
