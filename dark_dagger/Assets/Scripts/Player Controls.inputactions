@@ -315,17 +315,6 @@
                 },
                 {
                     "name": "",
-                    "id": "afa040f4-fd5a-43b3-b2b0-d8d77559352d",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Enter",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1388d370-4314-42c9-834d-dff6054f3a31",
                     "path": "<Keyboard>/space",
                     "interactions": "",
