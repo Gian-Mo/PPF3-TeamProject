@@ -272,7 +272,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void MeeleAttack()
     {
         RaycastHit hit;
-        if (Physics.Raycast(shootPos.position,model.transform.forward,out hit,3))
+        
+        if (Physics.SphereCast(transform.position, 0.7f, model.transform.forward, out hit, 2))
         {
             StartCoroutine(MeeleFeedBack(hit));
             IDamage dmg = hit.collider.GetComponent<IDamage>();
