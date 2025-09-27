@@ -2896,6 +2896,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 64
+  ammoTotalMax: 60
   currGun: {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
   gunModel: {fileID: 565943518005893007}
   radarKills: 0

@@ -25,6 +25,7 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     [SerializeField] int killsForRadar;
     [SerializeField] AudioSource walk;
     [SerializeField] LayerMask ignoreLayer;
+    [SerializeField] int ammoTotalMax;
 
     public gunStats currGun;
     [SerializeField] GameObject gunModel;
@@ -525,8 +526,15 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
         }
         if (type == 1) {
 
-            totalAmmo += amount;
-            UpdateAmmo();
+            if (totalAmmo + amount <= ammoTotalMax)
+            {
+                totalAmmo += amount; 
+            }
+            else
+            {
+                totalAmmo = ammoTotalMax;
+            }
+                UpdateAmmo();
         }
     }
 
