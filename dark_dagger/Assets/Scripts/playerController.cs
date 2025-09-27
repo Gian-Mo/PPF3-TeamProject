@@ -278,8 +278,11 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
     void MeeleAttack()
     {
         RaycastHit hit;
-        
-        if (Physics.SphereCast(transform.position, 0.7f, model.transform.forward, out hit, 2))
+        Ray attack = new Ray();
+        attack.origin = transform.position;
+        attack.direction = model.transform.forward;
+
+        if (Physics.SphereCast(attack, 0.7f, out hit, 2))
         {
             StartCoroutine(MeeleFeedBack(hit));
             IDamage dmg = hit.collider.GetComponent<IDamage>();
@@ -290,6 +293,24 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
             }
         }
+        else
+        {
+            attack.origin = attack.GetPoint(2);
+            attack.direction = -model.transform.forward;            
+        }
+        if (Physics.SphereCast(attack, 0.7f, out hit, 1, ~LayerMask.GetMask("Player")))
+        {
+            StartCoroutine(MeeleFeedBack(hit));
+            IDamage dmg = hit.collider.GetComponent<IDamage>();
+
+            if (dmg != null)
+            {
+                dmg.takeDamage(meeleDamage);
+
+            }
+        }
+
+
     }
     Vector3 MousePos()
     {
