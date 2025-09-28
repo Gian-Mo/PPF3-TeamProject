@@ -3024,7 +3024,7 @@ PrefabInstance:
       propertyPath: m_text
       value: Enemies will be hunting you, use C to hide behind cover, and shoot the
         enemy by clicking them with your crosshair. Don't forget to reload with R
-        and melee with V if you're out of ammo!
+        and melee with RMB if you're out of ammo!
       objectReference: {fileID: 0}
     - target: {fileID: 8940914241065094695, guid: 9174bb11327cbb143b4e4a86a16da8ab, type: 3}
       propertyPath: m_Name
