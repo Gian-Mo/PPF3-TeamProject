@@ -62,7 +62,6 @@ public class MainMenuManager : MonoBehaviour
 
     #elif UNITY_WEBGL
         Application.OpenURL("https://rodoc0222.itch.io/dark-dagger");
-        Application.Quit();
     #else
         Application.Quit();
 
