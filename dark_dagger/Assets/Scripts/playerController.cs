@@ -174,7 +174,8 @@ public class playerController : MonoBehaviour, IDamage, IPickUp
 
         Crouch();
 
-       UpdatePlayerUI();
+       UpdatePlayerUI();      
+        
     }
 
     void Crouch()
