@@ -40,8 +40,11 @@ public class enemySpawn : MonoBehaviour
         GameObject enemy = enemyPrefabs[enemyIndex];
         Transform spawn = spawnPoints[spawnIndex];
 
-        GameObject summoned = Instantiate(enemy, spawn.position, spawn.rotation);
-        livingEnemies.Add(summoned);
+        if (spawn != null && enemy != null)
+        {
+            GameObject summoned = Instantiate(enemy, spawn.position, spawn.rotation);
+            livingEnemies.Add(summoned);
+        }
     }
 
     public void spawnWithoutDoor(Vector3 pos)
