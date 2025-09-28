@@ -57,16 +57,17 @@ public class MainMenuManager : MonoBehaviour
 
     public void Quit()
     {
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 
+    #elif UNITY_WEBGL
+        Application.OpenURL("https://rodoc0222.itch.io/dark-dagger");
+        Application.Quit();
+    #else
+        Application.Quit();
 
-#else
 
-         Application.Quit(); Application.Quit();
-
-
-#endif
+    #endif
 
     }
 

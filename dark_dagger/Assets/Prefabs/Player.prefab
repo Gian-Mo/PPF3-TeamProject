@@ -2909,11 +2909,11 @@ MonoBehaviour:
   radar: {fileID: -1232746232943259431, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   meleeCursor: {fileID: 8478734940751582030}
   canChangeCursor: 1
-  totalAmmo: 100
+  totalAmmo: 10
   noiseLevel: 1
   gunList:
   - {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
-  - {fileID: 11400000, guid: 59d074dc2bdc1fc488865e749eee0a68, type: 2}
+  - {fileID: 11400000, guid: 70efb05efc80a2043ad7027a19b68876, type: 2}
   gunListPos: 0
 --- !u!143 &2729351328922524811
 CharacterController:
