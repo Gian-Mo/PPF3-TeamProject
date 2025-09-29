@@ -57,7 +57,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void Quit()
     {
-    #if UNITY_EDITOR
+    #if UNITY_EDITOR || DEVELOPMENT_BUILD
         UnityEditor.EditorApplication.isPlaying = false;
 
     #elif UNITY_WEBGL
