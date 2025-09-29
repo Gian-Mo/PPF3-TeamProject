@@ -580,7 +580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quit
+  m_text: Itch.io
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4a7407b53364f83478b104fe683bc1a2, type: 2}
   m_sharedMaterial: {fileID: 3854318433438954952, guid: 4a7407b53364f83478b104fe683bc1a2, type: 2}
@@ -780,8 +780,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttons: []
   sounds:
-  - {fileID: 8300000, guid: 13cd62955d419104c8b7388b52ddc23d, type: 3}
-  - {fileID: 8300000, guid: 3dcb781e99c39e147b0279405378ac66, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   source: {fileID: 639783828}
   up: {fileID: -2885898930273146835, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
   down: {fileID: -8533453600090006268, guid: ad3cd66052d3abf4b87b6e9657661865, type: 3}
